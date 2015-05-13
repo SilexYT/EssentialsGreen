@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,15 +16,15 @@ public class invsee implements CommandExecutor {
 			Player p = (Player)sender;
 			if(p.hasPermission("EssentialsGreen.invsee")){
 				if(args.length == 0){
-					p.sendMessage(main.prefix + "/invsee <Player>");
+					p.sendMessage(EssentialsGreen.prefix + "/invsee <Player>");
 				}else if(args.length > 0){
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
 						p.openInventory(target.getInventory());
-					}else p.sendMessage(main.prefix + "This target player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "This target player is not online");
 				}
-			}else p.sendMessage(main.prefix + "You do not have the required permissions");
-		}else sender.sendMessage(main.prefix + "You must be a Player");
+			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
 		return false;
 	}
 }

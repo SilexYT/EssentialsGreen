@@ -1,9 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import java.io.IOException;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
-
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,9 +11,9 @@ import org.bukkit.entity.Player;
 
 public class SetSpawn implements CommandExecutor {
 	
-	main plugin;
+	EssentialsGreen plugin;
 	
-	public SetSpawn(main main) {
+	public SetSpawn(EssentialsGreen main) {
 		plugin = main;
 	}
 
@@ -31,13 +29,13 @@ public class SetSpawn implements CommandExecutor {
 				SY.set("Spawn.Location.Y", loc.getY());
 				SY.set("Spawn.Location.Z", loc.getZ());
 				SY.set("Spawn.Location.World", loc.getWorld().getName());
-				p.sendMessage(main.prefix + "Spawn Location set!");
+				p.sendMessage(EssentialsGreen.prefix + "Spawn Location set!");
 				try{
 					SY.save(plugin.SpawnF);
 				}catch (IOException e) {
 					e.printStackTrace();
 				}
-			}else p.sendMessage(main.prefix + "You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		}else System.out.println("[EssentialsGreen] You must be a Player!");
 		return true;
 	}

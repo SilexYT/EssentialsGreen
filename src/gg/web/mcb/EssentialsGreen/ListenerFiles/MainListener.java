@@ -3,7 +3,7 @@ package gg.web.mcb.EssentialsGreen.ListenerFiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,9 +17,9 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
 	
-	main plugin;
+	EssentialsGreen plugin;
 	
-	public MainListener(main main) {
+	public MainListener(EssentialsGreen main) {
 		plugin = main;
 	}
 	

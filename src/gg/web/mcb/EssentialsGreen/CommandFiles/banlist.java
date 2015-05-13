@@ -1,9 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import java.io.File;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,17 +15,16 @@ public class banlist implements CommandExecutor {
 			File F = new File("plugins/EssentialsGreen/UserData");
 			File[] list = F.listFiles();
 			int Banned = 0;
-			sender.sendMessage(main.prefix + "[Banlist]");
+			sender.sendMessage(EssentialsGreen.prefix + "[Banlist]");
 			for(int i = 0; i < list.length; i++){
 				YamlConfiguration Player = YamlConfiguration.loadConfiguration(list[i]);
 				if(Player.getString("Ban.Enable").equalsIgnoreCase("true")){
-					String Name = list[i].getName();
-					sender.sendMessage("§e" + Name + " | Reason : " + Player.getString("Ban.Reason"));
+					sender.sendMessage("§e" + list[i].getName() + " | Reason : " + Player.getString("Ban.Reason"));
 					Banned++;
 				}
 			}
 			sender.sendMessage("§3There are " + Banned + " Players banned");
-		}else sender.sendMessage(main.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;
 	}
 }

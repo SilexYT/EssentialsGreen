@@ -1,7 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
-
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,18 +13,17 @@ public class msg implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.msg")){
 			if(args.length == 0){
-				sender.sendMessage(main.prefix + "/msg <Player> <Message>");
+				sender.sendMessage(EssentialsGreen.prefix + "/msg <Player> <Message>");
 			}else if(args.length == 1){
-				sender.sendMessage(main.prefix + "/msg " + args[0] + " <Message>");
+				sender.sendMessage(EssentialsGreen.prefix + "/msg " + args[0] + " <Message>");
 			}else if(args.length > 1){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(!(target == null)){
-					sender.sendMessage(main.prefix + "§2[MSG]§f Message sent!");
-					target.sendMessage(main.prefix + "§2[MSG]§f " + sender.getName() + " | " + args[1]);
-				}else sender.sendMessage(main.prefix + "This player is not online");
+					sender.sendMessage(EssentialsGreen.prefix + "§2[MSG]§f Message sent!");
+					target.sendMessage(EssentialsGreen.prefix + "§2[MSG]§f " + sender.getName() + " | " + args[1]);
+				}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
 			}
-		}else sender.sendMessage(main.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;
 	}
-
 }

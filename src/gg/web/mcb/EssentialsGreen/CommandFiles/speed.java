@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,40 +18,39 @@ public class speed implements CommandExecutor {
 					Player p = (Player)sender;
 					if(NumberManager.IsStringint(args[0])){
 						float i = new Float(args[0])/10;
-						if(!(i > 10)){
+						if(i < 11){
 							if(p.isFlying()){
 								p.setFlySpeed(i);
-								p.sendMessage(main.prefix + "Fly Speed changed!");
+								p.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");
 							}else{
 								p.setWalkSpeed(i);
-								p.sendMessage(main.prefix + "Walk Speed changed!");
+								p.sendMessage(EssentialsGreen.prefix + "Walk Speed changed!");
 							}
-						}else p.sendMessage(main.prefix + "Please Write a number under 11");
-					}else p.sendMessage(main.prefix + "This is no number");
-				}else sender.sendMessage(main.prefix + "You must be a Player");
+						}else p.sendMessage(EssentialsGreen.prefix + "Please Write a number under 11");
+					}else p.sendMessage(EssentialsGreen.prefix + "This is no number");
+				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
 			}else{
 				if(args.length > 1){
 					Player target = Bukkit.getPlayer(args[1]);
 					if(!(target == null)){
 						if(NumberManager.IsStringint(args[0])){
 							float i = new Float(args[0])/10;
-							if(!(i > 10)){
+							if(i < 11){
 								if(target.isFlying()){
 									target.setFlySpeed(i);
-									target.sendMessage(main.prefix + "Fly Speed changed!");
-									sender.sendMessage(main.prefix + "Fly Speed changed from " + args[1] + "!");
+									target.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");
+									sender.sendMessage(EssentialsGreen.prefix + "Fly Speed changed from " + args[1] + "!");
 								}else{
 									target.setWalkSpeed(i);
-									target.sendMessage(main.prefix + "Walk Speed changed!");
-									sender.sendMessage(main.prefix + "Walk Speed changed from " + args[1] + "!");
+									target.sendMessage(EssentialsGreen.prefix + "Walk Speed changed!");
+									sender.sendMessage(EssentialsGreen.prefix + "Walk Speed changed from " + args[1] + "!");
 								}
-							}else sender.sendMessage(main.prefix + "Please Write a number under 11");
-						}else sender.sendMessage(main.prefix + "This is no number");
-					}else sender.sendMessage(main.prefix + "This player is not online");
-				}else sender.sendMessage(main.prefix + "/speed <number> [Player]");
+							}else sender.sendMessage(EssentialsGreen.prefix + "Please Write a number under 11");
+						}else sender.sendMessage(EssentialsGreen.prefix + "This is no number");
+					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
+				}else sender.sendMessage(EssentialsGreen.prefix + "/speed <number> [Player]");
 			}
-		}else sender.sendMessage(main.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;
 	}
-
 }

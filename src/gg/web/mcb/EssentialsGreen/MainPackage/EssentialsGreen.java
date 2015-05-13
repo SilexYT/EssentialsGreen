@@ -2,10 +2,8 @@ package gg.web.mcb.EssentialsGreen.MainPackage;
 
 import java.io.File;
 import java.io.IOException;
-
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
-import gg.web.mcb.EssentialsGreen.CommandFiles.EssentialsGreenCommand;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Heal;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Kick;
@@ -29,22 +27,22 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
-
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class main extends JavaPlugin {
+public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
+	
 	public static String prefix = "§2[EG]§e ";
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
 	
 	@Override
 	public void onEnable(){
-		System.out.println("[EssentialsGreen] Load Apis Completed");
-		//Commands
-		getCommand("EG").setExecutor(new EssentialsGreenCommand(this));
-		getCommand("EssentialsGreen").setExecutor(new EssentialsGreenCommand(this));
+		//Register Commands
 		getCommand("tp").setExecutor(new Teleport());
 		getCommand("gm").setExecutor(new Gamemode());
 		getCommand("Gamemode").setExecutor(new Gamemode());
@@ -67,25 +65,41 @@ public class main extends JavaPlugin {
 		getCommand("invsee").setExecutor(new invsee());
 		getCommand("heal").setExecutor(new Heal());
 		getCommand("nick").setExecutor(new nick());
-		//Listeners
+		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		System.out.println("[EssentialsGreen] Load Commands Completed");
-		System.out.println("[EssentialsGreen] Load Listener Completed");
-		if(!(Bukkit.getPluginManager().getPlugin("EssentialsGreen-Nick") ==  null)){
-			System.out.println("[EssentialsGreen] EssentialsGreen-Nick Loaded!");
-		}else System.out.println("[EssentialsGreen] EssentialsGreen-Nick not Loaded!");
-		
+		//CopyDefaultConfig
 		saveDefaultConfig();
-		
+		//Spawn Config File
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
-		try{
-			SpawnYaml.save(SpawnF);
-		}catch (IOException e) {
-			e.printStackTrace();
+		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
+		System.out.println("[EssentialsGreen] Load Completed");
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+		if(cmd.getName().equalsIgnoreCase("eg") | cmd.getName().equalsIgnoreCase("EssentialsGreen")){
+			if(args.length == 0){
+				sender.sendMessage(prefix + "By Marco MC | [Marco606598]\n§3"
+						+ "/eg info\n"
+						+ "/eg reload\n");
+			}else{
+				if(args[0].equalsIgnoreCase("info")){
+					sender.sendMessage(prefix + "§a\n"
+							+ "Name: " + getDescription().getName() + "\n"
+							+ "Version: " + getDescription().getVersion() + "\n"
+							+ "Authors: " + getDescription().getAuthors());
+				}else if(args[0].equalsIgnoreCase("reload")){
+					if(sender.hasPermission("EssentialsGreen.reload")){
+						reloadConfig();
+						sender.sendMessage(prefix + "Reload completed");
+					}
+				}
+			}
 		}
+		return true;
 	}
 }

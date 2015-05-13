@@ -1,9 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import java.util.List;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +17,7 @@ public class kill implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.kill")){
 			if(args.length == 0){
-				sender.sendMessage(main.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
+				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
 					Player[] p = Bukkit.getOnlinePlayers();
@@ -40,18 +38,17 @@ public class kill implements CommandExecutor{
 								E.remove();	
 							}
 						}
-					}else sender.sendMessage(main.prefix + "Please provide a World");
+					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
 				}else if(args[0].equalsIgnoreCase("Player")){
 					if(args.length > 1){
 						Player target = Bukkit.getPlayer(args[1]);
 						if(!(target == null)){
 							target.setHealth(0.0);
-						}else sender.sendMessage(main.prefix + "This player is not online");
-					}else sender.sendMessage(main.prefix + "Please provide a Name");
-				}else sender.sendMessage(main.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
+						}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
+					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a Name");
+				}else sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
 			}
-		}else sender.sendMessage(main.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;
 	}
-
 }

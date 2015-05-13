@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,18 +16,17 @@ public class Heal implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					p.setHealth(20.0);
-					p.sendMessage(main.prefix + "You'd healed");
-				}else sender.sendMessage(main.prefix + "You must be a Player!");
+					p.sendMessage(EssentialsGreen.prefix + "You'd healed");
+				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player!");
 			}else{
 				Player p = Bukkit.getPlayer(args[0]);
 				if(!(p == null)){
 					p.setHealth(20.0);
-					p.sendMessage(main.prefix + "You've healed " + args[0]);
-					sender.sendMessage(main.prefix + "You'd healed from" + sender.getName());
-				}else sender.sendMessage(main.prefix + "This Player is not online!");
+					p.sendMessage(EssentialsGreen.prefix + "You've healed " + args[0]);
+					sender.sendMessage(EssentialsGreen.prefix + "You'd healed from" + sender.getName());
+				}else sender.sendMessage(EssentialsGreen.prefix + "This Player is not online!");
 			}
 		}
 		return true;
 	}
-
 }

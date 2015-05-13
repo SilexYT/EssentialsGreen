@@ -2,8 +2,14 @@ name: EssentialsGreen
 version: 2.2
 author: Marco606598
 
-main: gg.web.mcb.EssentialsGreen.MainPackage.main
+main: gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen
 commands:
+     EssentialsGreen:
+          usage: /<command>
+          permission: EssentialsGreen.DefaultPermmision
+     eg:
+          usage: /<command>
+          permission: EssentialsGreen.DefaultPermmision
      Gamemode:
           usage: /gamemode <Mode> [Player]
           permission: EssentialsGreen.DefaultPermmision
@@ -21,12 +27,6 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      actionbar:
           usage: /actionbar <targetPlayer> <Message>
-          permission: EssentialsGreen.DefaultPermmision
-     eg:
-          usage: /<command>
-          permission: EssentialsGreen.DefaultPermmision
-     EssentialsGreen:
-          usage: /<command>
           permission: EssentialsGreen.DefaultPermmision
      kick:
           usage: /kick <Player> <Reason>

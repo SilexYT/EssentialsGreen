@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.main;
+import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,26 +15,25 @@ public class Teleport implements CommandExecutor {
 			Player p = (Player)sender;
 			if(p.hasPermission("EssentialsGreen.tp")){
 				if(args.length == 0){
-					p.sendMessage(main.prefix + "/tp <Target> or /tp <Player> <Target>");
+					p.sendMessage(EssentialsGreen.prefix + "/tp <Target> or /tp <Player> <Target>");
 				}else if(args.length == 1){
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
 						p.teleport(target);
-						p.sendMessage(main.prefix + "Teleport...");
-					}else p.sendMessage(main.prefix + "This player is not online");
+						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
+					}else p.sendMessage(EssentialsGreen.prefix + "This player is not online");
 				}else if(args.length == 2){
 					Player p2 = Bukkit.getPlayer(args[0]);
 					Player target = Bukkit.getPlayer(args[1]);
 					if(!(target == null)){
 						if(!(p2 == null)){
 							p2.teleport(target);
-							p2.sendMessage(main.prefix + "Teleport...");
-						}else p.sendMessage(main.prefix + "This teleport player is not online");
-					}else p.sendMessage(main.prefix + "This target player is not online");
+							p2.sendMessage(EssentialsGreen.prefix + "Teleport...");
+						}else p.sendMessage(EssentialsGreen.prefix + "This teleport player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "This target player is not online");
 				}
-			}else p.sendMessage(main.prefix + "You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		}else System.out.println("[EssentialsGreen] You must be a Player!");
 		return true;
 	}
-
 }
