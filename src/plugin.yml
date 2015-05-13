@@ -1,0 +1,78 @@
+name: EssentialsGreen
+version: 2.2
+author: Marco606598
+
+main: gg.web.mcb.EssentialsGreen.MainPackage.main
+commands:
+     Gamemode:
+          usage: /gamemode <Mode> [Player]
+          permission: EssentialsGreen.DefaultPermmision
+     gm:
+          usage: /gm <Mode> [Player]
+          permission: EssentialsGreen.DefaultPermmision
+     tp:
+          usage: /tp <target> or /tp <Player> <target>
+          permission: EssentialsGreen.DefaultPermmision
+     Spawn:
+          usage: /spawn
+          permission: EssentialsGreen.DefaultPermmision
+     SetSpawn:
+          usage: /setspawn
+          permission: EssentialsGreen.DefaultPermmision
+     actionbar:
+          usage: /actionbar <targetPlayer> <Message>
+          permission: EssentialsGreen.DefaultPermmision
+     eg:
+          usage: /<command>
+          permission: EssentialsGreen.DefaultPermmision
+     EssentialsGreen:
+          usage: /<command>
+          permission: EssentialsGreen.DefaultPermmision
+     kick:
+          usage: /kick <Player> <Reason>
+          permission: EssentialsGreen.DefaultPermmision
+     ban:
+          usage: /ban <Player> <Reason>
+          permission: EssentialsGreen.DefaultPermmision
+     unban:
+          usage: /unban <Player>
+          permission: EssentialsGreen.DefaultPermmision
+     banlist:
+          usage: /banlist
+          permission: EssentialsGreen.DefaultPermmision
+     give:
+          usage: /give <Player> <ID> [Ammount]
+          permission: EssentialsGreen.DefaultPermmision
+     msg:
+          usage: /msg <Player> <Message>
+          permission: EssentialsGreen.DefaultPermmision
+     time:
+          usage: /time <set|add> <Time>
+          permission: EssentialsGreen.DefaultPermmision
+     xp:
+          usage: /xp <set|add> <XP>
+          permission: EssentialsGreen.DefaultPermmision
+     broadcast:
+          usage: /broadcast <Message>
+          permission: EssentialsGreen.DefaultPermmision
+     say:
+          usage: /say <Message>
+          permission: EssentialsGreen.DefaultPermmision
+     kill:
+          usage: /kill <Player|@a|@e <World>> [PlayerName]
+          permission: EssentialsGreen.DefaultPermmision
+     fly:
+          usage: /fly [Player]
+          permission: EssentialsGreen.DefaultPermmision
+     speed:
+          usage: /speed [Number] [Player]
+          permission: EssentialsGreen.DefaultPermmision
+     invsee:
+          usage: /invsee <Player>
+          permission: EssentialsGreen.DefaultPermmision
+     heal:
+          usage: /heal [Player]
+          permission: EssentialsGreen.DefaultPermmision
+     nick:
+          usage: /nick <Name|off>
+          permission: EssentialsGreen.DefaultPermmision
