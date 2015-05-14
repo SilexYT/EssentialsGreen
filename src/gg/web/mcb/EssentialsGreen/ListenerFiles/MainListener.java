@@ -35,8 +35,11 @@ public class MainListener implements Listener {
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		UserFileYaml.set("Username", p.getName());
 		UserFileYaml.set("UUID", U.toString());
+		UserFileYaml.set("IP", p.getAddress().toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
+		UserFileYaml.addDefault("BanIP.Enable", "false");
+		UserFileYaml.addDefault("BanIP.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
 		try{UserFileYaml.save(UserFile);}catch(IOException e1){e1.printStackTrace();}
 		

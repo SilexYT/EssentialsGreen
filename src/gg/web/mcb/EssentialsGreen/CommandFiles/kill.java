@@ -1,8 +1,11 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,18 +29,23 @@ public class kill implements CommandExecutor{
 					}
 				}else if(args[0].equalsIgnoreCase("@e")){
 					if(args.length > 1){
-						Player[] p = Bukkit.getOnlinePlayers();
-						for(int i = 0; p.length > i; i++){
-							p[i].setHealth(0.0);
-						}
-						
-						List<Entity> e = Bukkit.getWorld(args[1]).getEntities();
-						for(int i = 0; e.size() > i; i++){
-							Entity E = e.get(i);
-							if(!E.getType().equals(EntityType.PLAYER)){
-								E.remove();	
+						World W = Bukkit.getWorld(args[1]); 
+						if(!(W == null)){
+							Player[] p = Bukkit.getOnlinePlayers();
+							for(int i = 0; p.length > i; i++){
+								if(p[i].getWorld().getName().equalsIgnoreCase(args[1])){
+									p[i].setHealth(0.0);
+								}
 							}
-						}
+							
+							List<Entity> e = Bukkit.getWorld(args[1]).getEntities();
+							for(int i = 0; e.size() > i; i++){
+								Entity E = e.get(i);
+								if(!E.getType().equals(EntityType.PLAYER)){
+									E.remove();	
+								}
+							}
+						}else sender.sendMessage(EssentialsGreen.prefix + "The World exist not!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);

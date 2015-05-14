@@ -22,6 +22,8 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.kill;
 import gg.web.mcb.EssentialsGreen.CommandFiles.msg;
 import gg.web.mcb.EssentialsGreen.CommandFiles.nick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.say;
+import gg.web.mcb.EssentialsGreen.CommandFiles.seed;
+import gg.web.mcb.EssentialsGreen.CommandFiles.setworldspawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.speed;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
@@ -65,6 +67,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("invsee").setExecutor(new invsee());
 		getCommand("heal").setExecutor(new Heal());
 		getCommand("nick").setExecutor(new nick(this));
+		getCommand("setworldspawn").setExecutor(new setworldspawn());
+		getCommand("seed").setExecutor(new seed());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);

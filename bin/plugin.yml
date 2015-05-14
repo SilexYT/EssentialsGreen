@@ -76,3 +76,9 @@ commands:
      nick:
           usage: /nick <Name|off>
           permission: EssentialsGreen.DefaultPermmision
+     setworldspawn:
+          usage: /setworldspawn
+          permission: EssentialsGreen.DefaultPermmision
+     seed:
+          usage: /seed [World]
+          permission: EssentialsGreen.DefaultPermmision
