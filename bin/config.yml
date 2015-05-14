@@ -1,0 +1,32 @@
+# EssentialsGreen Config [By Marco606598 [German Developer] YT Channel : https://www.youtube.com/channel/UCeuZKKGXKe8wUw2R5FB5fxA]
+
+#----------------#
+#Dafault Settings#
+#----------------#
+ops-name-color: 4
+JoinSpawnTeleport: true
+#----------------#
+#Chat Settings!  #
+#----------------#
+ChatFormat: '{Group} &e{Player} &2>> &f{Message}'
+JoinMessage: '&e{Group} {Player} join the Game'
+LeaveMessage: '&e{Group} {Player} left the Game'
+#--------------------#
+# Ban | Kick Messages#
+#--------------------#
+Ban-Prefix: '&e[Ban]&3'
+Kick-Prefix: '&e[Kick]&3'
+Ban-JoinBrodcast: '&e{Player} is Banned! Reason : {Reason}'
+#-------------------#
+#Protection Settings#
+#-------------------#
+CreeperBlockDamage: true
+TnTBlockDamage: true
+PhysicExplosion: true
+WhitherSkullBlockDamage: true
+#----------------#
+#CommandBlacklist#
+#Bypass Permmision : EssentilasGreen.CommandBlacklist.bypass#
+#----------------#
+Commands:
+- op

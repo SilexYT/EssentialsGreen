@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Ban implements CommandExecutor {
