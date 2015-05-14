@@ -28,5 +28,6 @@ WhitherSkullBlockDamage: true
 #CommandBlacklist#
 #Bypass Permmision : EssentilasGreen.CommandBlacklist.bypass#
 #----------------#
+CommandBlockMessage: '§2[EG]§e Command Blocked!'
 Commands:
 - /op

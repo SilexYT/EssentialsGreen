@@ -80,6 +80,7 @@ public class MainListener implements Listener {
 			for(int i = 0; i < commands.size(); i++){
 				if(command[0].equalsIgnoreCase(commands.get(i))){
 					e.setCancelled(true);
+					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
 				}
 			}
 		}
