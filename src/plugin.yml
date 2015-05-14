@@ -59,7 +59,7 @@ commands:
           usage: /say <Message>
           permission: EssentialsGreen.DefaultPermmision
      kill:
-          usage: /kill <Player|@a|@e <World>> [PlayerName]
+          usage: /kill <Player|@a|@e <World>>
           permission: EssentialsGreen.DefaultPermmision
      fly:
           usage: /fly [Player]
