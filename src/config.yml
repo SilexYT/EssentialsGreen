@@ -4,6 +4,7 @@
 #Dafault Settings#
 #----------------#
 ops-name-color: 4
+NickNamePrefix: ''
 JoinSpawnTeleport: true
 #----------------#
 #Chat Settings!  #
@@ -22,8 +23,8 @@ Ban-JoinBrodcast: '&e{Player} is Banned! Reason : {Reason}'
 #-------------------#
 CreeperBlockDamage: true
 TnTBlockDamage: true
-PhysicExplosion: true
 WhitherSkullBlockDamage: true
+PhysicExplosion: true
 #----------------#
 #CommandBlacklist#
 #Bypass Permmision : EssentilasGreen.CommandBlacklist.bypass#

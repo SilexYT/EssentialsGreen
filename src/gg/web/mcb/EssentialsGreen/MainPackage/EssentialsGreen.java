@@ -64,7 +64,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("speed").setExecutor(new speed());
 		getCommand("invsee").setExecutor(new invsee());
 		getCommand("heal").setExecutor(new Heal());
-		getCommand("nick").setExecutor(new nick());
+		getCommand("nick").setExecutor(new nick(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
