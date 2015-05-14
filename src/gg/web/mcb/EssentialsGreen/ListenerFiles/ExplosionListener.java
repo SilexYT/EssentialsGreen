@@ -13,12 +13,12 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.util.Vector;
 
 @SuppressWarnings("deprecation")
-public class ExplosionListener implements Listener{
+public class ExplosionListener implements Listener {
 	
 	EssentialsGreen plugin;
 	ArrayList<Material> db = new ArrayList<Material>();
 	
-	public ExplosionListener(EssentialsGreen main) {
+	public ExplosionListener(EssentialsGreen main){
 		plugin = main;
 		db.add(Material.BEDROCK);
 		db.add(Material.AIR);
@@ -36,14 +36,23 @@ public class ExplosionListener implements Listener{
 				e.blockList().clear();
 			}
 		}else if(e.getEntityType().equals(EntityType.WITHER_SKULL)){
-		if(!plugin.getConfig().getString("WhitherSkullBlockDamage").equalsIgnoreCase("true")){
-			e.blockList().clear();
+			if(!plugin.getConfig().getString("WhitherSkullBlockDamage").equalsIgnoreCase("true")){
+				e.blockList().clear();
+			}
+		}else if(e.getEntityType().equals(EntityType.ENDER_CRYSTAL)){
+			if(!plugin.getConfig().getString("Ender_CrystalBlockDamage").equalsIgnoreCase("true")){
+				e.blockList().clear();
+			}
+		}else if(e.getEntityType().equals(EntityType.FIREBALL)){
+			if(!plugin.getConfig().getString("FireballBlockDamage").equalsIgnoreCase("true")){
+				e.blockList().clear();
+			}
 		}
-	}
-	//Physic Explosion
-	if(!e.isCancelled()){
-		if(!e.blockList().isEmpty()){
-			String pea = plugin.getConfig().getString("PhysicExplosion");
+		
+		//Physic Explosion
+		if(!e.isCancelled()){
+			if(!e.blockList().isEmpty()){
+				String pea = plugin.getConfig().getString("PhysicExplosion");
 				if(pea.equalsIgnoreCase("true")){
 					e.setYield(0F);
 					double x = (double)(Math.random() * 0.2D);

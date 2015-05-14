@@ -24,6 +24,8 @@ Ban-JoinBrodcast: '&e{Player} is Banned! Reason : {Reason}'
 CreeperBlockDamage: true
 TnTBlockDamage: true
 WhitherSkullBlockDamage: true
+Ender_CrystalBlockDamage: true
+FireballBlockDamage: true
 PhysicExplosion: true
 #----------------#
 #CommandBlacklist#
