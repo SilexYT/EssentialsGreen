@@ -24,7 +24,7 @@ public class Ban implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(final CommandSender p, Command cmd, String Label, final String[] args) {
+	public boolean onCommand(CommandSender p, Command cmd, String Label, final String[] args) {
 		if(p.hasPermission("EssentialsGreen.ban")){
 			if(args.length == 0){
 				p.sendMessage(EssentialsGreen.prefix + "/ban <Player> <Reason>");
