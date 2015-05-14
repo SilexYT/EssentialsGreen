@@ -3,6 +3,8 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 import java.io.File;
 import java.io.IOException;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,19 +18,22 @@ public class Unban implements CommandExecutor {
 		plugin = main;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args) {
 		if(p.hasPermission("EssentialsGreen.unban")){
 			if(args.length == 0){
 				p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");
-			}else if(args.length == 1){
-				File UserFile = new File("plugins/EssentialsGreen/UserData/" + args[0] + ".data");
-				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
-				if(UserFile.exists()){
-					UserFileYaml.set("Ban.Enable", "false");
-					UserFileYaml.set("Ban.Reason", "null");
-					try{UserFileYaml.save(UserFile);}catch (IOException e){}
-					p.sendMessage(EssentialsGreen.prefix + args[0] + " is not more Banned!");
+			}else if(args.length > 0){
+				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
+				File File = new File("plugins/EssentialsGreen/UserData/" + Player.getUniqueId().toString() + ".data");
+				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
+
+				if(File.exists()){
+						UserFileYaml.set("Ban.Enable", "false");
+						UserFileYaml.set("Ban.Reason", "null");
+						try{UserFileYaml.save(File);}catch (IOException e){}
+						p.sendMessage(EssentialsGreen.prefix + args[0] + " unbanned!");
 				}else p.sendMessage(EssentialsGreen.prefix + "This player has never been on the server");
 			}else p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");
 		}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");

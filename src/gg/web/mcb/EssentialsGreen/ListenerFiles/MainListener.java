@@ -3,7 +3,10 @@ package gg.web.mcb.EssentialsGreen.ListenerFiles;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
+
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +15,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 @SuppressWarnings("unchecked")
@@ -26,10 +30,11 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
-		File UserFile = new File("plugins/EssentialsGreen/UserData/" + p.getName() + ".data");
+		UUID U = p.getUniqueId();
+		File UserFile = new File("plugins/EssentialsGreen/UserData/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		UserFileYaml.set("Username", p.getName());
-		UserFileYaml.set("UUID", "[No UUID]");
+		UserFileYaml.set("UUID", U.toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
@@ -49,7 +54,8 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void PlayerLeave(PlayerQuitEvent e){
 		Player p = e.getPlayer();
-		File UserFile = new File("plugins/EssentialsGreen/UserData/" + p.getName() + ".data");
+		UUID U = p.getUniqueId();
+		File UserFile = new File("plugins/EssentialsGreen/UserData/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){

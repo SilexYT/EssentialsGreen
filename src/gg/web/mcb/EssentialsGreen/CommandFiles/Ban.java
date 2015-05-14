@@ -4,6 +4,7 @@ import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import java.io.File;
 import java.io.IOException;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,14 +14,17 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Ban implements CommandExecutor {
 	
+	public String Reason = "";
+	
 	EssentialsGreen plugin;
 	
 	public Ban(EssentialsGreen main) {
 		plugin = main;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args) {
+	public boolean onCommand(final CommandSender p, Command cmd, String Label, final String[] args) {
 		if(p.hasPermission("EssentialsGreen.ban")){
 			if(args.length == 0){
 				p.sendMessage(EssentialsGreen.prefix + "/ban <Player> <Reason>");
@@ -28,12 +32,14 @@ public class Ban implements CommandExecutor {
 				p.sendMessage(EssentialsGreen.prefix + "/ban " + args[0] + " <Reason>");
 			}else if(args.length > 1){
 				String Reason = "";
-				File UserFile = new File("plugins/EssentialsGreen/UserData/" + args[0] + ".data");
-				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
+				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
+				File File = new File("plugins/EssentialsGreen/UserData/" + Player.getUniqueId().toString() + ".data");
+				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
 				for(int i = 1; args.length > i; i++){
 					Reason = Reason + " " + args[i];
 				}
-				if(UserFile.exists()){
+				
+				if(File.exists()){
 					if(!PermissionsEx.getUser(args[0]).has("EssentialsGreen.ban.exempt") | Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
 						UserFileYaml.set("Ban.Reason", Reason);
@@ -41,8 +47,8 @@ public class Ban implements CommandExecutor {
 						if(!(target == null)){
 							target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason);
 						}
-						try{UserFileYaml.save(UserFile);}catch (IOException e){}
-						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned");
+						try{UserFileYaml.save(File);}catch (IOException e){}
+						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned!");
 					}else p.sendMessage(EssentialsGreen.prefix + "You can not capture the player as he permmision the EssentialsGreen.ban.exempt estate");
 				}else p.sendMessage(EssentialsGreen.prefix + "This player has never been on the server");
 			}

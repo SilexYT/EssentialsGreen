@@ -19,7 +19,7 @@ public class banlist implements CommandExecutor {
 			for(int i = 0; i < list.length; i++){
 				YamlConfiguration Player = YamlConfiguration.loadConfiguration(list[i]);
 				if(Player.getString("Ban.Enable").equalsIgnoreCase("true")){
-					sender.sendMessage("§e" + list[i].getName() + " | Reason : " + Player.getString("Ban.Reason"));
+					sender.sendMessage("§e" + Player.getString("Username") + " | Reason : " + Player.getString("Ban.Reason"));
 					Banned++;
 				}
 			}
