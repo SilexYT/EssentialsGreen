@@ -17,7 +17,7 @@ public class kill implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.kill")){
 			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
+				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>>");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
 					Player[] p = Bukkit.getOnlinePlayers();
@@ -39,14 +39,12 @@ public class kill implements CommandExecutor{
 							}
 						}
 					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
-				}else if(args[0].equalsIgnoreCase("Player")){
-					if(args.length > 1){
-						Player target = Bukkit.getPlayer(args[1]);
-						if(!(target == null)){
-							target.setHealth(0.0);
-						}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
-					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a Name");
-				}else sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>> [PlayerName]");
+				}else{
+					Player target = Bukkit.getPlayer(args[0]);
+					if(!(target == null)){
+						target.setHealth(0.0);
+					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
+				}
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;

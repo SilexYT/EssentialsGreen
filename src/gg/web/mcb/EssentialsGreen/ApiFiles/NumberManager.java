@@ -1,5 +1,6 @@
 package gg.web.mcb.EssentialsGreen.ApiFiles;
 
+@SuppressWarnings("unused")
 public class NumberManager {
 	public static boolean firstNumberCheck(String s){
 		String[] Split = s.split("");
@@ -28,7 +29,6 @@ public class NumberManager {
 		return check;
 	}
 	
-	@SuppressWarnings("unused")
 	public static boolean IsStringint(String ns){
 		if(new Integer(ns) == null){
 			return false;

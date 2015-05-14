@@ -40,7 +40,7 @@ public class Signs implements Listener {
 		if(e.getLine(0).equalsIgnoreCase("[Free]")){
 			e.setLine(0, "§1[Free]");
 			if(e.getPlayer().hasPermission("EssentialsGreen.create.FreeSign")){
-				if(!NumberManager.firstNumberCheck(e.getLine(1))){
+				if(!NumberManager.IsStringint(e.getLine(1))){
 					e.setLine(1, "§4Error Item");
 				}
 			}
