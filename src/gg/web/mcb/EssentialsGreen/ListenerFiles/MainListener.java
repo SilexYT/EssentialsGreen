@@ -31,6 +31,7 @@ public class MainListener implements Listener {
 		UserFileYaml.set("Username", p.getName());
 		UserFileYaml.set("UUID", "[No UUID]");
 		UserFileYaml.addDefault("Ban.Enable", "false");
+		UserFileYaml.addDefault("Ban.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
 		try{UserFileYaml.save(UserFile);}catch(IOException e1){e1.printStackTrace();}
 		
@@ -74,10 +75,10 @@ public class MainListener implements Listener {
 	public void CommandListener(PlayerCommandPreprocessEvent e){
 		Player p = e.getPlayer();
 		if(!p.hasPermission("EssentilasGreen.CommandBlacklist.bypass")){
-			ArrayList<String> commands = (ArrayList<String>)plugin.getConfig().getList("Commands");
-			String[] commandargs = e.getMessage().split(" ");
+			ArrayList<String> commands = (ArrayList<String>)plugin.getConfig().get("Commands");
+			String[] command = e.getMessage().split(" ");
 			for(int i = 0; i < commands.size(); i++){
-				if(commandargs[0].equalsIgnoreCase(commands.get(i))){
+				if(command[0].equalsIgnoreCase(commands.get(i))){
 					e.setCancelled(true);
 				}
 			}
