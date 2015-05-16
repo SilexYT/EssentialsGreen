@@ -37,7 +37,7 @@ public class nick implements CommandExecutor {
 					}
 				}
 			}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
-		}
+		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		return true;
 	}
 }
