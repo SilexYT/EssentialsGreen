@@ -32,14 +32,16 @@ public class MainListener implements Listener {
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
 		File UserFile = new File("plugins/EssentialsGreen/UserData/" + U.toString() + ".data");
+		boolean b = false;
+		if(UserFile.exists()){
+			b = true;
+		}
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		UserFileYaml.set("Username", p.getName());
 		UserFileYaml.set("UUID", U.toString());
 		UserFileYaml.set("IP", p.getAddress().toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
-		UserFileYaml.addDefault("BanIP.Enable", "false");
-		UserFileYaml.addDefault("BanIP.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
 		try{UserFileYaml.save(UserFile);}catch(IOException e1){e1.printStackTrace();}
 		
@@ -50,7 +52,11 @@ public class MainListener implements Listener {
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");
 			}
-			e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
+			if(b == true){
+				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
+			}else{
+				e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
+			}
 		}
 	}
 	
