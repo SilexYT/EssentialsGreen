@@ -7,10 +7,12 @@ import java.util.UUID;
 
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -97,6 +99,17 @@ public class MainListener implements Listener {
 					e.setCancelled(true);
 					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
 				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void BlockPlace(BlockPlaceEvent e){
+		Player p = e.getPlayer();
+		if(e.getBlock().getType() == Material.COMMAND){
+			if(!p.isOp()){
+				p.sendMessage(EssentialsGreen.prefix + "You must be OP!");
+				e.getBlock().setType(Material.AIR);
 			}
 		}
 	}

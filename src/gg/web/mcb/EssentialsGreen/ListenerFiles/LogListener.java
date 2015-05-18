@@ -17,44 +17,44 @@ public class LogListener implements Listener {
 	@EventHandler
 	public void ChatLogger(AsyncPlayerChatEvent e){
 	    Date date = new Date();
-	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+	    SimpleDateFormat time = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " Username : " + e.getPlayer().getName(), e.getMessage());
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 	
 	@EventHandler
 	public void CommandLogger(PlayerCommandPreprocessEvent e){
 	    Date date = new Date();
-	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+	    SimpleDateFormat time = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " Username : " + e.getPlayer().getName(), e.getMessage());
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 	
 	@EventHandler
 	public void PlayerLeave(PlayerQuitEvent e){
 	    Date date = new Date();
-	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+	    SimpleDateFormat time = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " Username : " + e.getPlayer().getName(), e.getQuitMessage());
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getQuitMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 	
 	@EventHandler
 	public void PlayerJoin(PlayerJoinEvent e){
 	    Date date = new Date();
-	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+	    SimpleDateFormat time = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " Username : " + e.getPlayer().getName(), e.getJoinMessage());
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getJoinMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 }
