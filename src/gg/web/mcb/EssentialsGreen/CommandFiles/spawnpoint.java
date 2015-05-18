@@ -1,8 +1,9 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
+import java.util.ArrayList;
 import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
+import gg.web.mcb.EssentialsGreen.ApiFiles.OnlinePlayersAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,7 +12,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("deprecation")
 public class spawnpoint implements CommandExecutor {
 
 	@Override
@@ -27,9 +27,9 @@ public class spawnpoint implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					if(args[0].equalsIgnoreCase("@a")){
-						Player[] Players = Bukkit.getOnlinePlayers();
-						for(int i = 0; Players.length > i; i++){
-							Players[i].setBedSpawnLocation(p.getLocation());
+						ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+						for(int i = 0; Players.size() > i; i++){
+							Bukkit.getPlayer(Players.get(i)).setBedSpawnLocation(p.getLocation());
 						}
 						p.sendMessage(EssentialsGreen.prefix + "Spawn Location set from All Players!");
 					}else{
@@ -48,9 +48,10 @@ public class spawnpoint implements CommandExecutor {
 					World World = Bukkit.getWorld(args[4]);
 					Location loc = new Location(World, X, Y, Z);
 					if(args[0].equalsIgnoreCase("@a")){
-						Player[] Players = Bukkit.getOnlinePlayers();
-						for(int i = 0; Players.length > i; i++){
-							Players[i].setBedSpawnLocation(loc);
+						ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+						for(int i = 0; Players.size() > i; i++){
+							Player p = Bukkit.getPlayer(Players.get(i));
+							p.setBedSpawnLocation(p.getLocation());
 						}
 						sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from All Players to " + X + " " + Y + " " + Z + "!");
 					}else{

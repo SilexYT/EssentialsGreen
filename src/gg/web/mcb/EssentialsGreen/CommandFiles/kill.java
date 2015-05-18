@@ -1,9 +1,9 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
+import gg.web.mcb.EssentialsGreen.ApiFiles.OnlinePlayersAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 
 public class kill implements CommandExecutor{
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.kill")){
@@ -23,18 +22,19 @@ public class kill implements CommandExecutor{
 				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>>");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
-					Player[] p = Bukkit.getOnlinePlayers();
-					for(int i = 0; p.length > i; i++){
-						p[i].setHealth(0.0);
+					ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+					for(int i = 0; Players.size() > i; i++){
+						Bukkit.getPlayer(Players.get(i)).setHealth(20.0);
 					}
 				}else if(args[0].equalsIgnoreCase("@e")){
 					if(args.length > 1){
 						World W = Bukkit.getWorld(args[1]); 
 						if(!(W == null)){
-							Player[] p = Bukkit.getOnlinePlayers();
-							for(int i = 0; p.length > i; i++){
-								if(p[i].getWorld().getName().equalsIgnoreCase(args[1])){
-									p[i].setHealth(0.0);
+							ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+							for(int i = 0; Players.size() > i; i++){
+								Player p = Bukkit.getPlayer(Players.get(i));
+								if(p.getWorld().getName().equalsIgnoreCase(args[1])){
+									p.setHealth(20.0);
 								}
 							}
 							

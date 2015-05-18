@@ -1,10 +1,8 @@
 package gg.web.mcb.EssentialsGreen.MainPackage;
 
-/* Please Copy this Code not!*/
-
 import java.io.File;
 import java.io.IOException;
-
+import java.util.ArrayList;
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -33,7 +31,6 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,6 +40,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	
+	public ArrayList<String> OnlinePlayers = new ArrayList<String>();
 	public static String prefix = "§2[EG]§e ";
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;

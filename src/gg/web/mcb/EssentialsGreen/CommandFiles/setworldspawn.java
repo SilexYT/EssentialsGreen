@@ -23,5 +23,4 @@ public class setworldspawn implements CommandExecutor {
 		}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
 		return true;
 	}
-
 }

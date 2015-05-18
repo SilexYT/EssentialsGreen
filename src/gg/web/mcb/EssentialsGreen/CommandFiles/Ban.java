@@ -14,8 +14,6 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Ban implements CommandExecutor {
 	
-	public String Reason = "";
-	
 	EssentialsGreen plugin;
 	
 	public Ban(EssentialsGreen main) {

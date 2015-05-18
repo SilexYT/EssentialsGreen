@@ -1,10 +1,10 @@
 package gg.web.mcb.EssentialsGreen.ApiFiles;
 
-import net.minecraft.server.v1_8_R1.ChatSerializer;
-import net.minecraft.server.v1_8_R1.IChatBaseComponent;
-import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_8_R1.PlayerConnection;
-import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_8_R2.IChatBaseComponent;
+import net.minecraft.server.v1_8_R2.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_8_R2.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R2.PlayerConnection;
+import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class ActionBarApi {
@@ -12,7 +12,7 @@ public class ActionBarApi {
 		if(Message == null) Message = "null";
 		Message.replace('&', '§');
 		
-		PlayerConnection con = ((CraftPlayer)p).getHandle().playerConnection;
+		PlayerConnection con = ((CraftPlayer) p).getHandle().playerConnection;
 		IChatBaseComponent chat = ChatSerializer.a("{\"text\": \"" + Message + "\"}");
 		PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
 		
