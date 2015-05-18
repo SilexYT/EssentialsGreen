@@ -1,11 +1,10 @@
 package gg.web.mcb.EssentialsGreen.MainPackage;
 
-/* Please Copy this Code not!
- * 
- */
+/* Please Copy this Code not!*/
 
 import java.io.File;
 import java.io.IOException;
+
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -19,6 +18,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.Unban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.XP;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
+import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
 import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
 import gg.web.mcb.EssentialsGreen.CommandFiles.give;
 import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
@@ -33,6 +33,7 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -48,7 +49,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	
 	@Override
 	public void onEnable(){
-		
 		//Register Commands
 		getCommand("tp").setExecutor(new Teleport());
 		getCommand("gm").setExecutor(new Gamemode());
@@ -74,6 +74,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("nick").setExecutor(new nick(this));
 		getCommand("setworldspawn").setExecutor(new setworldspawn());
 		getCommand("seed").setExecutor(new seed());
+		getCommand("clear").setExecutor(new clear());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
