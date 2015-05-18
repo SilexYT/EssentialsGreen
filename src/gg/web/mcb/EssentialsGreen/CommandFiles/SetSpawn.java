@@ -28,6 +28,8 @@ public class SetSpawn implements CommandExecutor {
 				SY.set("Spawn.Location.X", loc.getX());
 				SY.set("Spawn.Location.Y", loc.getY());
 				SY.set("Spawn.Location.Z", loc.getZ());
+				SY.set("Spawn.Location.Yaw", loc.getYaw());
+				SY.set("Spawn.Location.Pitch", loc.getPitch());
 				SY.set("Spawn.Location.World", loc.getWorld().getName());
 				p.sendMessage(EssentialsGreen.prefix + "Spawn Location set!");
 				try{

@@ -19,30 +19,28 @@ public class Spawn implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
-		if(sender instanceof Player){
-			Player p = (Player)sender;
-			if(p.hasPermission("EssentialsGreen.spawn")){
-				YamlConfiguration SY = plugin.SpawnYaml;
-				if(SY.getString("Spawn.Location.World") != null){
+		if(args.length == 0){
+			if(sender instanceof Player){
+				Player p = (Player)sender;
+				if(p.hasPermission("EssentialsGreen.spawn")){
+					YamlConfiguration SY = plugin.SpawnYaml;
+					if(SY.getString("Spawn.Location.World") != null){
+						Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"), new Float(SY.getString("Spawn.Location.Yaw")), new Float(SY.getString("Spawn.Location.Pitch")));
+						p.teleport(SpawnLoc);
+						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
+					}else p.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
+				}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+			}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player!");
+		}else if(args.length > 0){
+			YamlConfiguration SY = plugin.SpawnYaml;
+			if(!(SY.getString("Spawn.Location.World") == null)){
+				Player target = Bukkit.getPlayer(args[0]);
+				if(!(target == null)){
 					Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
-					p.teleport(SpawnLoc);
-					p.sendMessage(EssentialsGreen.prefix + "Teleport...");
-				}else p.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-		}else{
-			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/Spawn <Player>");
-			}else if(args.length > 0){
-				YamlConfiguration SY = plugin.SpawnYaml;
-				if(SY.getString("Spawn.Location.World") != null){
-					Player target = Bukkit.getPlayer(args[0]);
-					if(!(target == null)){
-						Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
-						target.teleport(SpawnLoc);
-						target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By Console");
-					}
-				}else sender.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
-			}
+					target.teleport(SpawnLoc);
+					target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By Console");
+				}
+			}else sender.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
 		}
 		return true;
 	}

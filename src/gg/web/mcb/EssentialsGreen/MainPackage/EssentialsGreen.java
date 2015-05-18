@@ -48,6 +48,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	
 	@Override
 	public void onEnable(){
+		
 		//Register Commands
 		getCommand("tp").setExecutor(new Teleport());
 		getCommand("gm").setExecutor(new Gamemode());
