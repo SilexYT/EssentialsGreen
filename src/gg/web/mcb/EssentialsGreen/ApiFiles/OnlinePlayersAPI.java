@@ -1,9 +1,7 @@
 package gg.web.mcb.EssentialsGreen.ApiFiles;
 
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
-
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 
 public class OnlinePlayersAPI {

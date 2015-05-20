@@ -103,7 +103,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("reload")){
 					if(sender.hasPermission("EssentialsGreen.reload")){
 						reloadConfig();
-						sender.sendMessage(prefix + "Reload completed");
+						sender.sendMessage(prefix + "Config Reload completed");
 					}
 				}
 			}
