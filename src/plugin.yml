@@ -85,3 +85,6 @@ commands:
      clear:
           usage: /clear [Player]
           permission: EssentialsGreen.DefaultPermmision
+     info:
+          usage: /info
+          permission: EssentialsGreen.DefaultPermmision
