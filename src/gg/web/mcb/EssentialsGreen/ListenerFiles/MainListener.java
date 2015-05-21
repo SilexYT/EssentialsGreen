@@ -46,7 +46,7 @@ public class MainListener implements Listener {
 		
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
 			p.kickPlayer((plugin.getConfig().getString("Ban-Prefix") + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
-			e.setJoinMessage(plugin.getConfig().getString("Ban-JoinBrodcast").replace("{Player}".replace('&', '§'), p.getName()).replace("{Reason}", UserFileYaml.getString("Ban.Reason")));
+			e.setJoinMessage(plugin.getConfig().getString("Ban-JoinBrodcast").replace("{Player}".replace('&', '§'), p.getName()).replace("{Reason}", UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 		}else{
 			plugin.OnlinePlayers.add(p.getName());
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
