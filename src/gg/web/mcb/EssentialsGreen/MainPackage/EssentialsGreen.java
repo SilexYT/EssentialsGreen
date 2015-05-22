@@ -22,6 +22,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
 import gg.web.mcb.EssentialsGreen.CommandFiles.give;
 import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
 import gg.web.mcb.EssentialsGreen.CommandFiles.kill;
+import gg.web.mcb.EssentialsGreen.CommandFiles.list;
 import gg.web.mcb.EssentialsGreen.CommandFiles.msg;
 import gg.web.mcb.EssentialsGreen.CommandFiles.nick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.say;
@@ -40,12 +41,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
-	
-	public ArrayList<String> OnlinePlayers = new ArrayList<String>();
+
+	public static ArrayList<String> OnlinePlayers = new ArrayList<String>();
 	public static String prefix = "§2[EG]§e ";
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
-	
+
 	@Override
 	public void onEnable(){
 		//Register Commands
@@ -75,6 +76,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("seed").setExecutor(new seed());
 		getCommand("clear").setExecutor(new clear());
 		getCommand("Info").setExecutor(new Info());
+		getCommand("list").setExecutor(new list());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -88,7 +90,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
 		System.out.println("[EssentialsGreen] Load Completed");
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("eg") | cmd.getName().equalsIgnoreCase("EssentialsGreen")){

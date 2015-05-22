@@ -35,3 +35,5 @@ PhysicExplosion: true
 CommandBlockMessage: '&2[EG]&e Command Blocked!'
 Commands:
 - /op
+CommandBlackListBypassPlayerList:
+- <Player>

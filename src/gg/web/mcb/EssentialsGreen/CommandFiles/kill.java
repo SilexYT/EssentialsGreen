@@ -1,6 +1,5 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.ApiFiles.OnlinePlayersAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class kill implements CommandExecutor{
 				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>>");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
-					ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+					ArrayList<String> Players = EssentialsGreen.OnlinePlayers;;
 					for(int i = 0; Players.size() > i; i++){
 						Bukkit.getPlayer(Players.get(i)).setHealth(20.0);
 					}
@@ -30,7 +29,7 @@ public class kill implements CommandExecutor{
 					if(args.length > 1){
 						World W = Bukkit.getWorld(args[1]); 
 						if(!(W == null)){
-							ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+							ArrayList<String> Players = EssentialsGreen.OnlinePlayers;;
 							for(int i = 0; Players.size() > i; i++){
 								Player p = Bukkit.getPlayer(Players.get(i));
 								if(p.getWorld().getName().equalsIgnoreCase(args[1])){

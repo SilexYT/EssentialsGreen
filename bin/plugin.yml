@@ -88,3 +88,6 @@ commands:
      info:
           usage: /info
           permission: EssentialsGreen.DefaultPermmision
+     list:
+          usage: /list
+          permission: EssentialsGreen.DefaultPermmision

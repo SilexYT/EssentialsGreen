@@ -2,7 +2,6 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.util.ArrayList;
 import gg.web.mcb.EssentialsGreen.ApiFiles.ActionBarApi;
-import gg.web.mcb.EssentialsGreen.ApiFiles.OnlinePlayersAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -19,7 +18,7 @@ public class ActionBar implements CommandExecutor {
 				sender.sendMessage(EssentialsGreen.prefix + "/actionbar <Player|@a> <Message>");
 			}else if(args.length > 1){
 				if(args[0].equalsIgnoreCase("@a")){
-					ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+					ArrayList<String> Players = EssentialsGreen.OnlinePlayers;
 					for(int i = 0; Players.size() > i; i++){
 						ActionBarApi.sendActionBar(Bukkit.getPlayer(Players.get(i)), args[1]);
 					}

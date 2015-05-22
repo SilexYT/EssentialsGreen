@@ -2,7 +2,6 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.util.ArrayList;
 import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
-import gg.web.mcb.EssentialsGreen.ApiFiles.OnlinePlayersAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -27,7 +26,7 @@ public class spawnpoint implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					if(args[0].equalsIgnoreCase("@a")){
-						ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+						ArrayList<String> Players = EssentialsGreen.OnlinePlayers;
 						for(int i = 0; Players.size() > i; i++){
 							Bukkit.getPlayer(Players.get(i)).setBedSpawnLocation(p.getLocation());
 						}
@@ -48,7 +47,7 @@ public class spawnpoint implements CommandExecutor {
 					World World = Bukkit.getWorld(args[4]);
 					Location loc = new Location(World, X, Y, Z);
 					if(args[0].equalsIgnoreCase("@a")){
-						ArrayList<String> Players = OnlinePlayersAPI.getAllOnlinePlayers();
+						ArrayList<String> Players = EssentialsGreen.OnlinePlayers;
 						for(int i = 0; Players.size() > i; i++){
 							Player p = Bukkit.getPlayer(Players.get(i));
 							p.setBedSpawnLocation(p.getLocation());
