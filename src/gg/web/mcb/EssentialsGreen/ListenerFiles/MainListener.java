@@ -37,9 +37,9 @@ public class MainListener implements Listener {
 		if(UserFile.exists()){
 			b = true;
 		}
-		UserFileYaml.set("Username", p.getName());
-		UserFileYaml.set("UUID", U.toString());
-		UserFileYaml.set("IP", p.getAddress().toString());
+		UserFileYaml.set("Info.Username", p.getName());
+		UserFileYaml.set("Info.UUID", U.toString());
+		UserFileYaml.set("Info.IP", p.getAddress().toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
