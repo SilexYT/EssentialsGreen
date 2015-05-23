@@ -2,6 +2,7 @@ package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
 import gg.web.mcb.EssentialsGreen.ApiFiles.ItemManager;
 import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
+
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Signs implements Listener {
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void PlayerInteract(PlayerInteractEvent e){
 		Player p = e.getPlayer();
@@ -21,8 +23,16 @@ public class Signs implements Listener {
 				Sign s = (Sign)e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase("§1[Free]")){
 					if(!s.getLine(1).equalsIgnoreCase("§4Error Item")){
-						ItemStack Item = new ItemStack(ItemManager.getMaterialByID(new Integer(s.getLine(1))));						p.getInventory().addItem(Item);
-						p.updateInventory();
+						if(!(s.getLine(1).split(":") == null)){
+							String[] LineSplit = s.getLine(1).split(":");
+							ItemStack Item = new ItemStack(new Integer(LineSplit[0]), 1, (short) 0, new Byte(LineSplit[1]));
+							p.getInventory().addItem(Item);
+							p.updateInventory();
+						}else{
+							ItemStack Item = new ItemStack(ItemManager.getMaterialByID(new Integer(s.getLine(1))));
+							p.getInventory().addItem(Item);
+							p.updateInventory();
+						}
 					}
 				}else if(s.getLine(0).equalsIgnoreCase("§1[Command]")){
 					p.performCommand(s.getLine(1));
@@ -37,11 +47,23 @@ public class Signs implements Listener {
 		e.setLine(1, e.getLine(1).replace('&', '§'));
 		e.setLine(2, e.getLine(2).replace('&', '§'));
 		e.setLine(3, e.getLine(3).replace('&', '§'));
+		String Line1 = e.getLine(0);
 		if(e.getLine(0).equalsIgnoreCase("[Free]")){
 			e.setLine(0, "§1[Free]");
 			if(e.getPlayer().hasPermission("EssentialsGreen.create.FreeSign")){
-				if(!NumberManager.IsStringint(e.getLine(1))){
-					e.setLine(1, "§4Error Item");
+				if(!(Line1.split(":") == null)){
+					String[] LineSplit = Line1.split(":");
+					if(!NumberManager.IsStringint(LineSplit[0]) & !NumberManager.IsStringint(LineSplit[1])){
+						int ID = new Integer(LineSplit[0]);
+						byte byteid = new Byte(LineSplit[1]);
+						if(!ItemManager.CheckID(ID) & !ItemManager.CheckSubID(ID, byteid)){
+							e.setLine(1, "§4Error Item");
+						}
+					}
+				}else if(!NumberManager.IsStringint(Line1)){
+					if(!ItemManager.CheckID(new Integer(Line1))){
+						e.setLine(1, "§4Error Item");
+					}
 				}
 			}
 		}else if(e.getLine(0).equalsIgnoreCase("[Command]")){

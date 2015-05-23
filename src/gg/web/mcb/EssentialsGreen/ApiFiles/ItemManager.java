@@ -25,6 +25,18 @@ public class ItemManager {
 		return obj;
 	}
 	
+	@SuppressWarnings({ "deprecation", "unused"})
+	public static boolean CheckSubID(int Materiel, byte SubID){
+		ItemStack Item = new ItemStack(Materiel, 1, (short)0, SubID);
+		boolean obj;
+		if(Item == null){
+			obj = false;
+		}else{
+			obj = true;
+		}
+		return obj;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public static Material getMaterialByID(int ID){;
 		Material M = Material.getMaterial(ID);

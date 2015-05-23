@@ -7,7 +7,6 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Heal;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Info;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Kick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.SetSpawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Spawn;
@@ -75,7 +74,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("setworldspawn").setExecutor(new setworldspawn());
 		getCommand("seed").setExecutor(new seed());
 		getCommand("clear").setExecutor(new clear());
-		getCommand("Info").setExecutor(new Info());
 		getCommand("list").setExecutor(new list());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
