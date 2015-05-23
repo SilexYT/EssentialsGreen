@@ -49,8 +49,7 @@ public class Signs implements Listener {
 						String[] LineSplit = Line1.split(":");
 						if(NumberManager.IsStringint(LineSplit[0]) & NumberManager.IsStringint(LineSplit[1])){
 							int ID = new Integer(LineSplit[0]);
-							byte byteid = new Byte(LineSplit[1]);
-							if(!ItemManager.CheckID(ID) & !ItemManager.CheckSubID(ID, byteid)){
+							if(!ItemManager.CheckID(ID)){
 								e.setLine(1, "§4Error Item");
 							}
 						}else e.setLine(1, "§4Error Item");
