@@ -2,7 +2,7 @@ package gg.web.mcb.EssentialsGreen.MainPackage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -13,10 +13,12 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.Spawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Teleport;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Time;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Unban;
+import gg.web.mcb.EssentialsGreen.CommandFiles.Whitelist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.XP;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
 import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
+import gg.web.mcb.EssentialsGreen.CommandFiles.defaultgamemode;
 import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
 import gg.web.mcb.EssentialsGreen.CommandFiles.give;
 import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
@@ -32,16 +34,19 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
+import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
+import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
-	public static ArrayList<String> OnlinePlayers = new ArrayList<String>();
 	public static String prefix = "§2[EG]§e ";
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
@@ -75,6 +80,11 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("seed").setExecutor(new seed());
 		getCommand("clear").setExecutor(new clear());
 		getCommand("list").setExecutor(new list());
+		getCommand("defaultgamemode").setExecutor(new defaultgamemode());
+		getCommand("stop").setExecutor(new Stop());
+		getCommand("reload").setExecutor(new Reload());
+		getCommand("rl").setExecutor(new Reload());
+		getCommand("whitelist").setExecutor(new Whitelist());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -86,11 +96,12 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
+		ReloadPlayerGroupPrefix();
 		System.out.println("[EssentialsGreen] Load Completed");
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args){
 		if(cmd.getName().equalsIgnoreCase("eg") | cmd.getName().equalsIgnoreCase("EssentialsGreen")){
 			if(args.length == 0){
 				sender.sendMessage(prefix + "By Marco MC | [Marco606598]\n§3"
@@ -105,11 +116,37 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("reload")){
 					if(sender.hasPermission("EssentialsGreen.reload")){
 						reloadConfig();
+						SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
+						SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 						sender.sendMessage(prefix + "Config Reload completed");
-					}
+					}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 				}
 			}
 		}
 		return true;
+	}
+	
+	public void ReloadPlayerGroupPrefix(){
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			@Override
+			public void run() {
+				SetforAllPlayerGroupPrefix();
+			}
+		}, 0, 30);
+	}
+	
+	public void SetforAllPlayerGroupPrefix(){
+		for(Player p : Bukkit.getOnlinePlayers()){
+			File File = new File("plugins/EssentialsGreen/UserData/" + p.getUniqueId().toString() + ".data");
+			YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
+			if(!(Bukkit.getPluginCommand("pex") == null)){
+				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
+			}else YF.set("GroupPrefix", "");
+			try{
+				YF.save(File);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

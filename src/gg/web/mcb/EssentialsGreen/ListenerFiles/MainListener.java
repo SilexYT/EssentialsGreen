@@ -5,18 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
@@ -37,9 +33,10 @@ public class MainListener implements Listener {
 		if(UserFile.exists()){
 			b = true;
 		}
-		UserFileYaml.set("Info.Username", p.getName());
-		UserFileYaml.set("Info.UUID", U.toString());
-		UserFileYaml.set("Info.IP", p.getAddress().toString());
+		plugin.SetforAllPlayerGroupPrefix();
+		UserFileYaml.set("Username", p.getName());
+		UserFileYaml.set("UUID", U.toString());
+		UserFileYaml.set("IP", p.getAddress().toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
@@ -49,14 +46,9 @@ public class MainListener implements Listener {
 			p.kickPlayer((plugin.getConfig().getString("Ban-Prefix") + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 			e.setJoinMessage(plugin.getConfig().getString("Ban-JoinBrodcast").replace("{Player}".replace('&', '§'), p.getName()).replace("{Reason}", UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 		}else{
-			EssentialsGreen.OnlinePlayers.add(p.getName());
+			if(b == true){e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");
-			}
-			if(b == true){
-				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
-			}else{
-				e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
 			}
 		}
 	}
@@ -72,18 +64,19 @@ public class MainListener implements Listener {
 			p.kickPlayer(UserFileYaml.getString("Ban.Reason"));
 			e.setQuitMessage("");
 		}else{
-			e.setQuitMessage(plugin.getConfig().getString("LeaveMessage").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getName()).replace('&', '§'));
-			EssentialsGreen.OnlinePlayers.remove(p.getName());
+			e.setQuitMessage(plugin.getConfig().getString("LeaveMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
 		}
 	}
 	
 	@EventHandler
 	public void PlayerChatEvent(AsyncPlayerChatEvent e){
 		Player p = e.getPlayer();
+		File UserFile = new File("plugins/EssentialsGreen/UserData/" + p.getUniqueId().toString() + ".data");
+		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		if(p.isOp()){
-			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", "§" + plugin.getConfig().getInt("ops-name-color") + p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
+			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", "§" + plugin.getConfig().getInt("ops-name-color") + p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
 		}else{
-			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", PermissionsEx.getUser(p).getPrefix()).replace("{Player}", p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
+			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
 		}
 	}
 
@@ -100,28 +93,6 @@ public class MainListener implements Listener {
 					e.setCancelled(true);
 					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
 				}
-			}
-		}
-	}
-	
-	@EventHandler
-	public void BlockPlace(BlockPlaceEvent e){
-		Player p = e.getPlayer();
-		if(e.getBlock().getType() == Material.COMMAND){
-			if(!p.isOp()){
-				p.sendMessage(EssentialsGreen.prefix + "You must be a OP!");
-				e.setCancelled(true);
-			}
-		}
-	}
-	
-	@EventHandler
-	public void BlockBreak(BlockBreakEvent e){
-		Player p = e.getPlayer();
-		if(e.getBlock().getType() == Material.COMMAND){
-			if(!p.isOp()){
-				p.sendMessage(EssentialsGreen.prefix + "You must be a OP!");
-				e.setCancelled(true);
 			}
 		}
 	}

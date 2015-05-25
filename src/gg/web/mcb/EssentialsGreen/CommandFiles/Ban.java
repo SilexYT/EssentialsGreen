@@ -10,7 +10,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Ban implements CommandExecutor {
 	
@@ -38,7 +37,7 @@ public class Ban implements CommandExecutor {
 				}
 				
 				if(File.exists()){
-					if(!PermissionsEx.getUser(args[0]).has("EssentialsGreen.ban.exempt") | Bukkit.getOperators().contains(args[0])){
+					if(Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
 						UserFileYaml.set("Ban.Reason", Reason);
 						Player target = Bukkit.getPlayer(args[0]);

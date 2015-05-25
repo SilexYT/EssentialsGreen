@@ -88,3 +88,18 @@ commands:
      list:
           usage: /list
           permission: EssentialsGreen.DefaultPermmision
+     defaultgamemode:
+          usage: /defaultgamemode <Mode>
+          permission: EssentialsGreen.DefaultPermmision
+     stop:
+          usage: /stop
+          permission: EssentialsGreen.DefaultPermmision
+     reload:
+          usage: /reload
+          permission: EssentialsGreen.DefaultPermmision
+     rl:
+          usage: /rl
+          permission: EssentialsGreen.DefaultPermmision
+     whitelist:
+          usage: /whitelist <command>
+          permission: EssentialsGreen.DefaultPermmision
