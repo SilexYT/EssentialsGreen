@@ -2,7 +2,6 @@ package gg.web.mcb.EssentialsGreen.MainPackage;
 
 import java.io.File;
 import java.io.IOException;
-
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -36,7 +35,6 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -85,6 +83,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("reload").setExecutor(new Reload());
 		getCommand("rl").setExecutor(new Reload());
 		getCommand("whitelist").setExecutor(new Whitelist());
+		// Not Finish! getCommand("toggledownfall").setExecutor(new toggledownfall());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);

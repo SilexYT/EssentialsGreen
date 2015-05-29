@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.ApiFiles.ActionBarApi;
+import gg.web.mcb.EssentialsGreen.ApiFiles.ActionBarAPI;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,12 +18,12 @@ public class ActionBar implements CommandExecutor {
 			}else if(args.length > 1){
 				if(args[0].equalsIgnoreCase("@a")){
 					for(Player p : Bukkit.getOnlinePlayers()){
-						ActionBarApi.sendActionBar(p, args[1]);
+						ActionBarAPI.sendActionBar(p, args[1]);
 					}
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
-						ActionBarApi.sendActionBar(target, args[1]);
+						ActionBarAPI.sendActionBar(target, args[1]);
 						sender.sendMessage(EssentialsGreen.prefix + "Message sent to " + args[0]);
 					}else sender.sendMessage(EssentialsGreen.prefix + "This target player is not online");
 				}
