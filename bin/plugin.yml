@@ -103,6 +103,6 @@ commands:
      whitelist:
           usage: /whitelist <command>
           permission: EssentialsGreen.DefaultPermmision
-     toggledownfall:
-          usage: /<command>
+     warp:
+          usage: /warp <Command>
           permission: EssentialsGreen.DefaultPermmision

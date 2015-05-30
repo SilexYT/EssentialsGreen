@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
-import gg.web.mcb.EssentialsGreen.ApiFiles.ItemManager;
-import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
+import gg.web.mcb.EssentialsGreen.API.ItemManager;
+import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +29,10 @@ public class Signs implements Listener {
 					}
 				}else if(s.getLine(0).equalsIgnoreCase("§1[Command]")){
 					p.performCommand(s.getLine(1));
+				}else if(s.getLine(0).equalsIgnoreCase("§1[Warp]")){
+					if(!s.getLine(1).equalsIgnoreCase("<Warp>")){
+						p.performCommand("warp " + s.getLine(1));
+					}
 				}
 			}
 		}
@@ -59,6 +63,13 @@ public class Signs implements Listener {
 		}else if(e.getLine(0).equalsIgnoreCase("[Command]")){
 			if(e.getPlayer().hasPermission("EssentialsGreen.create.CommandSign")){
 				e.setLine(0, "§1[Command]");
+			}
+		}else if(e.getLine(0).equalsIgnoreCase("[Warp]")){
+			if(e.getPlayer().hasPermission("EssentialsGreen.create.WarpSign")){
+				e.setLine(0, "§1[Warp]");
+				if(e.getLine(1) == null){
+					e.setLine(1, "<Warp>");
+				}
 			}
 		}
 	}

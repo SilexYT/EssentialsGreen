@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.ApiFiles;
+package gg.web.mcb.EssentialsGreen.API;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

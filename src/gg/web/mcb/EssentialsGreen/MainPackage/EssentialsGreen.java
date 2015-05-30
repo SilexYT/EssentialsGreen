@@ -12,6 +12,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.Spawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Teleport;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Time;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Unban;
+import gg.web.mcb.EssentialsGreen.CommandFiles.Warp;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Whitelist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.XP;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
@@ -83,20 +84,23 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("reload").setExecutor(new Reload());
 		getCommand("rl").setExecutor(new Reload());
 		getCommand("whitelist").setExecutor(new Whitelist());
-		// Not Finish! getCommand("toggledownfall").setExecutor(new toggledownfall());
+		getCommand("warp").setExecutor(new Warp());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		//CopyDefaultConfig
+		//Files
 		saveDefaultConfig();
-		//Spawn Config File
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
 		ReloadPlayerGroupPrefix();
 		System.out.println("[EssentialsGreen] Load Completed");
+		File UserdataFile = new File("plugins/EssentialsGreen/userdata");
+		UserdataFile.mkdir();
+		File WarpFile = new File("plugins/EssentialsGreen/Warp");
+		WarpFile.mkdir();
 	}
 
 	@Override
@@ -105,7 +109,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			if(args.length == 0){
 				sender.sendMessage(prefix + "By Marco MC | [Marco606598]\n§3"
 						+ "/eg info\n"
-						+ "/eg reload\n");
+						+ "/eg reload\n"
+						+ "/eg reloadGroupPrefix");
 			}else{
 				if(args[0].equalsIgnoreCase("info")){
 					sender.sendMessage(prefix + "§a\n"
@@ -119,6 +124,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 						SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 						sender.sendMessage(prefix + "Config Reload completed");
 					}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+				}else if(args[0].equalsIgnoreCase("RelaodGroupPrefix")){
+					SetforAllPlayerGroupPrefix();
+					sender.sendMessage(prefix + "GroupPrefix relaoded!");
 				}
 			}
 		}
@@ -141,11 +149,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			if(!(Bukkit.getPluginCommand("pex") == null)){
 				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
 			}else YF.set("GroupPrefix", "");
-			try{
-				YF.save(File);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
+			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
 		}
 	}
 }

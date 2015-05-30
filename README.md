@@ -1,4 +1,4 @@
-This is a Bukkit open-sorcecode!
+This is a Bukkit open-sorcecode Plugin!
 
 Please Copy the code not!
 This Projekt is Copyright protected!
@@ -8,5 +8,3 @@ Credits:
 Minecraft Username: Marco606598
 Youtube: Marco MC
 Facebook: Marco Minecraft
-
-- Sorry that my English is not good -

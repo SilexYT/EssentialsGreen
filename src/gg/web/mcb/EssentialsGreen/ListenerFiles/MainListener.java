@@ -2,9 +2,13 @@ package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
+
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,26 +31,34 @@ public class MainListener implements Listener {
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
-		File UserFile = new File("plugins/EssentialsGreen/UserData/" + U.toString() + ".data");
+		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
+	    Date date = new Date();
+	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
 		boolean b = false;
 		if(UserFile.exists()){
 			b = true;
 		}
-		plugin.SetforAllPlayerGroupPrefix();
 		UserFileYaml.set("Username", p.getName());
 		UserFileYaml.set("UUID", U.toString());
 		UserFileYaml.set("IP", p.getAddress().toString());
+		UserFileYaml.addDefault("StartPlaying", time.format(date));
+		UserFileYaml.set("LastPlaying", time.format(date));
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
 		UserFileYaml.options().copyDefaults(true);
 		try{UserFileYaml.save(UserFile);}catch(IOException e1){e1.printStackTrace();}
+		plugin.SetforAllPlayerGroupPrefix();
+		UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
+		UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
 			p.kickPlayer((plugin.getConfig().getString("Ban-Prefix") + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 			e.setJoinMessage(plugin.getConfig().getString("Ban-JoinBrodcast").replace("{Player}".replace('&', '§'), p.getName()).replace("{Reason}", UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 		}else{
-			if(b == true){e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
+			if(b == true){
+				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
+			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");
 			}
@@ -57,7 +69,7 @@ public class MainListener implements Listener {
 	public void PlayerLeave(PlayerQuitEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
-		File UserFile = new File("plugins/EssentialsGreen/UserData/" + U.toString() + ".data");
+		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
@@ -71,7 +83,7 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void PlayerChatEvent(AsyncPlayerChatEvent e){
 		Player p = e.getPlayer();
-		File UserFile = new File("plugins/EssentialsGreen/UserData/" + p.getUniqueId().toString() + ".data");
+		File UserFile = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		if(p.isOp()){
 			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", "§" + plugin.getConfig().getInt("ops-name-color") + p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));

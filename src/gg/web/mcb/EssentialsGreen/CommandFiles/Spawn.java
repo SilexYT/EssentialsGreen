@@ -24,7 +24,7 @@ public class Spawn implements CommandExecutor {
 				Player p = (Player)sender;
 				if(p.hasPermission("EssentialsGreen.spawn")){
 					YamlConfiguration SY = plugin.SpawnYaml;
-					if(SY.getString("Spawn.Location.World") != null){
+					if(SY.getString("Spawn.Enable") != null){
 						Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"), new Float(SY.getString("Spawn.Location.Yaw")), new Float(SY.getString("Spawn.Location.Pitch")));
 						p.teleport(SpawnLoc);
 						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
@@ -32,15 +32,17 @@ public class Spawn implements CommandExecutor {
 				}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 			}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player!");
 		}else if(args.length > 0){
-			YamlConfiguration SY = plugin.SpawnYaml;
-			if(!(SY.getString("Spawn.Location.World") == null)){
-				Player target = Bukkit.getPlayer(args[0]);
-				if(!(target == null)){
-					Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
-					target.teleport(SpawnLoc);
-					target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By Console");
-				}
-			}else sender.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
+			if(sender.hasPermission("EssentialsGreen.spawn.other")){
+				YamlConfiguration SY = plugin.SpawnYaml;
+				if(SY.getString("Spawn.Enable") != null){
+					Player target = Bukkit.getPlayer(args[0]);
+					if(!(target == null)){
+						Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
+						target.teleport(SpawnLoc);
+						target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By Console");
+					}
+				}else sender.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
+			}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		}
 		return true;
 	}

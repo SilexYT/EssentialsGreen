@@ -1,8 +1,9 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.ApiFiles.ItemManager;
-import gg.web.mcb.EssentialsGreen.ApiFiles.NumberManager;
+import gg.web.mcb.EssentialsGreen.API.ItemManager;
+import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

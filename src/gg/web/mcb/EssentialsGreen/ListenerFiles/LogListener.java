@@ -1,6 +1,5 @@
 package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
-import gg.web.mcb.EssentialsGreen.ApiFiles.FarbcodeAPI;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,7 +22,7 @@ public class LogListener implements Listener {
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), FarbcodeAPI.RemoveFarbcodes(e.getJoinMessage()));
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getJoinMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 
@@ -34,7 +33,7 @@ public class LogListener implements Listener {
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), FarbcodeAPI.RemoveFarbcodes(e.getQuitMessage()));
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getQuitMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 
@@ -45,7 +44,7 @@ public class LogListener implements Listener {
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), FarbcodeAPI.RemoveFarbcodes(e.getMessage()));
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 
@@ -56,7 +55,7 @@ public class LogListener implements Listener {
 		File file = new File("plugins/EssentialsGreen/LogFile.log");
 		YamlConfiguration ChatYaml = YamlConfiguration.loadConfiguration(file);
 		
-		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), FarbcodeAPI.RemoveFarbcodes(e.getMessage()));
+		ChatYaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
 		try{ChatYaml.save(file);}catch(IOException e1){}
 	}
 

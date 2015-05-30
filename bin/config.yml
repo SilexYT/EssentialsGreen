@@ -37,3 +37,8 @@ Commands:
 - /op
 CommandBlackListBypassPlayerList:
 - <Player>
+#----------------#
+#NickNameBlackList#
+#----------------#
+NickNames:
+- <Names>

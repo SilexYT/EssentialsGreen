@@ -16,14 +16,16 @@ public class Heal implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					p.setHealth(20.0);
+					p.setFoodLevel(20);
 					p.sendMessage(EssentialsGreen.prefix + "You'd healed");
 				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player!");
 			}else{
 				Player p = Bukkit.getPlayer(args[0]);
 				if(!(p == null)){
 					p.setHealth(20.0);
-					p.sendMessage(EssentialsGreen.prefix + "You've healed " + args[0]);
-					sender.sendMessage(EssentialsGreen.prefix + "You'd healed from" + sender.getName());
+					p.setFoodLevel(20);
+					sender.sendMessage(EssentialsGreen.prefix + "You've healed " + args[0]);
+					p.sendMessage(EssentialsGreen.prefix + "You'd healed from" + sender.getName());
 				}else sender.sendMessage(EssentialsGreen.prefix + "This Player is not online!");
 			}
 		}
