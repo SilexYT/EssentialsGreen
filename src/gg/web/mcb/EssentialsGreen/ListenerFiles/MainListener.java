@@ -2,27 +2,24 @@ package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
-
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.meta.BookMeta;
 
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
 	
 	EssentialsGreen plugin;
-	
 	public MainListener(EssentialsGreen main) {
 		plugin = main;
 	}
@@ -31,47 +28,43 @@ public class MainListener implements Listener {
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
+		//SetPlayerDatas
+		plugin.SetforAllPlayerGroupPrefix();
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
-	    Date date = new Date();
-	    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
-		boolean b = false;
-		if(UserFile.exists()){
-			b = true;
-		}
 		UserFileYaml.set("Username", p.getName());
-		UserFileYaml.set("UUID", U.toString());
 		UserFileYaml.set("IP", p.getAddress().toString());
-		UserFileYaml.addDefault("StartPlaying", time.format(date));
-		UserFileYaml.set("LastPlaying", time.format(date));
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
-		UserFileYaml.options().copyDefaults(true);
-		try{UserFileYaml.save(UserFile);}catch(IOException e1){e1.printStackTrace();}
-		plugin.SetforAllPlayerGroupPrefix();
-		UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
-		UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
-		
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
+			//BanKick and BanJoinBrodcast
 			p.kickPlayer((plugin.getConfig().getString("Ban-Prefix") + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 			e.setJoinMessage(plugin.getConfig().getString("Ban-JoinBrodcast").replace("{Player}".replace('&', '§'), p.getName()).replace("{Reason}", UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 		}else{
-			if(b == true){
+			//JoinMessage and FirstJoinMessage
+			if(UserFile.exists()){
 				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
 			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
+			//SpawnTeleport
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");
 			}
 		}
+	    //SaveFile
+		try{
+			UserFileYaml.options().copyDefaults(true);
+			UserFileYaml.save(UserFile);
+		}catch(IOException e1){
+			e1.printStackTrace();
+		}
+		
 	}
 	
 	@EventHandler
 	public void PlayerLeave(PlayerQuitEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
-		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
-		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
-		
+		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data"));
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
 			p.kickPlayer(UserFileYaml.getString("Ban.Reason"));
 			e.setQuitMessage("");
@@ -106,6 +99,21 @@ public class MainListener implements Listener {
 					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
 				}
 			}
+		}
+	}
+	
+	@EventHandler
+	public void BookFarbcodeChanger(PlayerEditBookEvent e){
+		BookMeta B = e.getNewBookMeta();
+		if(plugin.getConfig().getString("BookFarbcodes").equalsIgnoreCase("true")){
+			ArrayList<String> Pages = (ArrayList<String>)B.getPages();
+			for(int i = 0; i < Pages.size(); i++){
+				String Page = Pages.get(i).replace('&', '§');
+				Pages.remove(i);
+				Pages.set(i, Page);
+			}
+			B.setPages(Pages);
+			e.setNewBookMeta(B);
 		}
 	}
 }

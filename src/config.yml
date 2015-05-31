@@ -6,6 +6,7 @@
 ops-name-color: 4
 NickNamePrefix: ''
 JoinSpawnTeleport: true
+BookFarbcodes: true
 #----------------#
 #Chat Settings!  #
 #----------------#
@@ -27,7 +28,7 @@ TnTBlockDamage: true
 WhitherSkullBlockDamage: true
 Ender_CrystalBlockDamage: true
 FireballBlockDamage: true
-PhysicExplosion: true
+PhysicExplosion: false
 #----------------#
 #CommandBlacklist#
 #Bypass Permmision : EssentilasGreen.CommandBlacklist.bypass#

@@ -1,5 +1,5 @@
 name: EssentialsGreen
-version: 2.8
+version: 2.9Dev
 author: Marco606598
 
 main: gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen
@@ -105,4 +105,10 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      warp:
           usage: /warp <Command>
+          permission: EssentialsGreen.DefaultPermmision
+     skull:
+          usage: /skull [Owner]
+          permission: EssentialsGreen.DefaultPermmision
+     spawnmob:
+          usage: /spawnmob <mob> [Ammount]
           permission: EssentialsGreen.DefaultPermmision

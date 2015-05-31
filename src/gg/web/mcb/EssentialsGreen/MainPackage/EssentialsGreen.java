@@ -29,6 +29,8 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.nick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.say;
 import gg.web.mcb.EssentialsGreen.CommandFiles.seed;
 import gg.web.mcb.EssentialsGreen.CommandFiles.setworldspawn;
+import gg.web.mcb.EssentialsGreen.CommandFiles.skull;
+import gg.web.mcb.EssentialsGreen.CommandFiles.spawnmob;
 import gg.web.mcb.EssentialsGreen.CommandFiles.speed;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
@@ -85,22 +87,33 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("rl").setExecutor(new Reload());
 		getCommand("whitelist").setExecutor(new Whitelist());
 		getCommand("warp").setExecutor(new Warp());
+		getCommand("skull").setExecutor(new skull());
+		getCommand("spawnmob").setExecutor(new spawnmob());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		//Files
+		//ConfigFile
 		saveDefaultConfig();
+		//SpawnFile
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
-		ReloadPlayerGroupPrefix();
-		System.out.println("[EssentialsGreen] Load Completed");
+		//UserdateFile
 		File UserdataFile = new File("plugins/EssentialsGreen/userdata");
 		UserdataFile.mkdir();
+		//WarpFile
 		File WarpFile = new File("plugins/EssentialsGreen/Warp");
 		WarpFile.mkdir();
+		//ReloadGroupPrefix
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+			@Override
+			public void run(){
+				SetforAllPlayerGroupPrefix();
+			}
+		}, 0, 20);
+		System.out.println("[EssentialsGreen] Load Completed");
 	}
 
 	@Override
@@ -133,18 +146,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		return true;
 	}
 	
-	public void ReloadPlayerGroupPrefix(){
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			@Override
-			public void run() {
-				SetforAllPlayerGroupPrefix();
-			}
-		}, 0, 30);
-	}
-	
 	public void SetforAllPlayerGroupPrefix(){
 		for(Player p : Bukkit.getOnlinePlayers()){
-			File File = new File("plugins/EssentialsGreen/UserData/" + p.getUniqueId().toString() + ".data");
+			File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 			YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
 			if(!(Bukkit.getPluginCommand("pex") == null)){
 				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());

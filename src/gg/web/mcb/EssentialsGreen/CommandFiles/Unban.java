@@ -26,7 +26,7 @@ public class Unban implements CommandExecutor {
 				p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");
 			}else if(args.length > 0){
 				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
-				File File = new File("plugins/EssentialsGreen/UserData/" + Player.getUniqueId().toString() + ".data");
+				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
 
 				if(File.exists()){

@@ -30,7 +30,7 @@ public class Ban implements CommandExecutor {
 			}else if(args.length > 1){
 				String Reason = "";
 				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
-				File File = new File("plugins/EssentialsGreen/UserData/" + Player.getUniqueId().toString() + ".data");
+				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
 				for(int i = 1; args.length > i; i++){
 					Reason = Reason + " " + args[i];

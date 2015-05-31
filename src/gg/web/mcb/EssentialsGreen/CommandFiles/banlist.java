@@ -12,7 +12,7 @@ public class banlist implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.Banlist")){
-			File F = new File("plugins/EssentialsGreen/UserData");
+			File F = new File("plugins/EssentialsGreen/userdata");
 			File[] list = F.listFiles();
 			int Banned = 0;
 			sender.sendMessage(EssentialsGreen.prefix + "[Banlist]");
