@@ -37,7 +37,7 @@ public class Ban implements CommandExecutor {
 				}
 				
 				if(File.exists()){
-					if(Bukkit.getOperators().contains(args[0])){
+					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
 						UserFileYaml.set("Ban.Reason", Reason);
 						Player target = Bukkit.getPlayer(args[0]);
@@ -46,7 +46,7 @@ public class Ban implements CommandExecutor {
 						}
 						try{UserFileYaml.save(File);}catch (IOException e){}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned!");
-					}else p.sendMessage(EssentialsGreen.prefix + "You can not capture the player as he permmision the EssentialsGreen.ban.exempt estate");
+					}else p.sendMessage(EssentialsGreen.prefix + "You can not ban the player!");
 				}else p.sendMessage(EssentialsGreen.prefix + "This player has never been on the server");
 			}
 		}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
