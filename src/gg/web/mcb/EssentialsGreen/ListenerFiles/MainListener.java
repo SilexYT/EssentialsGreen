@@ -11,10 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerEditBookEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.meta.BookMeta;
 
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
@@ -99,21 +97,6 @@ public class MainListener implements Listener {
 					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
 				}
 			}
-		}
-	}
-	
-	@EventHandler
-	public void BookFarbcodeChanger(PlayerEditBookEvent e){
-		BookMeta B = e.getNewBookMeta();
-		if(plugin.getConfig().getString("BookFarbcodes").equalsIgnoreCase("true")){
-			ArrayList<String> Pages = (ArrayList<String>)B.getPages();
-			for(int i = 0; i < Pages.size(); i++){
-				String Page = Pages.get(i).replace('&', '§');
-				Pages.remove(i);
-				Pages.set(i, Page);
-			}
-			B.setPages(Pages);
-			e.setNewBookMeta(B);
 		}
 	}
 }

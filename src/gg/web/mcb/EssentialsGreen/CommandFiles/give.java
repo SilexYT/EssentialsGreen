@@ -1,7 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.API.ItemManager;
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 
 import org.bukkit.Bukkit;
@@ -14,25 +13,30 @@ import org.bukkit.inventory.ItemStack;
 
 public class give implements CommandExecutor {
 
+	@SuppressWarnings({ "unused", "deprecation" })
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args){
 		if(p.hasPermission("EssentialsGreen.give")){
 			if(args.length == 0){
-				p.sendMessage(EssentialsGreen.prefix + "/give <Player> <Materiel | ID> [Ammount]");
+				p.sendMessage(EssentialsGreen.prefix + "/give <Player> <Materiel | ID> [Ammount] [SubID]");
 			}else if(args.length == 1){
 				p.sendMessage(EssentialsGreen.prefix + "/give " + args[0] + " <ID> [Ammount]");
 			}else if(args.length > 1){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(!(target == null)){
-					if(NumberManager.firstNumberCheck(args[1])){
+					if(new Integer(args[0]) != null){
 						if(ItemManager.CheckID(new Integer(args[1])) == true){
 							if(args.length == 2){
 								Material Materiel = ItemManager.getMaterialByID(new Integer(args[1]));
 								target.getInventory().addItem(new ItemStack(Materiel, 1));
 								p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : 1");
-							}else{
+							}else if(args.length == 3){
 								Material Materiel = ItemManager.getMaterialByID(new Integer(args[1]));
 								target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2])));
+								p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
+							}else{
+								Material Materiel = ItemManager.getMaterialByID(new Integer(args[1]));
+								target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2]), (short)0, new Byte(args[3])));
 								p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
 							}
 						}else p.sendMessage(EssentialsGreen.prefix + "ID not Found");
@@ -41,9 +45,13 @@ public class give implements CommandExecutor {
 							Material Materiel = Material.matchMaterial(args[1]);
 							target.getInventory().addItem(new ItemStack(Materiel, 1));
 							p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : 1");
-						}else{
+						}else if(args.length == 3){
 							Material Materiel = Material.matchMaterial(args[1]);
 							target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2])));
+							p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
+						}else{
+							Material Materiel = ItemManager.getMaterialByID(new Integer(args[1]));
+							target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2]), (short)0, new Byte(args[3])));
 							p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
 						}
 					}else p.sendMessage(EssentialsGreen.prefix + "Materiel not Found");

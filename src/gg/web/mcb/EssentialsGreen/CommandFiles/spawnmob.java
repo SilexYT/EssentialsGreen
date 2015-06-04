@@ -1,6 +1,5 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,9 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({ "deprecation", "unused" })
 public class spawnmob implements CommandExecutor {
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args){
 		if(sender.hasPermission("EssentialsGreen.spawnmob")){
@@ -31,7 +30,7 @@ public class spawnmob implements CommandExecutor {
 					if(args.length == 1){
 						p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
 					}else{
-						if(NumberManager.IsStringint(args[1])){
+						if(new Integer(args[1]) != null){
 							for(int i = 0; new Integer(args[1]) > i; i++){
 								p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
 							}

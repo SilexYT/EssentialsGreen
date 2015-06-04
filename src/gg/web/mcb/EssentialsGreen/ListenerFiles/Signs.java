@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
 import gg.web.mcb.EssentialsGreen.API.ItemManager;
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
+
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,7 +51,7 @@ public class Signs implements Listener {
 					e.setLine(0, "§1[Free]");
 					if(Line1.split(":").length != 0){
 						String[] LineSplit = Line1.split(":");
-						if(NumberManager.IsStringint(LineSplit[0]) & NumberManager.IsStringint(LineSplit[1])){
+						if(new Integer(LineSplit[0]) != null & new Integer(LineSplit[1]) != null){
 							int ID = new Integer(LineSplit[0]);
 							if(!ItemManager.CheckID(ID)){
 								e.setLine(1, "§4Error Item");

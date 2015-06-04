@@ -61,10 +61,12 @@ public class Warp implements CommandExecutor {
 					}else{
 						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[0] + ".yml");
 						if(WarpFile.exists()){
-							YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
-							Location SpawnLoc = new Location(Bukkit.getWorld(File.getString("Location.World")), File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
-							p.teleport(SpawnLoc);
-							p.sendMessage(EssentialsGreen.prefix + "Teleport...");
+							if(p.hasPermission("EssentialsGreen.Warp." + args[0]) | p.hasPermission("EssentialsGreen.Warp.*")){
+								YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
+								Location SpawnLoc = new Location(Bukkit.getWorld(File.getString("Location.World")), File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
+								p.teleport(SpawnLoc);
+								p.sendMessage(EssentialsGreen.prefix + "Teleport...");
+							}else p.sendMessage(EssentialsGreen.prefix + "You do not have the permissions for the Warp!");
 						}else p.sendMessage(EssentialsGreen.prefix + "This Warp exist not!");
 					}
 				}

@@ -1,6 +1,5 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 
 import org.bukkit.Bukkit;
@@ -11,13 +10,14 @@ import org.bukkit.entity.Player;
 
 public class speed implements CommandExecutor {
 
+	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.speed")){
 			if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
-					if(NumberManager.IsStringint(args[0])){
+					if(new Integer(args[0]) != null){
 						float i = new Float(args[0])/10;
 						if(i < 11){
 							if(p.isFlying()){
@@ -34,7 +34,7 @@ public class speed implements CommandExecutor {
 				if(args.length > 1){
 					Player target = Bukkit.getPlayer(args[1]);
 					if(!(target == null)){
-						if(NumberManager.IsStringint(args[0])){
+						if(new Integer(args[0]) != null){
 							float i = new Float(args[0])/10;
 							if(i < 11){
 								if(target.isFlying()){

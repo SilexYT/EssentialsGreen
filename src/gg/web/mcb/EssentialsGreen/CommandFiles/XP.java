@@ -1,6 +1,5 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
 
 import org.bukkit.Bukkit;
@@ -11,6 +10,7 @@ import org.bukkit.entity.Player;
 
 public class XP implements CommandExecutor {
 
+	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.xp")){
@@ -22,7 +22,7 @@ public class XP implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					String number = args[1];
-					if(NumberManager.firstNumberCheck(number)){
+					if(new Integer(number) != null){
 						if(args[0].equalsIgnoreCase("set")){
 							p.setLevel(new Integer(number));
 							p.sendMessage(EssentialsGreen.prefix + "The xp set succesfully!");
@@ -34,7 +34,7 @@ public class XP implements CommandExecutor {
 				}else sender.sendMessage("[EssentialsGreen] You must be a Player!");
 			}else if(args.length > 2){
 				String number = args[1];
-				if(NumberManager.firstNumberCheck(number)){
+				if(new Integer(number) != null){
 					Player target = Bukkit.getPlayer(args[2]);
 					if(!(target == null)){
 						if(args[0].equalsIgnoreCase("set")){

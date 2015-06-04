@@ -1,8 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.API.NumberManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -39,7 +37,7 @@ public class spawnpoint implements CommandExecutor {
 					}
 				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint <Player|@a> <X> <Y> <Z> <World>");
 			}else if(args.length > 5){
-				if(NumberManager.IsStringint(args[1]) | NumberManager.IsStringint(args[2]) | NumberManager.IsStringint(args[3])){
+				if(new Integer(args[1]) != null & new Integer(args[2]) != null & new Integer(args[3]) != null){
 					int X = new Integer(args[1]);
 					int Y = new Integer(args[2]);
 					int Z = new Integer(args[3]);
