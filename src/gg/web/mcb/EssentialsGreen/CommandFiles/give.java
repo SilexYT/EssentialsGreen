@@ -2,7 +2,6 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.API.ItemManager;
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -20,7 +19,7 @@ public class give implements CommandExecutor {
 			if(args.length == 0){
 				p.sendMessage(EssentialsGreen.prefix + "/give <Player> <Materiel | ID> [Ammount] [SubID]");
 			}else if(args.length == 1){
-				p.sendMessage(EssentialsGreen.prefix + "/give " + args[0] + " <ID> [Ammount]");
+				p.sendMessage(EssentialsGreen.prefix + "/give " + args[0] + " <ID> [Ammount] [SubID]");
 			}else if(args.length > 1){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(!(target == null)){

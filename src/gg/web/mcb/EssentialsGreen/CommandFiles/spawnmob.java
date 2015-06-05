@@ -28,12 +28,18 @@ public class spawnmob implements CommandExecutor {
 					
 				}else if(args.length > 0){
 					if(args.length == 1){
-						p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
+						EntityType E = EntityType.fromName(args[0]);
+						if(E != null){
+							p.getWorld().spawnEntity(p.getLocation(), E);
+						}else p.sendMessage(EssentialsGreen.prefix + "This mob exist not!");
 					}else{
 						if(new Integer(args[1]) != null){
-							for(int i = 0; new Integer(args[1]) > i; i++){
-								p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
-							}
+							EntityType E = EntityType.fromName(args[0]);
+							if(E != null){
+								for(int i = 0; new Integer(args[1]) > i; i++){
+									p.getWorld().spawnEntity(p.getLocation(), E);
+								}
+							}else p.sendMessage(EssentialsGreen.prefix + "This mob exist not!");
 						}else p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
 					}
 				}

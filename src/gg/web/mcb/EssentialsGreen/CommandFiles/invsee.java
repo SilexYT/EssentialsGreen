@@ -24,6 +24,6 @@ public class invsee implements CommandExecutor {
 				}
 			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
 		}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
-		return false;
+		return true;
 	}
 }
