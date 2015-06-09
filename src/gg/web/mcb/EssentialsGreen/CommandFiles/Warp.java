@@ -28,36 +28,42 @@ public class Warp implements CommandExecutor {
 							+ "/warp list\n");
 				}else if(args.length > 0){
 					if(args[0].equalsIgnoreCase("add")){
-						if(args.length > 1){
-							File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
-							if(!WarpFile.exists()){
-								YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
-								Location loc = p.getLocation();
-								WarpYaml.set("Name", args[1]);
-								WarpYaml.set("Location.X", loc.getX());
-								WarpYaml.set("Location.Y", loc.getY());
-								WarpYaml.set("Location.Z", loc.getZ());
-								WarpYaml.set("Location.Yaw", loc.getYaw());
-								WarpYaml.set("Location.Pitch", loc.getPitch());
-								WarpYaml.set("Location.World", loc.getWorld().getName());
-								try{WarpYaml.save(WarpFile);}catch (IOException e){e.printStackTrace();}
-								p.sendMessage(EssentialsGreen.prefix + "Warp add!");
-							}else p.sendMessage(EssentialsGreen.prefix + "This Warp already exists!");
-						}else p.sendMessage(EssentialsGreen.prefix + "Please write a WarpName");
-					}else if(args[0].equalsIgnoreCase("remove")){
-						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
-						if(WarpFile.exists()){
-							WarpFile.delete();
-							p.sendMessage(EssentialsGreen.prefix + "Warp deleted!");
-						}else p.sendMessage(EssentialsGreen.prefix + "This Warp exists not!");
-					}else if(args[0].equalsIgnoreCase("list")){
-						p.sendMessage(EssentialsGreen.prefix + "Warp List");
-						File WarpFile = new File("plugins/EssentialsGreen/Warp");
-						File[] Files = WarpFile.listFiles();
-						for(int i = 0; i < Files.length; i++){
-							p.sendMessage("§e" + YamlConfiguration.loadConfiguration(Files[i]).getString("Name"));
+						if(p.hasPermission("EssentialsGreen.Warp.*")){
+							if(args.length > 1){
+								File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
+								if(!WarpFile.exists()){
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									Location loc = p.getLocation();
+									WarpYaml.set("Name", args[1]);
+									WarpYaml.set("Location.X", loc.getX());
+									WarpYaml.set("Location.Y", loc.getY());
+									WarpYaml.set("Location.Z", loc.getZ());
+									WarpYaml.set("Location.Yaw", loc.getYaw());
+									WarpYaml.set("Location.Pitch", loc.getPitch());
+									WarpYaml.set("Location.World", loc.getWorld().getName());
+									try{WarpYaml.save(WarpFile);}catch (IOException e){e.printStackTrace();}
+									p.sendMessage(EssentialsGreen.prefix + "Warp add!");
+								}else p.sendMessage(EssentialsGreen.prefix + "This Warp already exists!");
+							}else p.sendMessage(EssentialsGreen.prefix + "Please write a WarpName");
 						}
-						p.sendMessage("§3" + Files.length + " exist!");
+					}else if(args[0].equalsIgnoreCase("remove")){
+						if(p.hasPermission("EssentialsGreen.Warp.*")){
+							File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
+							if(WarpFile.exists()){
+								WarpFile.delete();
+								p.sendMessage(EssentialsGreen.prefix + "Warp deleted!");
+							}else p.sendMessage(EssentialsGreen.prefix + "This Warp exists not!");
+						}
+					}else if(args[0].equalsIgnoreCase("list")){
+						if(p.hasPermission("EssentialsGreen.Warp.*")){
+							p.sendMessage(EssentialsGreen.prefix + "Warp List");
+							File WarpFile = new File("plugins/EssentialsGreen/Warp");
+							File[] Files = WarpFile.listFiles();
+							for(int i = 0; i < Files.length; i++){
+								p.sendMessage("§e" + YamlConfiguration.loadConfiguration(Files[i]).getString("Name"));
+							}
+							p.sendMessage("§3" + Files.length + " exist!");
+						}
 					}else{
 						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[0] + ".yml");
 						if(WarpFile.exists()){
