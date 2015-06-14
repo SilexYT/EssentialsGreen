@@ -42,3 +42,12 @@ CommandBlackListBypassPlayerList:
 #----------------#
 NickNames:
 - <Names>
+#----------------#
+#WordsChatBlacklist#
+#----------------#
+BlockMessage: 'Please do not insult!'
+WordsBlacklist:
+- eZ
+- e-Z
+- EZ
+- ez

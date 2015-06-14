@@ -2,6 +2,7 @@ package gg.web.mcb.EssentialsGreen.MainPackage;
 
 import java.io.File;
 import java.io.IOException;
+
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -38,6 +39,7 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -45,6 +47,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.spigotmc.Metrics;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
@@ -94,6 +97,14 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
+		//StartMetrics
+		try{
+	        Metrics metrics = new Metrics();
+	        metrics.start();
+	        System.out.println("[EssentialsGreen] Metrics start!");
+	    }catch (IOException e) {
+	        System.err.println("[EssentialsGreen] Metrics start failed!");
+	    }
 		//ConfigFile
 		saveDefaultConfig();
 		//SpawnFile

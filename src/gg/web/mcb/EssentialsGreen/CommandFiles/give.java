@@ -17,13 +17,13 @@ public class give implements CommandExecutor {
 	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args){
 		if(p.hasPermission("EssentialsGreen.give")){
 			if(args.length == 0){
-				p.sendMessage(EssentialsGreen.prefix + "/give <Player> <Materiel | ID> [Ammount] [SubID]");
+				p.sendMessage(EssentialsGreen.prefix + "/give <Player> <Materiel|ID> [Ammount] [SubID]");
 			}else if(args.length == 1){
-				p.sendMessage(EssentialsGreen.prefix + "/give " + args[0] + " <ID> [Ammount] [SubID]");
+				p.sendMessage(EssentialsGreen.prefix + "/give " + args[0] + " <Material|ID> [Ammount] [SubID]");
 			}else if(args.length > 1){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(!(target == null)){
-					if(new Integer(args[0]) != null){
+					if(!(new Integer(args[1]) == null)){
 						if(ItemManager.CheckID(new Integer(args[1])) == true){
 							if(args.length == 2){
 								Material Materiel = ItemManager.getMaterialByID(new Integer(args[1]));

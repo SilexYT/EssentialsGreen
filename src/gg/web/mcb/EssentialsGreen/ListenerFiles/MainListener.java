@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,6 +76,15 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void PlayerChatEvent(AsyncPlayerChatEvent e){
 		Player p = e.getPlayer();
+		String[] M = e.getMessage().split(" ");
+		ArrayList<String> b = (ArrayList<String>)plugin.getConfig().get("WordsBlacklist");
+		for(int i = 0; M.length > i; i++){
+			if(b.contains(M[i])){
+				e.setCancelled(true);
+				p.sendMessage(EssentialsGreen.prefix + plugin.getConfig().getString("BlockMessage").replace('&', '§'));
+			}
+		}
+		
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		if(p.isOp()){
