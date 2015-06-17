@@ -1,7 +1,13 @@
 package gg.web.mcb.EssentialsGreen.MainPackage;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import gg.web.mcb.EssentialsGreen.API.Metrics;
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
@@ -19,6 +25,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
 import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
 import gg.web.mcb.EssentialsGreen.CommandFiles.defaultgamemode;
+import gg.web.mcb.EssentialsGreen.CommandFiles.effect;
 import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
 import gg.web.mcb.EssentialsGreen.CommandFiles.give;
 import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
@@ -36,7 +43,6 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
-import gg.web.mcb.EssentialsGreen.Metrics.Metrics;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
 import org.bukkit.Bukkit;
@@ -90,6 +96,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("warp").setExecutor(new Warp());
 		getCommand("skull").setExecutor(new skull());
 		getCommand("spawnmob").setExecutor(new spawnmob());
+		getCommand("effect").setExecutor(new effect());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -123,7 +130,14 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			}
 		}, 0, 20);
 		System.out.println("[EssentialsGreen] Load Completed");
-		System.out.println("[EssentialsGreen]");
+		//AutoUpdater
+		boolean b = Checkversion();
+
+		if(b == false){
+			System.out.println("[EssentialsGreen] No New Version Avaible");
+		}else{
+			System.out.println("[EssentialsGreen] New Version Avaible");
+		}
 	}
 
 	@Override
@@ -166,4 +180,31 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
 		}
 	}
+
+    public boolean Checkversion(){
+		String check = ReadURL("https://www.dropbox.com/s/9h6yniux4w96ozl/Version.txt?dl=1");
+		if(check.contains("CurrentVersion: " + getDescription().getVersion())){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+    private static String ReadURL(String URL){
+		  String re = "";
+		  try{
+			  URL url = new URL(URL);
+			  Reader is = new InputStreamReader(url.openStream());
+			  BufferedReader in = new BufferedReader(is);
+			  for(String s; ( s = in.readLine() )!= null;){
+				  re = re + " " +s;
+			  }
+			  in.close();
+		  }catch(MalformedURLException e){
+			  System.out.println( "MalformedURLException: " + e );
+		  }catch(IOException e){
+			  System.out.println( "IOException: " + e );
+		  }
+		  return re;
+    }
 }

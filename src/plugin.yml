@@ -112,3 +112,6 @@ commands:
      spawnmob:
           usage: /spawnmob <mob> [Ammount]
           permission: EssentialsGreen.DefaultPermmision
+     effect:
+          usage: /effect <Player> <Effect> [Time] [Level]
+          permission: EssentialsGreen.DefaultPermmision

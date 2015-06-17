@@ -43,8 +43,8 @@ public class MainListener implements Listener {
 		}else{
 			//JoinMessage and FirstJoinMessage
 			if(UserFile.exists()){
-				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
-			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
+				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
+			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
 			//SpawnTeleport
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");

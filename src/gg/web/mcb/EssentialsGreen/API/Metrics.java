@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.Metrics;
+package gg.web.mcb.EssentialsGreen.API;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
