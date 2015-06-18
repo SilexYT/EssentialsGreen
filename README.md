@@ -1,10 +1,10 @@
-This is a Bukkit open-sorcecode Plugin!
+#EssentialsGreen
 
-Please Copy the code not!
-This Projekt is Copyright protected!
-If you copied the code that is punishable by law!
+This is a Bukkit open-source Plugin!
 
-Credits:
-Minecraft Username: Marco606598
-Youtube: Marco MC
-Facebook: Marco Minecraft
+This project is released under the MIT license, which means you are free to copy the code as much as you want for free, as long as you keep to a MIT compatible license.  If you choose to copy this code, please release your code open-source to encourage code sharing.
+
+Credits:  
+Minecraft Username:Marco606598  
+Youtube: Marco MC  
+Facebook: Marco Minecraft  
