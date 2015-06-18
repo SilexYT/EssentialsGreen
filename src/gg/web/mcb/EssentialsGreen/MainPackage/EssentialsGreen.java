@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import gg.web.mcb.EssentialsGreen.API.DownloadFile;
 import gg.web.mcb.EssentialsGreen.API.Metrics;
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
@@ -131,12 +132,20 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		}, 0, 20);
 		System.out.println("[EssentialsGreen] Load Completed");
 		//AutoUpdater
-		boolean b = Checkversion();
-
-		if(b == false){
+		String[] File = ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
+		if(File[0].contains(getDescription().getVersion())){
 			System.out.println("[EssentialsGreen] No New Version Avaible");
 		}else{
 			System.out.println("[EssentialsGreen] New Version Avaible");
+			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
+				System.out.println("[EssentialsGreen] Update downloads!");
+				//Downloader
+				try{
+					DownloadFile.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+				}catch(IllegalStateException | IOException e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -181,29 +190,20 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		}
 	}
 
-    public boolean Checkversion(){
-		String check = ReadURL("https://www.dropbox.com/s/9h6yniux4w96ozl/Version.txt?dl=1");
-		if(check.contains("CurrentVersion: " + getDescription().getVersion())){
-			return false;
-		}else{
-			return true;
-		}
-	}
-
     private static String ReadURL(String URL){
 		  String re = "";
 		  try{
 			  URL url = new URL(URL);
 			  Reader is = new InputStreamReader(url.openStream());
 			  BufferedReader in = new BufferedReader(is);
-			  for(String s; ( s = in.readLine() )!= null;){
+			  for(String s; (s = in.readLine()) != null;){
 				  re = re + " " +s;
 			  }
 			  in.close();
 		  }catch(MalformedURLException e){
-			  System.out.println( "MalformedURLException: " + e );
+			  System.out.println("MalformedURLException: " + e);
 		  }catch(IOException e){
-			  System.out.println( "IOException: " + e );
+			  System.out.println("IOException: " + e);
 		  }
 		  return re;
     }

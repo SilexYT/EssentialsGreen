@@ -6,6 +6,7 @@
 ops-name-color: 4
 NickNamePrefix: ''
 JoinSpawnTeleport: true
+AutoUpdate: true
 #----------------#
 #Chat Settings!  #
 #----------------#
