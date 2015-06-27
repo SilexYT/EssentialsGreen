@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,7 +16,7 @@ public class Teleport implements CommandExecutor {
 			Player p = (Player)sender;
 			if(p.hasPermission("EssentialsGreen.tp")){
 				if(args.length == 0){
-					p.sendMessage(EssentialsGreen.prefix + "/tp <Target> or /tp <Player> <Target>");
+					p.sendMessage(EssentialsGreen.prefix + "/tp <Target> [Target]");
 				}else if(args.length == 1){
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
