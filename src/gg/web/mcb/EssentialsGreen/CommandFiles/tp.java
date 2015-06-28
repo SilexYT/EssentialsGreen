@@ -22,7 +22,7 @@ public class tp implements CommandExecutor {
 						p.teleport(target);
 						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
 					}else p.sendMessage(EssentialsGreen.prefix + "This player is not online");
-				}else if(args.length == 2){
+				}else if(args.length > 1){
 					Player p2 = Bukkit.getPlayer(args[0]);
 					Player target = Bukkit.getPlayer(args[1]);
 					if(!(target == null)){

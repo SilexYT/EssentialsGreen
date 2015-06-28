@@ -35,7 +35,7 @@ public class Internet {
 	}
 
 	public static String ReadURL(String URL){
-    	String re = "";
+		String re = "";
     	try{
     		URL url = new URL(URL);
     		Reader is = new InputStreamReader(url.openStream());

@@ -49,7 +49,7 @@ public class Signs implements Listener {
 			if(e.getPlayer().hasPermission("EssentialsGreen.create.FreeSign")){
 				if(Line1 != null){
 					e.setLine(0, "§1[Free]");
-					if(Line1.split(":").length != 0){
+					if(Line1.split(":").length == 2){
 						String[] LineSplit = Line1.split(":");
 						if(new Integer(LineSplit[0]) != null & new Integer(LineSplit[1]) != null){
 							int ID = new Integer(LineSplit[0]);

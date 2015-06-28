@@ -39,7 +39,7 @@ public class spawn implements CommandExecutor {
 					if(!(target == null)){
 						Location SpawnLoc = new Location(Bukkit.getWorld(SY.getString("Spawn.Location.World")), SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
 						target.teleport(SpawnLoc);
-						target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By Console");
+						target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By " + sender.getName());
 					}
 				}else sender.sendMessage(EssentialsGreen.prefix + "No Spawn Found");
 			}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
