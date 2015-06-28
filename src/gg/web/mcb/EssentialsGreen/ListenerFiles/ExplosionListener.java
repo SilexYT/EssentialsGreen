@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.ListenerFiles;
 
 import java.util.ArrayList;
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -14,10 +14,10 @@ import org.bukkit.util.Vector;
 
 @SuppressWarnings("deprecation")
 public class ExplosionListener implements Listener {
-	
+
 	EssentialsGreen plugin;
 	ArrayList<Material> db = new ArrayList<Material>();
-	
+
 	public ExplosionListener(EssentialsGreen main){
 		plugin = main;
 		db.add(Material.BEDROCK);

@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Spawn implements CommandExecutor {
+public class spawn implements CommandExecutor {
 	
 	EssentialsGreen plugin;
 	
-	public Spawn(EssentialsGreen main) {
+	public spawn(EssentialsGreen main) {
 		plugin = main;
 	}
 

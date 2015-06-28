@@ -1,8 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.API.ActionBarAPI;
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -2,7 +2,7 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.io.File;
 import java.io.IOException;
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -10,11 +10,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class Unban implements CommandExecutor {
+public class unban implements CommandExecutor {
 	
 	EssentialsGreen plugin;
 	
-	public Unban(EssentialsGreen main) {
+	public unban(EssentialsGreen main) {
 		plugin = main;
 	}
 	

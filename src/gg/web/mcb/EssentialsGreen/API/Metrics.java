@@ -544,8 +544,7 @@ public class Metrics {
         /**
          * Called after the website graphs have been updated
          */
-        public void reset() {
-        }
+        public void reset(){}
 
         @Override
         public int hashCode() {
@@ -554,14 +553,11 @@ public class Metrics {
 
         @Override
         public boolean equals(final Object object) {
-            if (!(object instanceof Plotter)) {
+            if(!(object instanceof Plotter)){
                 return false;
             }
-
             final Plotter plotter = (Plotter) object;
             return plotter.name.equals(name) && plotter.getValue() == getValue();
         }
-
     }
-
 }

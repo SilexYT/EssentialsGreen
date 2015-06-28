@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;

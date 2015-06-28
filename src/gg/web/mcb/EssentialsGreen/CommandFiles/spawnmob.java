@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

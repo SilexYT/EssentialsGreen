@@ -2,9 +2,7 @@ package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.io.File;
 import java.io.IOException;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Warp implements CommandExecutor {
+public class warp implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {

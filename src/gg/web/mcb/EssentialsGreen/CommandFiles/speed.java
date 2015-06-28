@@ -1,7 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +18,7 @@ public class speed implements CommandExecutor {
 					Player p = (Player)sender;
 					if(new Integer(args[0]) != null){
 						float i = new Float(args[0])/10;
-						if(i < 11){
+						if(new Integer(args[0]) < 11){
 							if(p.isFlying()){
 								p.setFlySpeed(i);
 								p.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");
@@ -36,7 +35,7 @@ public class speed implements CommandExecutor {
 					if(!(target == null)){
 						if(new Integer(args[0]) != null){
 							float i = new Float(args[0])/10;
-							if(i < 11){
+							if(new Integer(args[0]) < 11){
 								if(target.isFlying()){
 									target.setFlySpeed(i);
 									target.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");

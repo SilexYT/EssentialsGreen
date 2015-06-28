@@ -1,14 +1,13 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class Whitelist implements CommandExecutor {
+public class whitelist implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
 	@Override

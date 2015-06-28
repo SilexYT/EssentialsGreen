@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import java.io.IOException;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class SetSpawn implements CommandExecutor {
+public class setspawn implements CommandExecutor {
 	
 	EssentialsGreen plugin;
 	
-	public SetSpawn(EssentialsGreen main) {
+	public setspawn(EssentialsGreen main) {
 		plugin = main;
 	}
 
@@ -41,5 +41,4 @@ public class SetSpawn implements CommandExecutor {
 		}else System.out.println("[EssentialsGreen] You must be a Player!");
 		return true;
 	}
-
 }

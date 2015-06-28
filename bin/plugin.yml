@@ -1,8 +1,9 @@
 name: EssentialsGreen
-version: 3.2
+version: 3.3
 author: Marco606598
+IsDevBuild: 'true'
 
-main: gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen
+main: gg.web.mcb.EssentialsGreenEssentialsGreen
 commands:
      EssentialsGreen:
           usage: /<command>
@@ -17,10 +18,10 @@ commands:
           usage: /gm <Mode> [Player]
           permission: EssentialsGreen.DefaultPermmision
      tp:
-          usage: /tp <target> or /tp <Player> <target>
+          usage: /tp <target> [other target]
           permission: EssentialsGreen.DefaultPermmision
      Spawn:
-          usage: /spawn
+          usage: /spawn [target]
           permission: EssentialsGreen.DefaultPermmision
      SetSpawn:
           usage: /setspawn

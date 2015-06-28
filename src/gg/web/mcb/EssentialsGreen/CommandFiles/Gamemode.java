@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -8,13 +8,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Gamemode implements CommandExecutor {
+public class gamemode implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args){
 		if(sender.hasPermission("EssentialsGreen.gamemode")){
 			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> or /gamemode <0|1|2|3> <Target>");
+				sender.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
 			}else if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
@@ -30,9 +30,9 @@ public class Gamemode implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("3") | args[0].equalsIgnoreCase("spectator")){
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(EssentialsGreen.prefix + "Your gamemode has been changed");
-					}else p.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> or /gamemode <0|1|2|3> <Target>");
+					}else p.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
 				}else System.out.println(EssentialsGreen.prefix + "You must be a Player!");
-			}else if(args.length == 2){
+			}else if(args.length > 1){
 				Player Target = Bukkit.getPlayer(args[1]);
 				if(!(Target == null)){
 					if(args[0].equalsIgnoreCase("0") | args[0].equalsIgnoreCase("survival")){
@@ -51,7 +51,7 @@ public class Gamemode implements CommandExecutor {
 						Target.setGameMode(GameMode.SPECTATOR);
 						Target.sendMessage(EssentialsGreen.prefix + "Your gamemode has been changed by " + sender.getName());
 						sender.sendMessage(EssentialsGreen.prefix + Target.getName() + " gamemode has been changed");
-					}else sender.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> or /gamemode <0|1|2|3> <Target>");
+					}else sender.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
 				}else sender.sendMessage(EssentialsGreen.prefix + "This target player is not online");
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");

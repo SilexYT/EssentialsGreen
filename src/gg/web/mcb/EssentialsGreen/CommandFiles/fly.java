@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class fly implements CommandExecutor {
-	public ArrayList<String> FlyingPlayers = new ArrayList<String>();
+	ArrayList<String> FlyingPlayers = new ArrayList<String>();
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {

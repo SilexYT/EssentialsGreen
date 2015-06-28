@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,14 +57,13 @@ public class MainListener implements Listener {
 		}
 		
 	}
-	
+
 	@EventHandler
 	public void PlayerLeave(PlayerQuitEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data"));
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
-			p.kickPlayer(UserFileYaml.getString("Ban.Reason"));
 			e.setQuitMessage("");
 		}else{
 			e.setQuitMessage(plugin.getConfig().getString("LeaveMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));

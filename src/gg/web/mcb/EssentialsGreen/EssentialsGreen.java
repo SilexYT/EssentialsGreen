@@ -1,45 +1,40 @@
-package gg.web.mcb.EssentialsGreen.MainPackage;
+package gg.web.mcb.EssentialsGreen;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import gg.web.mcb.EssentialsGreen.API.DownloadFile;
+import gg.web.mcb.EssentialsGreen.API.Internet;
 import gg.web.mcb.EssentialsGreen.API.Metrics;
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Gamemode;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Heal;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Kick;
-import gg.web.mcb.EssentialsGreen.CommandFiles.SetSpawn;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Spawn;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Teleport;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Time;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Unban;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Warp;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Whitelist;
-import gg.web.mcb.EssentialsGreen.CommandFiles.XP;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
 import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
 import gg.web.mcb.EssentialsGreen.CommandFiles.defaultgamemode;
 import gg.web.mcb.EssentialsGreen.CommandFiles.effect;
 import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
+import gg.web.mcb.EssentialsGreen.CommandFiles.gamemode;
 import gg.web.mcb.EssentialsGreen.CommandFiles.give;
+import gg.web.mcb.EssentialsGreen.CommandFiles.heal;
 import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
+import gg.web.mcb.EssentialsGreen.CommandFiles.kick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.kill;
 import gg.web.mcb.EssentialsGreen.CommandFiles.list;
 import gg.web.mcb.EssentialsGreen.CommandFiles.msg;
 import gg.web.mcb.EssentialsGreen.CommandFiles.nick;
 import gg.web.mcb.EssentialsGreen.CommandFiles.say;
 import gg.web.mcb.EssentialsGreen.CommandFiles.seed;
+import gg.web.mcb.EssentialsGreen.CommandFiles.setspawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.setworldspawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.skull;
+import gg.web.mcb.EssentialsGreen.CommandFiles.spawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.spawnmob;
 import gg.web.mcb.EssentialsGreen.CommandFiles.speed;
+import gg.web.mcb.EssentialsGreen.CommandFiles.time;
+import gg.web.mcb.EssentialsGreen.CommandFiles.tp;
+import gg.web.mcb.EssentialsGreen.CommandFiles.unban;
+import gg.web.mcb.EssentialsGreen.CommandFiles.warp;
+import gg.web.mcb.EssentialsGreen.CommandFiles.whitelist;
+import gg.web.mcb.EssentialsGreen.CommandFiles.xp;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
@@ -54,6 +49,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("deprecation")
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
 	public static String prefix = "§2[EG]§e ";
@@ -63,27 +59,27 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	@Override
 	public void onEnable(){
 		//Register Commands
-		getCommand("tp").setExecutor(new Teleport());
-		getCommand("gm").setExecutor(new Gamemode());
-		getCommand("Gamemode").setExecutor(new Gamemode());
-		getCommand("SetSpawn").setExecutor(new SetSpawn(this));
-		getCommand("Spawn").setExecutor(new Spawn(this));
+		getCommand("tp").setExecutor(new tp());
+		getCommand("gm").setExecutor(new gamemode());
+		getCommand("Gamemode").setExecutor(new gamemode());
+		getCommand("SetSpawn").setExecutor(new setspawn(this));
+		getCommand("Spawn").setExecutor(new spawn(this));
 		getCommand("actionbar").setExecutor(new ActionBar());
-		getCommand("kick").setExecutor(new Kick(this));
+		getCommand("kick").setExecutor(new kick(this));
 		getCommand("ban").setExecutor(new Ban(this));
-		getCommand("unban").setExecutor(new Unban(this));
+		getCommand("unban").setExecutor(new unban(this));
 		getCommand("banlist").setExecutor(new banlist());
 		getCommand("give").setExecutor(new give());
 		getCommand("msg").setExecutor(new msg());
-		getCommand("time").setExecutor(new Time());
-		getCommand("XP").setExecutor(new XP());
+		getCommand("time").setExecutor(new time());
+		getCommand("XP").setExecutor(new xp());
 		getCommand("broadcast").setExecutor(new broadcast());
 		getCommand("say").setExecutor(new say());
 		getCommand("kill").setExecutor(new kill());
 		getCommand("fly").setExecutor(new fly());
 		getCommand("speed").setExecutor(new speed());
 		getCommand("invsee").setExecutor(new invsee());
-		getCommand("heal").setExecutor(new Heal());
+		getCommand("heal").setExecutor(new heal());
 		getCommand("nick").setExecutor(new nick(this));
 		getCommand("setworldspawn").setExecutor(new setworldspawn());
 		getCommand("seed").setExecutor(new seed());
@@ -93,8 +89,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("stop").setExecutor(new Stop());
 		getCommand("reload").setExecutor(new Reload());
 		getCommand("rl").setExecutor(new Reload());
-		getCommand("whitelist").setExecutor(new Whitelist());
-		getCommand("warp").setExecutor(new Warp());
+		getCommand("whitelist").setExecutor(new whitelist());
+		getCommand("warp").setExecutor(new warp());
 		getCommand("skull").setExecutor(new skull());
 		getCommand("spawnmob").setExecutor(new spawnmob());
 		getCommand("effect").setExecutor(new effect());
@@ -132,21 +128,24 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		}, 0, 20);
 		System.out.println("[EssentialsGreen] Load Completed");
 		//AutoUpdater
-		String[] File = ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-		if(File[0].contains(getDescription().getVersion())){
-			System.out.println("[EssentialsGreen] No New Version Avaible");
-		}else{
-			System.out.println("[EssentialsGreen] New Version Avaible");
-			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-				System.out.println("[EssentialsGreen] Update downloads!");
-				//Downloader
-				try{
-					DownloadFile.downloadFile(File[1], "plugins/EssentialsGreen.jar");
-				}catch(IllegalStateException | IOException e){
-					e.printStackTrace();
+		YamlConfiguration Dec = YamlConfiguration.loadConfiguration(getResource("plugin.yml"));
+		if(Dec.getString("IsDevBuild").equalsIgnoreCase("false")){
+			String[] File = Internet.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
+			if(File[0].contains(getDescription().getVersion())){
+				System.out.println("[EssentialsGreen] No New Version Avaible");
+			}else{
+				System.out.println("[EssentialsGreen] New Version Avaible");
+				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
+					System.out.println("[EssentialsGreen] Update downloads!");
+					//Downloader
+					try{
+						Internet.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+					}catch(IllegalStateException | IOException e){
+						e.printStackTrace();
+					}
 				}
 			}
-		}
+		}else System.out.println("[EssentialsGreen] Disable AutoUpdater rampart this version a Developer Version is!");
 	}
 
 	@Override
@@ -189,22 +188,4 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
 		}
 	}
-
-    private static String ReadURL(String URL){
-		  String re = "";
-		  try{
-			  URL url = new URL(URL);
-			  Reader is = new InputStreamReader(url.openStream());
-			  BufferedReader in = new BufferedReader(is);
-			  for(String s; (s = in.readLine()) != null;){
-				  re = re + " " +s;
-			  }
-			  in.close();
-		  }catch(MalformedURLException e){
-			  System.out.println("MalformedURLException: " + e);
-		  }catch(IOException e){
-			  System.out.println("IOException: " + e);
-		  }
-		  return re;
-    }
 }

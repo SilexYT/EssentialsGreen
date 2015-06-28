@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -23,6 +23,7 @@ public class kill implements CommandExecutor{
 					for(Player p : Bukkit.getOnlinePlayers()){
 						p.setHealth(0.0);
 					}
+					sender.sendMessage(EssentialsGreen.prefix + "All Players killed!");
 				}else if(args[0].equalsIgnoreCase("@e") | args[0].equalsIgnoreCase("all")){
 					if(args.length > 1){
 						World W = Bukkit.getWorld(args[1]); 
@@ -32,7 +33,6 @@ public class kill implements CommandExecutor{
 									p.setHealth(0.0);
 								}
 							}
-							
 							List<Entity> e = Bukkit.getWorld(args[1]).getEntities();
 							for(int i = 0; e.size() > i; i++){
 								Entity E = e.get(i);
@@ -40,12 +40,14 @@ public class kill implements CommandExecutor{
 									E.remove();	
 								}
 							}
+							sender.sendMessage(EssentialsGreen.prefix + "All Entitys killed!");
 						}else sender.sendMessage(EssentialsGreen.prefix + "The World exist not!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
 						target.setHealth(0.0);
+						sender.sendMessage(EssentialsGreen.prefix + "Player killed!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
 				}
 			}

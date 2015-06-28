@@ -1,7 +1,6 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,7 +40,7 @@ public class effect implements CommandExecutor {
 		}
 		return true;
 	}
-	
+
 	public void setPotionEffect(Player target, CommandSender sender, String[] args, int length, int Level){
 		PotionEffectType E = PotionEffectType.getByName(args[1]);
 		if(E != null){

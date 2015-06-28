@@ -1,9 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.util.ArrayList;
-
-import gg.web.mcb.EssentialsGreen.MainPackage.EssentialsGreen;
-
+import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +27,7 @@ public class nick implements CommandExecutor {
 					if(args[0].length() < 16){
 						if(args[0].equalsIgnoreCase("off")){
 							String name = p.getName();
-							p.setCustomName(name);
+							p.setCustomName(null);
 							p.setDisplayName(name);
 							p.setPlayerListName(name);
 							p.sendMessage(EssentialsGreen.prefix + "Your name is now again " + name);
