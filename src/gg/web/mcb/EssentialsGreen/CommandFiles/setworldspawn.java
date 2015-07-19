@@ -19,8 +19,8 @@ public class setworldspawn implements CommandExecutor {
 				Location loc = p.getLocation();
 				W.setSpawnLocation((int)loc.getX(), (int)loc.getY(), (int)loc.getZ());
 				p.sendMessage(EssentialsGreen.prefix + "Set World Spawn completed!");
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-		}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
 		return true;
 	}
 }

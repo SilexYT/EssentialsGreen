@@ -31,7 +31,7 @@ public class gamemode implements CommandExecutor {
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(EssentialsGreen.prefix + "Your gamemode has been changed");
 					}else p.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
-				}else System.out.println(EssentialsGreen.prefix + "You must be a Player!");
+				}else System.out.println(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 			}else if(args.length > 1){
 				Player Target = Bukkit.getPlayer(args[1]);
 				if(!(Target == null)){
@@ -52,9 +52,9 @@ public class gamemode implements CommandExecutor {
 						Target.sendMessage(EssentialsGreen.prefix + "Your gamemode has been changed by " + sender.getName());
 						sender.sendMessage(EssentialsGreen.prefix + Target.getName() + " gamemode has been changed");
 					}else sender.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
-				}else sender.sendMessage(EssentialsGreen.prefix + "This target player is not online");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

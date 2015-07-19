@@ -45,12 +45,12 @@ public class nick implements CommandExecutor {
 								p.setDisplayName(prefix + args[0]);
 								p.setPlayerListName(prefix + args[0]);
 								p.sendMessage(EssentialsGreen.prefix + "Your name is now " + args[0]);
-							}else p.sendMessage(EssentialsGreen.prefix + "The Name is on the blacklist!");
+							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Name is on the blacklist!");
 						}
-					}else p.sendMessage(EssentialsGreen.prefix + "The name must be under 16");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The name must be under 16");
 				}
-			}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

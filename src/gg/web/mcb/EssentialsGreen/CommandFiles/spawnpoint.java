@@ -19,7 +19,7 @@ public class spawnpoint implements CommandExecutor {
 					Player p = (Player)sender;
 					p.setBedSpawnLocation(p.getLocation());
 					p.sendMessage(EssentialsGreen.prefix + "Spawn Location set!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint <Player|@a> <X> <Y> <Z> <World>");
+				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint [Player|@a] [<X> <Y> <Z> <World>]");
 			}else if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
@@ -33,11 +33,11 @@ public class spawnpoint implements CommandExecutor {
 						if(!(target == null)){
 							target.setBedSpawnLocation(p.getLocation());
 							p.sendMessage(EssentialsGreen.prefix + "Spawn Location set from " + args[0] + "!");
-						}else p.sendMessage(EssentialsGreen.prefix + "This player is not online");
+						}else p.sendMessage(EssentialsGreen.prefix + "T§4[§lError§r§4] The player is not online");
 					}
 				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint <Player|@a> <X> <Y> <Z> <World>");
 			}else if(args.length > 5){
-				if(new Integer(args[1]) != null & new Integer(args[2]) != null & new Integer(args[3]) != null){
+				if(Integer.getInteger(args[1]) != null & Integer.getInteger(args[2]) != null & Integer.getInteger(args[3]) != null){
 					int X = new Integer(args[1]);
 					int Y = new Integer(args[2]);
 					int Z = new Integer(args[3]);
@@ -53,11 +53,11 @@ public class spawnpoint implements CommandExecutor {
 						if(!(target == null)){
 							target.setBedSpawnLocation(loc);
 							sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from " + args[0] + "!");
-						}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
+						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 					}
-				}else sender.sendMessage(EssentialsGreen.prefix + "Please Write Cordinates!");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write the Cordinates!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

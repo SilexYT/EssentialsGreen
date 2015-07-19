@@ -2,7 +2,8 @@ package gg.web.mcb.EssentialsGreen;
 
 import java.io.File;
 import java.io.IOException;
-import gg.web.mcb.EssentialsGreen.API.Internet;
+
+import gg.web.mcb.EssentialsGreen.API.InternetAPI;
 import gg.web.mcb.EssentialsGreen.API.Metrics;
 import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
@@ -41,6 +42,7 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
 import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -64,7 +66,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("Gamemode").setExecutor(new gamemode());
 		getCommand("SetSpawn").setExecutor(new setspawn(this));
 		getCommand("Spawn").setExecutor(new spawn(this));
-		getCommand("actionbar").setExecutor(new ActionBar());
 		getCommand("kick").setExecutor(new kick(this));
 		getCommand("ban").setExecutor(new Ban(this));
 		getCommand("unban").setExecutor(new unban(this));
@@ -94,6 +95,12 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("skull").setExecutor(new skull());
 		getCommand("spawnmob").setExecutor(new spawnmob());
 		getCommand("effect").setExecutor(new effect());
+		//1.8.X Spigot Commands
+		String[] ver = Bukkit.getVersion().split(":");
+		if(ver[1].equalsIgnoreCase("1.8>") | ver[1].equalsIgnoreCase("1.8.3>")){
+			getCommand("actionbar").setExecutor(new ActionBar());
+			System.out.println("[EssentialsGreen] The 1.8 Commands is enable");
+		}else System.out.println("[EssentialsGreen] The 1.8 Commands is for the 1.8.X Bukkit/Spigot");
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -130,16 +137,15 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		//AutoUpdater
 		YamlConfiguration Dec = YamlConfiguration.loadConfiguration(getResource("plugin.yml"));
 		if(Dec.getString("IsDevBuild").equalsIgnoreCase("false")){
-			String[] File = Internet.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
+			String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
 			if(File[0].contains(getDescription().getVersion())){
 				System.out.println("[EssentialsGreen] No New Version Avaible");
 			}else{
 				System.out.println("[EssentialsGreen] New Version Avaible");
 				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-					System.out.println("[EssentialsGreen] Update downloads!");
-					//Downloader
+					System.out.println("[EssentialsGreen] The new version is in Downloading...\nBy the restart is the new version on!");
 					try{
-						Internet.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+						InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
 					}catch(IllegalStateException | IOException e){
 						e.printStackTrace();
 					}
@@ -182,7 +188,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		for(Player p : Bukkit.getOnlinePlayers()){
 			File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 			YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
-			if(!(Bukkit.getPluginCommand("pex") == null)){
+			if(Bukkit.getPluginCommand("pex") != null){
 				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
 			}else YF.set("GroupPrefix", "");
 			try{YF.save(File);}catch(IOException e){e.printStackTrace();}

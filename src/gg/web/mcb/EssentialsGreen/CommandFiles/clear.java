@@ -36,9 +36,9 @@ public class clear implements CommandExecutor {
 					Target.getInventory().setBoots(AIR);
 					Target.sendMessage(EssentialsGreen.prefix + "Inventory cleared!");
 					sender.sendMessage(EssentialsGreen.prefix + "Inventory cleared from " + args[0] + "!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "This Player is not online!");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This Player is not online!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

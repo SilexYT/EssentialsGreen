@@ -19,19 +19,19 @@ public class seed implements CommandExecutor {
 					World W = Bukkit.getWorld(args[0]);
 					if(!(W == null)){
 						p.sendMessage(EssentialsGreen.prefix + "Seed: " + W.getSeed());
-					}else p.sendMessage(EssentialsGreen.prefix + "The World exist not!");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
 				}else{
 					World W = p.getWorld();
 					p.sendMessage(EssentialsGreen.prefix + "Seed: " + W.getSeed());
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		}else{
 			if(args.length > 0){
 				World W = Bukkit.getWorld(args[0]);
 				if(!(W == null)){
 					sender.sendMessage(EssentialsGreen.prefix + "Seed: " + W.getSeed());
-				}else sender.sendMessage(EssentialsGreen.prefix + "The World exist not!");
-			}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
+			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] provide a World");
 		}
 		return true;
 	}

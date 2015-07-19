@@ -27,14 +27,13 @@ public class kick implements CommandExecutor {
 					for(int i = 1; args.length > i; i++){
 						Reason = Reason + " " + args[i];
 					}
-					
 					Player kickPlayer = Bukkit.getPlayer(args[0]);
 					if(!(kickPlayer == null)){
 						kickPlayer.kickPlayer(plugin.getConfig().getString("Kick-Prefix").replace('&', '§') + Reason);
 						Bukkit.broadcastMessage(EssentialsGreen.prefix + args[0] + " was kicked, Reason : " + Reason);
-					}else p.sendMessage(EssentialsGreen.prefix + "This player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

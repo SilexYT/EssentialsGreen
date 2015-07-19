@@ -37,8 +37,8 @@ public class setspawn implements CommandExecutor {
 				}catch (IOException e) {
 					e.printStackTrace();
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-		}else System.out.println("[EssentialsGreen] You must be a Player!");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else System.out.println(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 		return true;
 	}
 }

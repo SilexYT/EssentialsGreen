@@ -20,10 +20,10 @@ public class invsee implements CommandExecutor {
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
 						p.openInventory(target.getInventory());
-					}else p.sendMessage(EssentialsGreen.prefix + "This target player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-		}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
 		return true;
 	}
 }

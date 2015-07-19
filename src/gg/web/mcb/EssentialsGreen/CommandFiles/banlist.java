@@ -14,17 +14,16 @@ public class banlist implements CommandExecutor {
 		if(sender.hasPermission("EssentialsGreen.Banlist")){
 			File F = new File("plugins/EssentialsGreen/userdata");
 			File[] list = F.listFiles();
-			int Banned = 0;
 			sender.sendMessage(EssentialsGreen.prefix + "[Banlist]");
 			for(int i = 0; i < list.length; i++){
 				YamlConfiguration Player = YamlConfiguration.loadConfiguration(list[i]);
-				if(Player.getString("Ban.Enable").equalsIgnoreCase("true")){
-					sender.sendMessage("§e" + Player.getString("Username") + " | Reason : " + Player.getString("Ban.Reason"));
-					Banned++;
+				if(Player.getString("Ban.Enable") != null){
+					if(Player.getString("Ban.Enable").equalsIgnoreCase("true")){
+						sender.sendMessage("§2§l" + Player.getString("Username") + " §r§a| §7Reason §a: §3§l" + Player.getString("Ban.Reason"));
+					}
 				}
 			}
-			sender.sendMessage("§3There are " + Banned + " Players banned");
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

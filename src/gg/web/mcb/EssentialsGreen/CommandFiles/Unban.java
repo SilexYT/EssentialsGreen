@@ -28,15 +28,14 @@ public class unban implements CommandExecutor {
 				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
 				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
-
 				if(File.exists()){
 						UserFileYaml.set("Ban.Enable", "false");
 						UserFileYaml.set("Ban.Reason", "null");
 						try{UserFileYaml.save(File);}catch (IOException e){}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " unbanned!");
-				}else p.sendMessage(EssentialsGreen.prefix + "This player has never been on the server");
+				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player has never been on the server");
 			}else p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");
-		}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

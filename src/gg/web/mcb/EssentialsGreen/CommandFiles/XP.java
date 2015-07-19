@@ -29,8 +29,8 @@ public class xp implements CommandExecutor {
 							p.setLevel(p.getLevel() + new Integer(number));
 							p.sendMessage(EssentialsGreen.prefix + "The xp set succesfully!");
 						}else p.sendMessage(EssentialsGreen.prefix + "/xp <set|add> <xp> [Player]");
-					}else p.sendMessage(EssentialsGreen.prefix + "Give a number!");
-				}else sender.sendMessage("[EssentialsGreen] You must be a Player!");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Give a number!");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 			}else if(args.length > 2){
 				String number = args[1];
 				if(new Integer(number) != null){
@@ -43,10 +43,10 @@ public class xp implements CommandExecutor {
 							target.setLevel(target.getLevel() + new Integer(number));
 							sender.sendMessage(EssentialsGreen.prefix + "The xp set succesfully!");
 						}else sender.sendMessage(EssentialsGreen.prefix + "/xp <set|add> <xp> [Player]");
-					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
-				}else sender.sendMessage(EssentialsGreen.prefix + "Give a number!");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Give a number!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 	return true;
 	}
 }

@@ -21,7 +21,7 @@ public class broadcast implements CommandExecutor {
 				Bukkit.broadcastMessage("§4[Brodcast] §e" + Text.replace('&', '§'));
 				sender.sendMessage(EssentialsGreen.prefix + "Message sent!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

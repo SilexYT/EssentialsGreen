@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class Internet {
+public class InternetAPI implements JavaAPI {
 	public static void downloadFile(String url_str, String OutputPath) throws IllegalStateException, MalformedURLException, ProtocolException, IOException {
 		FileOutputStream os = new FileOutputStream(OutputPath);
 		URL url = new URL(url_str.replace(" ", "%20"));
@@ -51,4 +51,9 @@ public class Internet {
     	}
     	return re;
     }
+
+	@Override
+	public boolean isAPI() {
+		return true;
+	}
 }

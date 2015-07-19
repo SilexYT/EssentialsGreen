@@ -25,10 +25,10 @@ public class ActionBar implements CommandExecutor {
 					if(!(target == null)){
 						ActionBarAPI.sendActionBar(target, args[1]);
 						sender.sendMessage(EssentialsGreen.prefix + "Message sent to " + args[0]);
-					}else sender.sendMessage(EssentialsGreen.prefix + "This target player is not online");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This target player is not online");
 				}
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

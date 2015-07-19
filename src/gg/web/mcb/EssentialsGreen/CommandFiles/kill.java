@@ -41,17 +41,17 @@ public class kill implements CommandExecutor{
 								}
 							}
 							sender.sendMessage(EssentialsGreen.prefix + "All Entitys killed!");
-						}else sender.sendMessage(EssentialsGreen.prefix + "The World exist not!");
-					}else sender.sendMessage(EssentialsGreen.prefix + "Please provide a World");
+						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] provide a World");
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){
 						target.setHealth(0.0);
 						sender.sendMessage(EssentialsGreen.prefix + "Player killed!");
-					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 				}
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

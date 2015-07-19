@@ -21,7 +21,7 @@ public class tp implements CommandExecutor {
 					if(!(target == null)){
 						p.teleport(target);
 						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
-					}else p.sendMessage(EssentialsGreen.prefix + "This player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 				}else if(args.length > 1){
 					Player p2 = Bukkit.getPlayer(args[0]);
 					Player target = Bukkit.getPlayer(args[1]);
@@ -29,11 +29,11 @@ public class tp implements CommandExecutor {
 						if(!(p2 == null)){
 							p2.teleport(target);
 							p2.sendMessage(EssentialsGreen.prefix + "Teleport...");
-						}else p.sendMessage(EssentialsGreen.prefix + "This teleport player is not online");
-					}else p.sendMessage(EssentialsGreen.prefix + "This target player is not online");
+						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This teleport player is not online");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-		}else System.out.println("[EssentialsGreen] You must be a Player!");
+			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else System.out.println(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 		return true;
 	}
 }

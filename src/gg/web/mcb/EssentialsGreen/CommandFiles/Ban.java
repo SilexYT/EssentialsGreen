@@ -46,10 +46,10 @@ public class Ban implements CommandExecutor {
 						}
 						try{UserFileYaml.save(File);}catch (IOException e){}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned!");
-					}else p.sendMessage(EssentialsGreen.prefix + "You can not ban the player!");
-				}else p.sendMessage(EssentialsGreen.prefix + "This player has never been on the server");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You can not ban the player!");
+				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This player has never been on the server");
 			}
-		}else p.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }
