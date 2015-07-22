@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,9 +17,13 @@ public class say implements CommandExecutor {
 			}else if(args.length > 0){
 				String Text = "";
 				for(int i = 0; args.length > i; i++){
-					Text = Text + " " + args[i];
+					if(Text == args[i]){
+						Text = Text + " " + args[i];
+					}else{
+						Text = args[i];
+					}
 				}
-				Bukkit.broadcastMessage("§4[SAY] §e" + Text.replace('&', '§'));
+				Bukkit.broadcastMessage("§3[§lSay§r§3] §e--->§f " + Text.replace('&', '§'));
 				sender.sendMessage(EssentialsGreen.prefix + "Message sent!");
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

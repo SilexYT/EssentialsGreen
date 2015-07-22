@@ -7,7 +7,7 @@ import net.minecraft.server.v1_8_R2.PlayerConnection;
 import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class ActionBarAPI implements JavaAPI {
+public class ActionBarAPI extends JavaAPI {
 	public static void sendActionBar(Player p, String Message){
 		if(Message == null) Message = "null";
 		Message.replace('&', '§');
@@ -25,10 +25,5 @@ public class ActionBarAPI implements JavaAPI {
 		PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
 		
 		con.sendPacket(packet);
-	}
-
-	@Override
-	public boolean isAPI() {
-		return true;
 	}
 }

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +15,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import de.inventivegames.nickname.Nicks;
 
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
@@ -26,6 +30,8 @@ public class MainListener implements Listener {
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
+		Nicks.removeNick(p.getUniqueId());
+		Nicks.removeSkin(p.getUniqueId());
 		//SetPlayerDatas
 		plugin.SetforAllPlayerGroupPrefix();
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");

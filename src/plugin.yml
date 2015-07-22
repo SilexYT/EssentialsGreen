@@ -1,7 +1,7 @@
 name: EssentialsGreen
-version: 3.3
+version: 3.4
 author: Marco606598
-IsDevBuild: 'false'
+IsDevBuild: 'true'
 
 main: gg.web.mcb.EssentialsGreen.EssentialsGreen
 commands:
@@ -112,6 +112,9 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      spawnmob:
           usage: /spawnmob <mob> [Ammount]
+          permission: EssentialsGreen.DefaultPermmision
+     spawnpoint:
+          usage: /spawnpoint
           permission: EssentialsGreen.DefaultPermmision
      effect:
           usage: /effect <Player> <Effect> [Time] [Level]

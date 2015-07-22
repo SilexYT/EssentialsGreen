@@ -17,14 +17,14 @@ public class kill implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.kill")){
 			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>|all <World>>");
+				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>>");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
 					for(Player p : Bukkit.getOnlinePlayers()){
 						p.setHealth(0.0);
 					}
 					sender.sendMessage(EssentialsGreen.prefix + "All Players killed!");
-				}else if(args[0].equalsIgnoreCase("@e") | args[0].equalsIgnoreCase("all")){
+				}else if(args[0].equalsIgnoreCase("@e")){
 					if(args.length > 1){
 						World W = Bukkit.getWorld(args[1]); 
 						if(!(W == null)){

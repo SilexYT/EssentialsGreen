@@ -47,7 +47,7 @@ public class give implements CommandExecutor {
 							target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2])));
 							p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
 						}else{
-							Material Materiel = ItemManagerAPI.getMaterialByID(new Integer(args[1]));
+							Material Materiel = Material.matchMaterial(args[1]);
 							target.getInventory().addItem(new ItemStack(Materiel, new Integer(args[2]), (short)0, new Byte(args[3])));
 							p.sendMessage(EssentialsGreen.prefix + "Give " + target.getName() + " " + args[1] + " (" + Materiel + ") Ammount : " + args[2]);
 						}

@@ -17,14 +17,14 @@ public class effect implements CommandExecutor {
 			if(args.length == 2){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
-					setPotionEffect(target, sender, args, 20*30, 1);
+					setPotionEffect(target, sender, args, 20*30, 0);
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");
 			}else if(args.length == 3){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
 					if(Integer.getInteger(args[2]) != null){
-						setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), 1);
-					}else sender.sendMessage("§4[§lError§r§4] Write a Time number!");
+						setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), 0);
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Time number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");
 			}else if(args.length > 3){
 				Player target = Bukkit.getPlayer(args[0]);
@@ -32,8 +32,8 @@ public class effect implements CommandExecutor {
 					if(Integer.getInteger(args[2]) != null){
 						if(Integer.getInteger(args[3]) != null){
 							setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), Integer.getInteger(args[3]));
-						}else sender.sendMessage("§4[§lError§r§4] Write a Level number!");
-					}else sender.sendMessage("§4[§lError§r§4] Write a Time number!");
+						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Level number!");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Time number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");
 			}else sender.sendMessage(EssentialsGreen.prefix + "/effect <Player> <Effect> [Time] [Level]");
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

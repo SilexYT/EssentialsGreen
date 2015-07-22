@@ -25,7 +25,7 @@ public class heal implements CommandExecutor {
 					p.setHealth(20.0);
 					p.setFoodLevel(20);
 					sender.sendMessage(EssentialsGreen.prefix + "You've healed " + args[0]);
-					p.sendMessage(EssentialsGreen.prefix + "You'd healed from" + sender.getName());
+					p.sendMessage(EssentialsGreen.prefix + "You'd healed from " + sender.getName());
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");
 			}
 		}

@@ -31,8 +31,8 @@ public class fly implements CommandExecutor {
 							p.sendMessage(EssentialsGreen.prefix + "Fly Mode changed!");
 							FlyingPlayers.add(PN);
 						}
-					}else p.sendMessage("This event is only for people without Creative Mode!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This event is only for people without Creative Mode!");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
 			}else{
 				if(args.length > 0){
 					Player target = Bukkit.getPlayer(args[0]);
@@ -51,11 +51,11 @@ public class fly implements CommandExecutor {
 								sender.sendMessage(EssentialsGreen.prefix + "Fly Mode changed from " + args[0] + "!");
 								FlyingPlayers.add(args[0]);
 							}
-						}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
-					}else sender.sendMessage("This event is only for people without Creative Mode!");
+						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This player is not online");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This event is only for people without Creative Mode!");
 				}
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

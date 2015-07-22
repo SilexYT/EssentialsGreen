@@ -25,7 +25,11 @@ public class kick implements CommandExecutor {
 				}else if(args.length > 1){
 					String Reason = "";
 					for(int i = 1; args.length > i; i++){
-						Reason = Reason + " " + args[i];
+						if(Reason == args[i]){
+							Reason = Reason + " " + args[i];
+						}else{
+							Reason = args[i];
+						}
 					}
 					Player kickPlayer = Bukkit.getPlayer(args[0]);
 					if(!(kickPlayer == null)){

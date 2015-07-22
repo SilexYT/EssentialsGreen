@@ -1,14 +1,16 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.API.ActionBarAPI;
+import gg.web.mcb.EssentialsGreen.API.JavaAPI;
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ActionBar implements CommandExecutor {
+public class actionbar extends JavaAPI implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
@@ -16,6 +18,14 @@ public class ActionBar implements CommandExecutor {
 			if(args.length == 0){
 				sender.sendMessage(EssentialsGreen.prefix + "/actionbar <Player|@a> <Message>");
 			}else if(args.length > 1){
+				String Text = "";
+				for(int i = 1; args.length > i; i++){
+					if(Text == args[i]){
+						Text = Text + " " + args[i];
+					}else{
+						Text = args[i];
+					}
+				}
 				if(args[0].equalsIgnoreCase("@a")){
 					for(Player p : Bukkit.getOnlinePlayers()){
 						ActionBarAPI.sendActionBar(p, args[1]);

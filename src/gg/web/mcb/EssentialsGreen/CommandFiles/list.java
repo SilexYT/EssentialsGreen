@@ -12,8 +12,7 @@ public class list implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label,String[] args) {
 		if(sender.hasPermission("EssentialsGreen.list")){
-			int MP = Bukkit.getMaxPlayers();
-			sender.sendMessage(EssentialsGreen.prefix + " [List]\nThere are " + Bukkit.getOnlinePlayers().size() + "/" + MP);
+			sender.sendMessage(EssentialsGreen.prefix + "[List]\nThere are " + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
 			for(Player p : Bukkit.getOnlinePlayers()){
 				sender.sendMessage("§e" + p.getName());
 			}

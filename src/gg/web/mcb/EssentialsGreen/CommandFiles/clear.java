@@ -24,7 +24,7 @@ public class clear implements CommandExecutor {
 					p.getInventory().setLeggings(AIR);
 					p.getInventory().setBoots(AIR);
 					p.sendMessage(EssentialsGreen.prefix + "Inventory cleared!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "/clear <Player>");
+				}else sender.sendMessage(EssentialsGreen.prefix + "/clear [Player]");
 			}else if(args.length > 0){
 				Player Target = Bukkit.getPlayer(args[0]);
 				if(!(Target == null)){

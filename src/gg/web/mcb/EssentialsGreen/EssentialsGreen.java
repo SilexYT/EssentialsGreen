@@ -2,10 +2,17 @@ package gg.web.mcb.EssentialsGreen;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import gg.web.mcb.EssentialsGreen.API.InternetAPI;
+import gg.web.mcb.EssentialsGreen.API.ItemManagerAPI;
+import gg.web.mcb.EssentialsGreen.API.JavaAPI;
 import gg.web.mcb.EssentialsGreen.API.Metrics;
-import gg.web.mcb.EssentialsGreen.CommandFiles.ActionBar;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
+import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
+import gg.web.mcb.EssentialsGreen.API.TitleAPI;
+import gg.web.mcb.EssentialsGreen.CommandFiles.actionbar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
@@ -29,6 +36,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.setworldspawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.skull;
 import gg.web.mcb.EssentialsGreen.CommandFiles.spawn;
 import gg.web.mcb.EssentialsGreen.CommandFiles.spawnmob;
+import gg.web.mcb.EssentialsGreen.CommandFiles.spawnpoint;
 import gg.web.mcb.EssentialsGreen.CommandFiles.speed;
 import gg.web.mcb.EssentialsGreen.CommandFiles.time;
 import gg.web.mcb.EssentialsGreen.CommandFiles.tp;
@@ -94,13 +102,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("warp").setExecutor(new warp());
 		getCommand("skull").setExecutor(new skull());
 		getCommand("spawnmob").setExecutor(new spawnmob());
+		getCommand("spawnpoint").setExecutor(new spawnpoint());
 		getCommand("effect").setExecutor(new effect());
-		//1.8.X Spigot Commands
-		String[] ver = Bukkit.getVersion().split(":");
-		if(ver[1].equalsIgnoreCase("1.8>") | ver[1].equalsIgnoreCase("1.8.3>")){
-			getCommand("actionbar").setExecutor(new ActionBar());
-			System.out.println("[EssentialsGreen] The 1.8 Commands is enable");
-		}else System.out.println("[EssentialsGreen] The 1.8 Commands is for the 1.8.X Bukkit/Spigot");
+		getCommand("actionbar").setExecutor(new actionbar());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -133,25 +137,38 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				SetforAllPlayerGroupPrefix();
 			}
 		}, 0, 20);
-		System.out.println("[EssentialsGreen] Load Completed");
+		Collection<Object> APIs = new ArrayList<Object>();
+		APIs.add(new JavaAPI());
+		APIs.add(new InternetAPI());
+		APIs.add(new ItemManagerAPI());
+		APIs.add(new StringAPI());
+		APIs.add(new TitleAPI());
+		APIs.add(new TablistTitleAPI());
+		JavaAPI.RegisterAPIs(APIs);
+		//DownloadAPIs
+		loadAPIs();
 		//AutoUpdater
+		String AutoUpdateString = null;
 		YamlConfiguration Dec = YamlConfiguration.loadConfiguration(getResource("plugin.yml"));
 		if(Dec.getString("IsDevBuild").equalsIgnoreCase("false")){
 			String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
 			if(File[0].contains(getDescription().getVersion())){
-				System.out.println("[EssentialsGreen] No New Version Avaible");
+				AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
 			}else{
-				System.out.println("[EssentialsGreen] New Version Avaible");
+				AutoUpdateString = "[EssentialsGreen] New Version Avaible";
 				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-					System.out.println("[EssentialsGreen] The new version is in Downloading...\nBy the restart is the new version on!");
+					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...\nBy the restart is the new version in runnning!";
 					try{
 						InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+						Bukkit.reload();
 					}catch(IllegalStateException | IOException e){
 						e.printStackTrace();
 					}
 				}
 			}
-		}else System.out.println("[EssentialsGreen] Disable AutoUpdater rampart this version a Developer Version is!");
+		}else AutoUpdateString = "[EssentialsGreen] Disable AutoUpdater rampart this version a Developer Version is!";
+		System.out.println(AutoUpdateString);
+		System.out.println("[EssentialsGreen] Load Completed");
 	}
 
 	@Override
@@ -160,8 +177,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			if(args.length == 0){
 				sender.sendMessage(prefix + "By Marco MC | [Marco606598]\n§3"
 						+ "/eg info\n"
-						+ "/eg reload\n"
-						+ "/eg reloadGroupPrefix");
+						+ "/eg reload");
 			}else{
 				if(args[0].equalsIgnoreCase("info")){
 					sender.sendMessage(prefix + "§a\n"
@@ -175,9 +191,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 						SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 						sender.sendMessage(prefix + "Config Reload completed");
 					}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-				}else if(args[0].equalsIgnoreCase("RelaodGroupPrefix")){
-					SetforAllPlayerGroupPrefix();
-					sender.sendMessage(prefix + "GroupPrefix relaoded!");
 				}
 			}
 		}
@@ -192,6 +205,21 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
 			}else YF.set("GroupPrefix", "");
 			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
+		}
+	}
+	
+	public void loadAPIs(){
+		//APIs Download
+		File NickNamer = new File("plugins/NickNamer_v2.2.3.jar");
+		File PacketListener = new File("plugins/PacketListenerAPI_v2.5.2.jar");
+		if(!NickNamer.exists() & !PacketListener.exists()){
+			try{
+				InternetAPI.downloadFile("https://www.dropbox.com/s/vz8shvl5mybuiax/NickNamer_v2.2.3.jar?dl=1", NickNamer.getPath());
+				InternetAPI.downloadFile("https://www.dropbox.com/s/blfseig9payc1fx/PacketListenerApi_v2.5.2.jar?dl=1", PacketListener.getPath());
+				Bukkit.reload();
+			}catch (IllegalStateException | IOException e){
+				System.out.println("[EssentialsGreen] The APIs can not download... please check you internet");
+			}
 		}
 	}
 }

@@ -42,19 +42,21 @@ public class spawnpoint implements CommandExecutor {
 					int Y = new Integer(args[2]);
 					int Z = new Integer(args[3]);
 					World World = Bukkit.getWorld(args[4]);
-					Location loc = new Location(World, X, Y, Z);
-					if(args[0].equalsIgnoreCase("@a")){
-						for(Player target : Bukkit.getOnlinePlayers()){
-							target.setBedSpawnLocation(loc);
+					if(World != null){
+						Location loc = new Location(World, X, Y, Z);
+						if(args[0].equalsIgnoreCase("@a")){
+							for(Player target : Bukkit.getOnlinePlayers()){
+								target.setBedSpawnLocation(loc);
+							}
+							sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from All Players to " + X + " " + Y + " " + Z + "!");
+						}else{
+							Player target = Bukkit.getPlayer(args[0]);
+							if(!(target == null)){
+								target.setBedSpawnLocation(loc);
+								sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from " + args[0] + "!");
+							}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 						}
-						sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from All Players to " + X + " " + Y + " " + Z + "!");
-					}else{
-						Player target = Bukkit.getPlayer(args[0]);
-						if(!(target == null)){
-							target.setBedSpawnLocation(loc);
-							sender.sendMessage(EssentialsGreen.prefix + "Spawn Location set from " + args[0] + "!");
-						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
-					}
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write the Cordinates!");
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

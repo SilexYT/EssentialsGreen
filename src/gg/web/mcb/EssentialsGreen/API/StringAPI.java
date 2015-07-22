@@ -1,6 +1,6 @@
 package gg.web.mcb.EssentialsGreen.API;
 
-public class StringAPI implements JavaAPI {
+public class StringAPI extends JavaAPI {
 
 	public static int getCount(String input, char c) {
 	    int count = 0;
@@ -10,10 +10,5 @@ public class StringAPI implements JavaAPI {
 	        }
 	    }
 	    return count;
-	}
-
-	@Override
-	public boolean isAPI() {
-		return true;
 	}
 }

@@ -1,11 +1,15 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import java.util.ArrayList;
+
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import de.inventivegames.nickname.Nicks;
 
 public class nick implements CommandExecutor {
 	
@@ -27,9 +31,9 @@ public class nick implements CommandExecutor {
 					if(args[0].length() < 16){
 						if(args[0].equalsIgnoreCase("off")){
 							String name = p.getName();
-							p.setCustomName(null);
-							p.setDisplayName(name);
 							p.setPlayerListName(name);
+							Nicks.removeNick(p.getUniqueId());
+							Nicks.removeSkin(p.getUniqueId());
 							p.sendMessage(EssentialsGreen.prefix + "Your name is now again " + name);
 						}else{
 							boolean block = false;
@@ -41,8 +45,8 @@ public class nick implements CommandExecutor {
 							}
 							if(block == false){
 								String prefix = plugin.getConfig().getString("NickNamePrefix").replace('&', '§');
-								p.setCustomName(prefix + args[0]);
-								p.setDisplayName(prefix + args[0]);
+								Nicks.setNick(p.getUniqueId(), prefix + args[0]);
+								Nicks.setSkin(p.getUniqueId(), prefix + args[0]);
 								p.setPlayerListName(prefix + args[0]);
 								p.sendMessage(EssentialsGreen.prefix + "Your name is now " + args[0]);
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Name is on the blacklist!");

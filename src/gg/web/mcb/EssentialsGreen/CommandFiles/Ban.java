@@ -1,8 +1,10 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import java.io.File;
 import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -33,9 +35,12 @@ public class Ban implements CommandExecutor {
 				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
 				for(int i = 1; args.length > i; i++){
-					Reason = Reason + " " + args[i];
+					if(Reason == args[i]){
+						Reason = Reason + " " + args[i];
+					}else{
+						Reason = args[i];
+					}
 				}
-				
 				if(File.exists()){
 					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
