@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,17 +14,10 @@ public class broadcast implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.broadcast")){
 			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/broadcast <Message>");
+				sender.sendMessage(EssentialsGreen.prefix + "/broadcast <Message...>");
 			}else if(args.length > 0){
-				String Text = "";
-				for(int i = 0; args.length > i; i++){
-					if(Text == args[i]){
-						Text = Text + " " + args[i];
-					}else{
-						Text = args[i];
-					}
-				}
-				Bukkit.broadcastMessage("§3[§lBrodcast§r§3] §e--->§f " + Text.replace('&', '§'));
+				String Text = StringAPI.toCompleteString(args, 0).replace('&', '§');
+				Bukkit.broadcastMessage("§3[§lBrodcast§r§3] §e--->§f " + Text);
 				sender.sendMessage(EssentialsGreen.prefix + "Message sent!");
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

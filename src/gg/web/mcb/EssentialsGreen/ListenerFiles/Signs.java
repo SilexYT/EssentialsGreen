@@ -45,12 +45,13 @@ public class Signs implements Listener {
 	@EventHandler
 	public void onSignChange(SignChangeEvent e){
 		Player p = e.getPlayer();
-		e.setLine(0, e.getLine(0).replace('&', '§'));
-		e.setLine(1, e.getLine(1).replace('&', '§'));
-		e.setLine(2, e.getLine(2).replace('&', '§'));
-		e.setLine(3, e.getLine(3).replace('&', '§'));
+		String[] Lines = e.getLines();
+		e.setLine(0, Lines[0].replace('&', '§'));
+		e.setLine(1, Lines[1].replace('&', '§'));
+		e.setLine(2, Lines[2].replace('&', '§'));
+		e.setLine(3, Lines[3].replace('&', '§'));
 		String Line1 = e.getLine(1);
-		if(e.getLine(0).equalsIgnoreCase("[Free]")){
+		if(e.getLine(0).equalsIgnoreCase("[Free]") | e.getLine(0).equalsIgnoreCase("§1[Free]")){
 			if(p.hasPermission("EssentialsGreen.create.FreeSign")){
 				if(Line1 != null){
 					e.setLine(0, "§1[Free]");
@@ -65,7 +66,7 @@ public class Signs implements Listener {
 					}else e.setLine(1, "<ID:SubID>");
 				}else e.setLine(1, "<ID:SubID>");
 			}
-		}else if(e.getLine(0).equalsIgnoreCase("[Command]")){
+		}else if(e.getLine(0).equalsIgnoreCase("[Command]") | e.getLine(0).equalsIgnoreCase("§1[Command]")){
 			if(p.hasPermission("EssentialsGreen.create.CommandSign")){
 				String[] command = e.getLine(1).split(" ");
 				if(!command[0].equalsIgnoreCase("op")){
@@ -75,7 +76,7 @@ public class Signs implements Listener {
 					p.sendMessage(EssentialsGreen.prefix + "This command must not be set command sign!");
 				}
 			}
-		}else if(e.getLine(0).equalsIgnoreCase("[CCommand]")){
+		}else if(e.getLine(0).equalsIgnoreCase("[CCommand]") | e.getLine(0).equalsIgnoreCase("§1[CCommand]")){
 			if(p.hasPermission("EssentialsGreen.create.ConsoleCommandSign")){
 				String[] command = e.getLine(1).split(" ");
 				if(!command[0].equalsIgnoreCase("op")){
@@ -85,7 +86,7 @@ public class Signs implements Listener {
 					p.sendMessage(EssentialsGreen.prefix + "This command must not be set command sign!");
 				}
 			}
-		}else if(e.getLine(0).equalsIgnoreCase("[Warp]")){
+		}else if(e.getLine(0).equalsIgnoreCase("[Warp]") | e.getLine(0).equalsIgnoreCase("§1[Warp]")){
 			if(p.hasPermission("EssentialsGreen.create.WarpSign")){
 				e.setLine(0, "§1[Warp]");
 				if(e.getLine(1) == null){

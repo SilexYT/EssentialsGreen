@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -15,8 +16,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import de.inventivegames.nickname.Nicks;
 
 @SuppressWarnings("unchecked")
 public class MainListener implements Listener {
@@ -30,8 +29,6 @@ public class MainListener implements Listener {
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
-		Nicks.removeNick(p.getUniqueId());
-		Nicks.removeSkin(p.getUniqueId());
 		//SetPlayerDatas
 		plugin.SetforAllPlayerGroupPrefix();
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
@@ -49,6 +46,12 @@ public class MainListener implements Listener {
 			if(UserFile.exists()){
 				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
 			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
+			//TablistSend
+			String Header = plugin.getConfig().getString("Header");
+			String Footer = plugin.getConfig().getString("Footer");
+			if(Header != "" & Footer != ""){
+				TablistTitleAPI.sendTabTitle(p, Header.replace('&', '§'), Footer.replace('&', '§'));
+			}
 			//SpawnTeleport
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");
@@ -71,23 +74,12 @@ public class MainListener implements Listener {
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data"));
 		if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
 			e.setQuitMessage("");
-		}else{
-			e.setQuitMessage(plugin.getConfig().getString("LeaveMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getName()).replace('&', '§'));
-		}
+		}else e.setQuitMessage(plugin.getConfig().getString("LeaveMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
 	}
 	
 	@EventHandler
 	public void PlayerChatEvent(AsyncPlayerChatEvent e){
 		Player p = e.getPlayer();
-		String[] M = e.getMessage().split(" ");
-		ArrayList<String> b = (ArrayList<String>)plugin.getConfig().get("WordsBlacklist");
-		for(int i = 0; M.length > i; i++){
-			if(b.contains(M[i])){
-				e.setCancelled(true);
-				p.sendMessage(EssentialsGreen.prefix + plugin.getConfig().getString("BlockMessage").replace('&', '§'));
-			}
-		}
-		
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		if(p.isOp()){
@@ -102,7 +94,7 @@ public class MainListener implements Listener {
 	public void CommandListener(PlayerCommandPreprocessEvent e){
 		Player p = e.getPlayer();
 		ArrayList<String> Commands = (ArrayList<String>)plugin.getConfig().get("Commands");
-			ArrayList<String> BypassPlayer = (ArrayList<String>)plugin.getConfig().get("CommandBlackListBypassPlayerList");
+		ArrayList<String> BypassPlayer = (ArrayList<String>)plugin.getConfig().get("CommandBlackListBypassPlayerList");
 		if(!p.hasPermission("EssentilasGreen.CommandBlacklist.bypass") | !BypassPlayer.contains(p.getName())){
 			for(int i = 0; i < Commands.size(); i++){
 				String[] Command = e.getMessage().split(" ");

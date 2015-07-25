@@ -19,9 +19,15 @@ public class time implements CommandExecutor {
 				}else if(args.length > 0){
 					if(args[0].equalsIgnoreCase("set")){
 						if(args.length == 2){
-							long time = new Long(args[1]);
-							p.getWorld().setTime(time);
-							p.sendMessage(EssentialsGreen.prefix + "The time was " + time);
+							if(args[1].equalsIgnoreCase("day")){
+								p.getWorld().setTime(1000);
+							}else if(args[1].equalsIgnoreCase("night")){
+								p.getWorld().setTime(13000);
+							}else{
+								long time = new Long(args[1]);
+								p.getWorld().setTime(time);
+								p.sendMessage(EssentialsGreen.prefix + "The time was " + time);
+							}
 						}else p.sendMessage(EssentialsGreen.prefix + "/time set <Time Ticks>");
 					}else if(args[0].equalsIgnoreCase("add")){
 						if(args.length == 2){
@@ -30,6 +36,8 @@ public class time implements CommandExecutor {
 							p.getWorld().setTime(time);
 							p.sendMessage(EssentialsGreen.prefix + "The time was " + time);
 						}else p.sendMessage(EssentialsGreen.prefix + "/time add <Time Ticks>");
+					}else if(args[0].equalsIgnoreCase("query")){
+						p.sendMessage(EssentialsGreen.prefix + "The Time is: " + p.getWorld().getTime());
 					}else p.sendMessage(EssentialsGreen.prefix + "/time <set|add> <Time Ticks>");
 				}
 			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

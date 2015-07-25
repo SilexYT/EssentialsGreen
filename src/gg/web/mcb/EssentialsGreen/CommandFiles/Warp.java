@@ -63,7 +63,7 @@ public class warp implements CommandExecutor {
 							for(int i = 0; i < Files.length; i++){
 								p.sendMessage("§e" + YamlConfiguration.loadConfiguration(Files[i]).getString("Name"));
 							}
-							p.sendMessage("§3" + Files.length + " exist!");
+							p.sendMessage("§3" + Files.length + " warps exist!");
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the command!");
 					}else{
 						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[0] + ".yml");

@@ -31,7 +31,9 @@ public class effect implements CommandExecutor {
 				if(target != null){
 					if(Integer.getInteger(args[2]) != null){
 						if(Integer.getInteger(args[3]) != null){
-							setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), Integer.getInteger(args[3]));
+							if(Integer.getInteger(args[3]) != 0){
+								setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), Integer.getInteger(args[3])-1);
+							}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The level number must be higher his 0!");
 						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Level number!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Time number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");

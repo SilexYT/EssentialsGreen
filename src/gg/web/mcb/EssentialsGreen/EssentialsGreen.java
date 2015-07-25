@@ -44,6 +44,7 @@ import gg.web.mcb.EssentialsGreen.CommandFiles.unban;
 import gg.web.mcb.EssentialsGreen.CommandFiles.warp;
 import gg.web.mcb.EssentialsGreen.CommandFiles.whitelist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.xp;
+import gg.web.mcb.EssentialsGreen.CommandManager.onTabCompleteManager;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
@@ -70,41 +71,77 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	public void onEnable(){
 		//Register Commands
 		getCommand("tp").setExecutor(new tp());
+		getCommand("tp").setTabCompleter(new onTabCompleteManager());
 		getCommand("gm").setExecutor(new gamemode());
-		getCommand("Gamemode").setExecutor(new gamemode());
-		getCommand("SetSpawn").setExecutor(new setspawn(this));
-		getCommand("Spawn").setExecutor(new spawn(this));
+		getCommand("gm").setTabCompleter(new onTabCompleteManager());
+		getCommand("gamemode").setExecutor(new gamemode());
+		getCommand("gamemode").setTabCompleter(new onTabCompleteManager());
+		getCommand("setspawn").setExecutor(new setspawn(this));
+		getCommand("setspawn").setTabCompleter(new onTabCompleteManager());
+		getCommand("spawn").setExecutor(new spawn(this));
+		getCommand("spawn").setTabCompleter(new onTabCompleteManager());
 		getCommand("kick").setExecutor(new kick(this));
+		getCommand("kick").setTabCompleter(new onTabCompleteManager());
 		getCommand("ban").setExecutor(new Ban(this));
+		getCommand("ban").setTabCompleter(new onTabCompleteManager());
 		getCommand("unban").setExecutor(new unban(this));
+		getCommand("unban").setTabCompleter(new onTabCompleteManager());
 		getCommand("banlist").setExecutor(new banlist());
+		getCommand("banlist").setTabCompleter(new onTabCompleteManager());
 		getCommand("give").setExecutor(new give());
+		getCommand("give").setTabCompleter(new onTabCompleteManager());
 		getCommand("msg").setExecutor(new msg());
+		getCommand("msg").setTabCompleter(new onTabCompleteManager());
 		getCommand("time").setExecutor(new time());
-		getCommand("XP").setExecutor(new xp());
+		getCommand("time").setTabCompleter(new onTabCompleteManager());
+		getCommand("xp").setExecutor(new xp());
+		getCommand("xp").setTabCompleter(new onTabCompleteManager());
 		getCommand("broadcast").setExecutor(new broadcast());
+		getCommand("broadcast").setTabCompleter(new onTabCompleteManager());
 		getCommand("say").setExecutor(new say());
+		getCommand("say").setTabCompleter(new onTabCompleteManager());
 		getCommand("kill").setExecutor(new kill());
+		getCommand("kill").setTabCompleter(new onTabCompleteManager());
 		getCommand("fly").setExecutor(new fly());
+		getCommand("fly").setTabCompleter(new onTabCompleteManager());
 		getCommand("speed").setExecutor(new speed());
+		getCommand("speed").setTabCompleter(new onTabCompleteManager());
 		getCommand("invsee").setExecutor(new invsee());
+		getCommand("invsee").setTabCompleter(new onTabCompleteManager());
 		getCommand("heal").setExecutor(new heal());
+		getCommand("heal").setTabCompleter(new onTabCompleteManager());
 		getCommand("nick").setExecutor(new nick(this));
+		getCommand("nick").setTabCompleter(new onTabCompleteManager());
 		getCommand("setworldspawn").setExecutor(new setworldspawn());
+		getCommand("setworldspawn").setTabCompleter(new onTabCompleteManager());
 		getCommand("seed").setExecutor(new seed());
+		getCommand("seed").setTabCompleter(new onTabCompleteManager());
 		getCommand("clear").setExecutor(new clear());
+		getCommand("clear").setTabCompleter(new onTabCompleteManager());
 		getCommand("list").setExecutor(new list());
+		getCommand("list").setTabCompleter(new onTabCompleteManager());
 		getCommand("defaultgamemode").setExecutor(new defaultgamemode());
+		getCommand("defaultgamemode").setTabCompleter(new onTabCompleteManager());
 		getCommand("stop").setExecutor(new Stop());
+		getCommand("stop").setTabCompleter(new onTabCompleteManager());
 		getCommand("reload").setExecutor(new Reload());
+		getCommand("reload").setTabCompleter(new onTabCompleteManager());
 		getCommand("rl").setExecutor(new Reload());
+		getCommand("rl").setTabCompleter(new onTabCompleteManager());
 		getCommand("whitelist").setExecutor(new whitelist());
+		getCommand("whitelist").setTabCompleter(new onTabCompleteManager());
 		getCommand("warp").setExecutor(new warp());
+		getCommand("warp").setTabCompleter(new onTabCompleteManager());
 		getCommand("skull").setExecutor(new skull());
+		getCommand("skull").setTabCompleter(new onTabCompleteManager());
 		getCommand("spawnmob").setExecutor(new spawnmob());
+		getCommand("spawnmob").setTabCompleter(new onTabCompleteManager());
 		getCommand("spawnpoint").setExecutor(new spawnpoint());
+		getCommand("spawnpoint").setTabCompleter(new onTabCompleteManager());
 		getCommand("effect").setExecutor(new effect());
+		getCommand("effect").setTabCompleter(new onTabCompleteManager());
 		getCommand("actionbar").setExecutor(new actionbar());
+		getCommand("actionbar").setTabCompleter(new onTabCompleteManager());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -145,19 +182,15 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		APIs.add(new TitleAPI());
 		APIs.add(new TablistTitleAPI());
 		JavaAPI.RegisterAPIs(APIs);
-		//DownloadAPIs
-		loadAPIs();
 		//AutoUpdater
 		String AutoUpdateString = null;
 		YamlConfiguration Dec = YamlConfiguration.loadConfiguration(getResource("plugin.yml"));
 		if(Dec.getString("IsDevBuild").equalsIgnoreCase("false")){
 			String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-			if(File[0].contains(getDescription().getVersion())){
-				AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
-			}else{
+			if(!File[0].contains(getDescription().getVersion())){
 				AutoUpdateString = "[EssentialsGreen] New Version Avaible";
 				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...\nBy the restart is the new version in runnning!";
+					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...!";
 					try{
 						InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
 						Bukkit.reload();
@@ -165,6 +198,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 						e.printStackTrace();
 					}
 				}
+			}else{
+				AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
 			}
 		}else AutoUpdateString = "[EssentialsGreen] Disable AutoUpdater rampart this version a Developer Version is!";
 		System.out.println(AutoUpdateString);
@@ -205,21 +240,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
 			}else YF.set("GroupPrefix", "");
 			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
-		}
-	}
-	
-	public void loadAPIs(){
-		//APIs Download
-		File NickNamer = new File("plugins/NickNamer_v2.2.3.jar");
-		File PacketListener = new File("plugins/PacketListenerAPI_v2.5.2.jar");
-		if(!NickNamer.exists() & !PacketListener.exists()){
-			try{
-				InternetAPI.downloadFile("https://www.dropbox.com/s/vz8shvl5mybuiax/NickNamer_v2.2.3.jar?dl=1", NickNamer.getPath());
-				InternetAPI.downloadFile("https://www.dropbox.com/s/blfseig9payc1fx/PacketListenerApi_v2.5.2.jar?dl=1", PacketListener.getPath());
-				Bukkit.reload();
-			}catch (IllegalStateException | IOException e){
-				System.out.println("[EssentialsGreen] The APIs can not download... please check you internet");
-			}
 		}
 	}
 }

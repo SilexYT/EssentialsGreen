@@ -1,6 +1,8 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,18 +21,9 @@ public class kick implements CommandExecutor {
 	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args) {
 			if(p.hasPermission("EssentialsGreen.kick")){
 				if(args.length == 0){
-					p.sendMessage(EssentialsGreen.prefix + "/kick <Player> <Reason>");
-				}else if(args.length == 1){
-					p.sendMessage(EssentialsGreen.prefix + "/kick " + args[0] + " <Reason>");
+					p.sendMessage(EssentialsGreen.prefix + "/kick <Player> <Reason...>");
 				}else if(args.length > 1){
-					String Reason = "";
-					for(int i = 1; args.length > i; i++){
-						if(Reason == args[i]){
-							Reason = Reason + " " + args[i];
-						}else{
-							Reason = args[i];
-						}
-					}
+					String Reason = StringAPI.toCompleteString(args, 1).replace('&', '§');
 					Player kickPlayer = Bukkit.getPlayer(args[0]);
 					if(!(kickPlayer == null)){
 						kickPlayer.kickPlayer(plugin.getConfig().getString("Kick-Prefix").replace('&', '§') + Reason);

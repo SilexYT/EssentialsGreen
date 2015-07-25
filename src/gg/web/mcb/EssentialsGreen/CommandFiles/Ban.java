@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,28 +27,20 @@ public class Ban implements CommandExecutor {
 	public boolean onCommand(CommandSender p, Command cmd, String Label, final String[] args) {
 		if(p.hasPermission("EssentialsGreen.ban")){
 			if(args.length == 0){
-				p.sendMessage(EssentialsGreen.prefix + "/ban <Player> <Reason>");
-			}else if(args.length == 1){
-				p.sendMessage(EssentialsGreen.prefix + "/ban " + args[0] + " <Reason>");
+				p.sendMessage(EssentialsGreen.prefix + "/ban <Player> <Reason...>");
 			}else if(args.length > 1){
 				String Reason = "";
 				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
 				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
-				for(int i = 1; args.length > i; i++){
-					if(Reason == args[i]){
-						Reason = Reason + " " + args[i];
-					}else{
-						Reason = args[i];
-					}
-				}
+				Reason = StringAPI.toCompleteString(args, 1).replace('&', '§');;
 				if(File.exists()){
 					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
 						UserFileYaml.set("Ban.Reason", Reason);
 						Player target = Bukkit.getPlayer(args[0]);
 						if(!(target == null)){
-							target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason);
+							target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason.replace('&', '§'));
 						}
 						try{UserFileYaml.save(File);}catch (IOException e){}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned!");

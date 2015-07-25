@@ -11,4 +11,16 @@ public class StringAPI extends JavaAPI {
 	    }
 	    return count;
 	}
+	
+	public static String toCompleteString(String[] args, int start){
+		String Text = "";
+		for(int i = start; args.length > i; i++){
+			if(Text != ""){
+				Text = Text + " " + args[i];
+			}else{
+				Text = args[i];
+			}
+		}
+		return Text;
+	}
 }
