@@ -16,7 +16,13 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class onTabCompleteManager extends EssentialsGreen implements TabCompleter {
+public class onTabCompleteManager implements TabCompleter {
+	
+	EssentialsGreen plugin;
+	
+	public onTabCompleteManager(EssentialsGreen eg) {
+		plugin = eg;
+	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
@@ -50,7 +56,7 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 			}
 		}else if(command.equalsIgnoreCase("effect")){
 			if(args.length == 2){
-				List<String> effects = (List<String>)YamlConfiguration.loadConfiguration(getResource("effects.list")).getList("Effects");
+				List<String> effects = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("effects.list")).getList("Effects");
 				return effects;
 			}else if(args.length == 3){
 				list.add("30");
@@ -70,7 +76,7 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 			}
 		}else if(command.equalsIgnoreCase("give")){
 			if(args.length == 2){
-				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(getResource("materiels.list")).getList("Materials");
+				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("materiels.list")).getList("Materials");
 				return Materiels;
 			}else if(args.length == 3){
 				list.add("64");
@@ -122,7 +128,7 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 		}else if(command.equalsIgnoreCase("spawn")){
 		}else if(command.equalsIgnoreCase("spawnmob")){
 			if(args.length == 1){
-				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(getResource("materiels.list")).getList("Materials");
+				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("Creature.list")).getList("Materials");
 				return Materiels;
 			}else if(args.length == 2){
 				list.add("1");
@@ -133,7 +139,9 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					Block b = p.getTargetBlock((HashSet<Byte>)null, 7);
-					list.add(""+b.getLocation().getX());
+					if(b != null){
+						list.add(""+b.getLocation().getX());
+					}
 					return list;
 				}else{
 					list.add("0");
@@ -142,7 +150,9 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					Block b = p.getTargetBlock((HashSet<Byte>)null, 7);
-					list.add(""+b.getLocation().getY());
+					if(b != null){
+						list.add(""+b.getLocation().getY());
+					}
 					return list;
 				}else{
 					list.add("0");
@@ -151,7 +161,9 @@ public class onTabCompleteManager extends EssentialsGreen implements TabComplete
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					Block b = p.getTargetBlock((HashSet<Byte>)null, 7);
-					list.add(""+b.getLocation().getZ());
+					if(b != null){
+						list.add(""+b.getLocation().getZ());
+					}
 					return list;
 				}else{
 					list.add("0");
