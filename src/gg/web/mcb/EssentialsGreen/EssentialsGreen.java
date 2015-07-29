@@ -9,11 +9,15 @@ import gg.web.mcb.EssentialsGreen.API.InternetAPI;
 import gg.web.mcb.EssentialsGreen.API.ItemManagerAPI;
 import gg.web.mcb.EssentialsGreen.API.JavaAPI;
 import gg.web.mcb.EssentialsGreen.API.Metrics;
+import gg.web.mcb.EssentialsGreen.API.MySQLAPI;
 import gg.web.mcb.EssentialsGreen.API.StringAPI;
 import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
 import gg.web.mcb.EssentialsGreen.API.TitleAPI;
+import gg.web.mcb.EssentialsGreen.CommandFiles.Reload;
+import gg.web.mcb.EssentialsGreen.CommandFiles.Stop;
 import gg.web.mcb.EssentialsGreen.CommandFiles.actionbar;
 import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
+import gg.web.mcb.EssentialsGreen.CommandFiles.asConsole;
 import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
 import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
 import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
@@ -49,8 +53,6 @@ import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
 import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
-import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Reload;
-import gg.web.mcb.EssentialsGreen.ServerManageCommandFiles.Stop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -69,7 +71,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onEnable(){
-		//Register Commands
+		/* Here Register all Commands!
+		 * And The TabCompleter!
+		 */
 		getCommand("tp").setExecutor(new tp());
 		getCommand("tp").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("gm").setExecutor(new gamemode());
@@ -140,19 +144,28 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("spawnpoint").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("effect").setExecutor(new effect());
 		getCommand("effect").setTabCompleter(new onTabCompleteManager(this));
-		getCommand("actionbar").setExecutor(new actionbar());
-		getCommand("actionbar").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("asConsole").setExecutor(new asConsole());
+		getCommand("asConsole").setTabCompleter(new onTabCompleteManager(this));
+		//1.8.7 CraftBukkit/Spigot commands
+		try{
+			Class.forName("org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer");
+			getCommand("actionbar").setExecutor(new actionbar());
+			getCommand("actionbar").setTabCompleter(new onTabCompleteManager(this));
+			System.out.println("[EssentialsGreen] The actionbar command is avaible");
+		}catch(ClassNotFoundException e1){
+			System.out.println("[EssentialsGreen] Please update your version to the Spigot 1.8.7 : The Actionbar command is disable!");
+		}
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		//StartMetrics
+		//Start Metrics
 		try{
 	        Metrics metrics = new Metrics(this);
 	        metrics.start();
 	        System.out.println("[EssentialsGreen] Metrics start!");
-	    }catch (IOException e) {
+	    }catch(IOException e){
 	        System.err.println("[EssentialsGreen] Metrics start failed!");
 	    }
 		//ConfigFile
@@ -171,9 +184,10 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			@Override
 			public void run(){
-				SetforAllPlayerGroupPrefix();
+				SFAGroup();
 			}
-		}, 0, 20);
+		}, 0, 5);
+		//APIManaging
 		Collection<Object> APIs = new ArrayList<Object>();
 		APIs.add(new JavaAPI());
 		APIs.add(new InternetAPI());
@@ -181,6 +195,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		APIs.add(new StringAPI());
 		APIs.add(new TitleAPI());
 		APIs.add(new TablistTitleAPI());
+		APIs.add(new MySQLAPI());
 		JavaAPI.RegisterAPIs(APIs);
 		//AutoUpdater
 		String AutoUpdateString = null;
@@ -232,14 +247,30 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		return true;
 	}
 	
-	public void SetforAllPlayerGroupPrefix(){
+	/*
+	 * This Methode controled the Prefix
+	 */
+	public void SFAGroup(){
 		for(Player p : Bukkit.getOnlinePlayers()){
 			File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 			YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
-			if(Bukkit.getPluginCommand("pex") != null){
-				YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
-			}else YF.set("GroupPrefix", "");
-			try{YF.save(File);}catch(IOException e){e.printStackTrace();}
+			try{
+				Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
+			    YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
+			    try{
+			    	YF.save(File);
+			    }catch(IOException e2){
+			    	e2.printStackTrace();
+			    }
+			}catch(ClassNotFoundException e){
+				YF.set("GroupPrefix", "");
+				try{
+			    	YF.save(File);
+			    }catch(IOException e2){
+			    	e.printStackTrace();
+			    }
+			}
+			
 		}
 	}
 }

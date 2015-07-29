@@ -1,10 +1,10 @@
 package gg.web.mcb.EssentialsGreen.API;
 
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import net.minecraft.server.v1_8_R2.IChatBaseComponent;
-import net.minecraft.server.v1_8_R2.PacketPlayOutTitle;
-import net.minecraft.server.v1_8_R2.PlayerConnection;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 public class TitleAPI extends JavaAPI {
 

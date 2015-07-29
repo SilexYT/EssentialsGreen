@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.ServerManageCommandFiles;
+package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
@@ -15,7 +15,7 @@ public class Reload implements CommandExecutor {
 			Bukkit.reload();
 			Bukkit.reloadWhitelist();
 			Bukkit.broadcastMessage(EssentialsGreen.prefix + "§2Reload Finished!");
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

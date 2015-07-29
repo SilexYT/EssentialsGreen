@@ -1,10 +1,10 @@
 package gg.web.mcb.EssentialsGreen.API;
 
 import java.lang.reflect.Field;
-import net.minecraft.server.v1_8_R2.IChatBaseComponent;
-import net.minecraft.server.v1_8_R2.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_8_R2.PlayerConnection;
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class TablistTitleAPI extends JavaAPI {

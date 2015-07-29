@@ -1,29 +1,20 @@
 package gg.web.mcb.EssentialsGreen.API;
 
-import net.minecraft.server.v1_8_R2.IChatBaseComponent;
-import net.minecraft.server.v1_8_R2.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_8_R2.PacketPlayOutChat;
-import net.minecraft.server.v1_8_R2.PlayerConnection;
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class ActionBarAPI extends JavaAPI {
-	public static void sendActionBar(Player p, String Message){
-		if(Message == null) Message = "null";
-		Message.replace('&', '§');
-		
-		PlayerConnection con = ((CraftPlayer) p).getHandle().playerConnection;
-		IChatBaseComponent chat = ChatSerializer.a("{\"text\": \"" + Message + "\"}");
-		PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
-		
-		con.sendPacket(packet);
-	}
 	
-	public static void directcancelActionBar(Player p){
-		PlayerConnection con = ((CraftPlayer)p).getHandle().playerConnection;
-		IChatBaseComponent chat = ChatSerializer.a("{text:}");
-		PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
-		
-		con.sendPacket(packet);
+	//The boolean is the finish return. false = error; true = finish;
+	public static boolean sendActionBar(Player p, String Message){
+		try{
+			Class.forName("org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer");
+			if(Message == null) Message = "";
+			net.minecraft.server.v1_8_R3.PlayerConnection con = ((org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer) p).getHandle().playerConnection;
+			net.minecraft.server.v1_8_R3.IChatBaseComponent chat = net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + Message + "\"}");
+			net.minecraft.server.v1_8_R3.PacketPlayOutChat packet = new net.minecraft.server.v1_8_R3.PacketPlayOutChat(chat, (byte) 2);
+			con.sendPacket(packet);
+			return true;
+		}catch(ClassNotFoundException e1){}
+		return false;
 	}
 }

@@ -2,7 +2,6 @@ package gg.web.mcb.EssentialsGreen.API;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

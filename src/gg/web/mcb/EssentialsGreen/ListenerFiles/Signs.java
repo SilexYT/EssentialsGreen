@@ -30,9 +30,9 @@ public class Signs implements Listener {
 						p.updateInventory();
 					}
 				}else if(s.getLine(0).equalsIgnoreCase("§1[Command]")){
-					p.performCommand(s.getLine(1));
+					p.performCommand(s.getLine(1).replace("@p", p.getName()));
 				}else if(s.getLine(0).equalsIgnoreCase("§1[CCommand]")){
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), s.getLine(1));
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), s.getLine(1).replace("@p", p.getName()));
 				}else if(s.getLine(0).equalsIgnoreCase("§1[Warp]")){
 					if(!s.getLine(1).equalsIgnoreCase("<Warp>")){
 						p.performCommand("warp " + s.getLine(1));

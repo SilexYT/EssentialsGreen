@@ -44,7 +44,7 @@ public class spawn implements CommandExecutor {
 					if(!(target == null)){
 						World world = Bukkit.getWorld(SY.getString("Spawn.Location.World"));
 						if(world != null){
-							Location SpawnLoc = new Location(world, SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"));
+							Location SpawnLoc = new Location(world, SY.getDouble("Spawn.Location.X"), SY.getDouble("Spawn.Location.Y"), SY.getDouble("Spawn.Location.Z"), new Float(SY.getString("Spawn.Location.Yaw")), new Float(SY.getString("Spawn.Location.Pitch")));
 							target.teleport(SpawnLoc);
 							target.sendMessage(EssentialsGreen.prefix + "Spawn Teleport By " + sender.getName());
 						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not more!");

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
-import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -29,10 +28,10 @@ public class MainListener implements Listener {
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
 		UUID U = p.getUniqueId();
-		//SetPlayerDatas
-		plugin.SetforAllPlayerGroupPrefix();
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
+		//SetPlayerDatas
+		plugin.SFAGroup();
 		UserFileYaml.set("Username", p.getName());
 		UserFileYaml.set("IP", p.getAddress().toString());
 		UserFileYaml.addDefault("Ban.Enable", "false");
@@ -46,12 +45,6 @@ public class MainListener implements Listener {
 			if(UserFile.exists()){
 				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
 			}else e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
-			//TablistSend
-			String Header = plugin.getConfig().getString("Header");
-			String Footer = plugin.getConfig().getString("Footer");
-			if(Header != "" & Footer != ""){
-				TablistTitleAPI.sendTabTitle(p, Header.replace('&', '§'), Footer.replace('&', '§'));
-			}
 			//SpawnTeleport
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
 				p.performCommand("Spawn");

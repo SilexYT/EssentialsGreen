@@ -23,4 +23,15 @@ public class StringAPI extends JavaAPI {
 		}
 		return Text;
 	}
+	
+	public static boolean isNumber(String a){
+	   boolean isNumber;
+	   try{
+	      Integer.parseInt(a);
+	      isNumber = true;
+	   }catch(NumberFormatException e){
+	      isNumber = false;
+	   }
+	   return isNumber;
+	}
 }

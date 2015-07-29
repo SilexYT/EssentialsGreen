@@ -14,11 +14,6 @@ ChatFormat: '{Group} &e{Player} &2>> &f{Message}'
 JoinMessage: '&e{Group} {Player} joined the Game'
 FirstJoinMessage: '&e{Group} {Player} is the server joined for the first time!'
 LeaveMessage: '&e{Group} {Player} left the Game'
-#------------------#
-# TabList Messages #
-#------------------#
-Header: ''
-Footer: ''
 #--------------------#
 # Ban | Kick Messages#
 #--------------------#

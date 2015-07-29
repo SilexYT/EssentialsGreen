@@ -1,7 +1,7 @@
 name: EssentialsGreen
 version: 3.4
 author: Marco606598
-IsDevBuild: 'true'
+IsDevBuild: 'false'
 
 main: gg.web.mcb.EssentialsGreen.EssentialsGreen
 commands:
@@ -119,3 +119,6 @@ commands:
      effect:
           usage: /effect <Player> <Effect> [Time] [Level]
           permission: EssentialsGreen.DefaultPermmision
+     asConsole:
+          usage: /asConsole <Command...>
+          permmssion: EssentialsGreen.DefaultPermmsion

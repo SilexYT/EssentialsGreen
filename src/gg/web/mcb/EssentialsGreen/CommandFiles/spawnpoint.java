@@ -1,6 +1,8 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -19,7 +21,7 @@ public class spawnpoint implements CommandExecutor {
 					Player p = (Player)sender;
 					p.setBedSpawnLocation(p.getLocation());
 					p.sendMessage(EssentialsGreen.prefix + "Spawn Location set!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint [Player|@a] [<X> <Y> <Z> <World>]");
+				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint [<Player|@a>] or /spawnpoint <Player|@a> <X> <Y> <Z> <World>");
 			}else if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
@@ -35,12 +37,12 @@ public class spawnpoint implements CommandExecutor {
 							p.sendMessage(EssentialsGreen.prefix + "Spawn Location set from " + args[0] + "!");
 						}else p.sendMessage(EssentialsGreen.prefix + "T§4[§lError§r§4] The player is not online");
 					}
-				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint <Player|@a> <X> <Y> <Z> <World>");
-			}else if(args.length > 5){
-				if(Integer.getInteger(args[1]) != null & Integer.getInteger(args[2]) != null & Integer.getInteger(args[3]) != null){
-					int X = new Integer(args[1]);
-					int Y = new Integer(args[2]);
-					int Z = new Integer(args[3]);
+				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint [<Player|@a>] or /spawnpoint <Player|@a> <X> <Y> <Z> <World>");
+			}else if(args.length > 4){
+				if(StringAPI.isNumber(args[1]) & StringAPI.isNumber(args[2]) & StringAPI.isNumber(args[3])){
+					int X = Integer.getInteger(args[1]);
+					int Y = Integer.getInteger(args[2]);
+					int Z = Integer.getInteger(args[3]);
 					World World = Bukkit.getWorld(args[4]);
 					if(World != null){
 						Location loc = new Location(World, X, Y, Z);

@@ -8,14 +8,18 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
+@SuppressWarnings("deprecation")
 public class onTabCompleteManager implements TabCompleter {
 	
 	EssentialsGreen plugin;
@@ -24,7 +28,6 @@ public class onTabCompleteManager implements TabCompleter {
 		plugin = eg;
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String Label, String[] args) {
 		List<String> list = new ArrayList<String>();
@@ -56,8 +59,10 @@ public class onTabCompleteManager implements TabCompleter {
 			}
 		}else if(command.equalsIgnoreCase("effect")){
 			if(args.length == 2){
-				List<String> effects = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("effects.list")).getList("Effects");
-				return effects;
+				for(PotionEffectType eff : PotionEffectType.values()){
+					list.add(eff.toString());
+				}
+				return list;
 			}else if(args.length == 3){
 				list.add("30");
 				return list;
@@ -66,7 +71,7 @@ public class onTabCompleteManager implements TabCompleter {
 				return list;
 			}
 		}else if(command.equalsIgnoreCase("fly")){
-		}else if(command.equalsIgnoreCase("gamemode")){
+		}else if(command.equalsIgnoreCase("gamemode") | command.equalsIgnoreCase("gm")){
 			if(args.length == 1){
 				list.add("survival");
 				list.add("creative");
@@ -76,8 +81,11 @@ public class onTabCompleteManager implements TabCompleter {
 			}
 		}else if(command.equalsIgnoreCase("give")){
 			if(args.length == 2){
-				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("materiels.list")).getList("Materials");
-				return Materiels;
+				Material[] Materiels = Material.values();
+				for(Material M : Materiels){
+					list.add(M.toString());
+				}
+				return list;
 			}else if(args.length == 3){
 				list.add("64");
 				return list;
@@ -128,8 +136,11 @@ public class onTabCompleteManager implements TabCompleter {
 		}else if(command.equalsIgnoreCase("spawn")){
 		}else if(command.equalsIgnoreCase("spawnmob")){
 			if(args.length == 1){
-				List<String> Materiels = (List<String>)YamlConfiguration.loadConfiguration(plugin.getResource("Creature.list")).getList("Materials");
-				return Materiels;
+				CreatureType[] types = CreatureType.values();
+				for(CreatureType type : types){
+					list.add(type.toString());
+				}
+				return list;
 			}else if(args.length == 2){
 				list.add("1");
 				return list;

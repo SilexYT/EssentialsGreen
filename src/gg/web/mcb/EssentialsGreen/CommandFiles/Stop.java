@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.ServerManageCommandFiles;
+package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
 import org.bukkit.Bukkit;
@@ -17,7 +17,7 @@ public class Stop implements CommandExecutor {
 				p.kickPlayer(EssentialsGreen.prefix + "§2Server Stopping By " + sender.getName());
 			}
 			Bukkit.shutdown();
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}
 }

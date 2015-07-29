@@ -1,6 +1,7 @@
 package gg.web.mcb.EssentialsGreen.CommandFiles;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.API.StringAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 
 public class tp implements CommandExecutor {
 
-	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.tp")){
@@ -36,17 +36,17 @@ public class tp implements CommandExecutor {
 						target.sendMessage(EssentialsGreen.prefix + "Teleport...");
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This destination player is not online");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
-			}else if(args.length == 5){
+			}else if(args.length == 4){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
-					if(new Double(args[1]) != null){
-						if(new Double(args[2]) != null){
-							if(new Double(args[3]) != null){
-								World w = Bukkit.getWorld(args[4]);
+					if(StringAPI.isNumber(args[0])){
+						if(StringAPI.isNumber(args[1])){
+							if(StringAPI.isNumber(args[2])){
+								World w = Bukkit.getWorld(args[3]);
 								if(w != null){
-									Double x = new Double(args[1]);
-									Double y = new Double(args[2]);
-									Double z = new Double(args[3]);
+									Double x = new Double(args[0]);
+									Double y = new Double(args[1]);
+									Double z = new Double(args[2]);
 									Location loc = new Location(w, x, y, z);
 									p.teleport(loc);
 								}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World '" + args[3] + "' exist not!");
@@ -54,12 +54,12 @@ public class tp implements CommandExecutor {
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[1] + "' is not a number!");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[0] + "' is not a number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
-			}else if(args.length > 5){
+			}else if(args.length > 4){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
-					if(new Double(args[1]) != null){
-						if(new Double(args[2]) != null){
-							if(new Double(args[3]) != null){
+					if(StringAPI.isNumber(args[1])){
+						if(StringAPI.isNumber(args[2])){
+							if(StringAPI.isNumber(args[3])){
 								World w = Bukkit.getWorld(args[4]);
 								if(w != null){
 									Double x = new Double(args[1]);
