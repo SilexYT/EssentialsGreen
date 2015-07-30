@@ -13,46 +13,45 @@ import gg.web.mcb.EssentialsGreen.API.MySQLAPI;
 import gg.web.mcb.EssentialsGreen.API.StringAPI;
 import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
 import gg.web.mcb.EssentialsGreen.API.TitleAPI;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Reload;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Stop;
-import gg.web.mcb.EssentialsGreen.CommandFiles.actionbar;
-import gg.web.mcb.EssentialsGreen.CommandFiles.Ban;
-import gg.web.mcb.EssentialsGreen.CommandFiles.asConsole;
-import gg.web.mcb.EssentialsGreen.CommandFiles.banlist;
-import gg.web.mcb.EssentialsGreen.CommandFiles.broadcast;
-import gg.web.mcb.EssentialsGreen.CommandFiles.clear;
-import gg.web.mcb.EssentialsGreen.CommandFiles.defaultgamemode;
-import gg.web.mcb.EssentialsGreen.CommandFiles.effect;
-import gg.web.mcb.EssentialsGreen.CommandFiles.fly;
-import gg.web.mcb.EssentialsGreen.CommandFiles.gamemode;
-import gg.web.mcb.EssentialsGreen.CommandFiles.give;
-import gg.web.mcb.EssentialsGreen.CommandFiles.heal;
-import gg.web.mcb.EssentialsGreen.CommandFiles.invsee;
-import gg.web.mcb.EssentialsGreen.CommandFiles.kick;
-import gg.web.mcb.EssentialsGreen.CommandFiles.kill;
-import gg.web.mcb.EssentialsGreen.CommandFiles.list;
-import gg.web.mcb.EssentialsGreen.CommandFiles.msg;
-import gg.web.mcb.EssentialsGreen.CommandFiles.nick;
-import gg.web.mcb.EssentialsGreen.CommandFiles.say;
-import gg.web.mcb.EssentialsGreen.CommandFiles.seed;
-import gg.web.mcb.EssentialsGreen.CommandFiles.setspawn;
-import gg.web.mcb.EssentialsGreen.CommandFiles.setworldspawn;
-import gg.web.mcb.EssentialsGreen.CommandFiles.skull;
-import gg.web.mcb.EssentialsGreen.CommandFiles.spawn;
-import gg.web.mcb.EssentialsGreen.CommandFiles.spawnmob;
-import gg.web.mcb.EssentialsGreen.CommandFiles.spawnpoint;
-import gg.web.mcb.EssentialsGreen.CommandFiles.speed;
-import gg.web.mcb.EssentialsGreen.CommandFiles.time;
-import gg.web.mcb.EssentialsGreen.CommandFiles.tp;
-import gg.web.mcb.EssentialsGreen.CommandFiles.unban;
-import gg.web.mcb.EssentialsGreen.CommandFiles.warp;
-import gg.web.mcb.EssentialsGreen.CommandFiles.whitelist;
-import gg.web.mcb.EssentialsGreen.CommandFiles.xp;
+import gg.web.mcb.EssentialsGreen.Commands.Reload;
+import gg.web.mcb.EssentialsGreen.Commands.Stop;
+import gg.web.mcb.EssentialsGreen.Commands.Ban;
+import gg.web.mcb.EssentialsGreen.Commands.asConsole;
+import gg.web.mcb.EssentialsGreen.Commands.banlist;
+import gg.web.mcb.EssentialsGreen.Commands.broadcast;
+import gg.web.mcb.EssentialsGreen.Commands.clear;
+import gg.web.mcb.EssentialsGreen.Commands.defaultgamemode;
+import gg.web.mcb.EssentialsGreen.Commands.effect;
+import gg.web.mcb.EssentialsGreen.Commands.fly;
+import gg.web.mcb.EssentialsGreen.Commands.gamemode;
+import gg.web.mcb.EssentialsGreen.Commands.give;
+import gg.web.mcb.EssentialsGreen.Commands.heal;
+import gg.web.mcb.EssentialsGreen.Commands.invsee;
+import gg.web.mcb.EssentialsGreen.Commands.kick;
+import gg.web.mcb.EssentialsGreen.Commands.kill;
+import gg.web.mcb.EssentialsGreen.Commands.list;
+import gg.web.mcb.EssentialsGreen.Commands.msg;
+import gg.web.mcb.EssentialsGreen.Commands.nick;
+import gg.web.mcb.EssentialsGreen.Commands.say;
+import gg.web.mcb.EssentialsGreen.Commands.seed;
+import gg.web.mcb.EssentialsGreen.Commands.setspawn;
+import gg.web.mcb.EssentialsGreen.Commands.setworldspawn;
+import gg.web.mcb.EssentialsGreen.Commands.skull;
+import gg.web.mcb.EssentialsGreen.Commands.spawn;
+import gg.web.mcb.EssentialsGreen.Commands.spawnmob;
+import gg.web.mcb.EssentialsGreen.Commands.spawnpoint;
+import gg.web.mcb.EssentialsGreen.Commands.speed;
+import gg.web.mcb.EssentialsGreen.Commands.time;
+import gg.web.mcb.EssentialsGreen.Commands.tp;
+import gg.web.mcb.EssentialsGreen.Commands.unban;
+import gg.web.mcb.EssentialsGreen.Commands.warp;
+import gg.web.mcb.EssentialsGreen.Commands.whitelist;
+import gg.web.mcb.EssentialsGreen.Commands.xp;
 import gg.web.mcb.EssentialsGreen.CommandManager.onTabCompleteManager;
-import gg.web.mcb.EssentialsGreen.ListenerFiles.ExplosionListener;
-import gg.web.mcb.EssentialsGreen.ListenerFiles.LogListener;
-import gg.web.mcb.EssentialsGreen.ListenerFiles.MainListener;
-import gg.web.mcb.EssentialsGreen.ListenerFiles.Signs;
+import gg.web.mcb.EssentialsGreen.Listeners.ExplosionListener;
+import gg.web.mcb.EssentialsGreen.Listeners.LogListener;
+import gg.web.mcb.EssentialsGreen.Listeners.MainListener;
+import gg.web.mcb.EssentialsGreen.Listeners.Signs;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -62,7 +61,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@SuppressWarnings("deprecation")
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
 	public static String prefix = "§2[EG]§e ";
@@ -71,9 +69,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onEnable(){
-		/* Here Register all Commands!
-		 * And The TabCompleter!
-		 */
 		getCommand("tp").setExecutor(new tp());
 		getCommand("tp").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("gm").setExecutor(new gamemode());
@@ -146,15 +141,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("effect").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("asConsole").setExecutor(new asConsole());
 		getCommand("asConsole").setTabCompleter(new onTabCompleteManager(this));
-		//1.8.7 CraftBukkit/Spigot commands
-		try{
-			Class.forName("org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer");
-			getCommand("actionbar").setExecutor(new actionbar());
-			getCommand("actionbar").setTabCompleter(new onTabCompleteManager(this));
-			System.out.println("[EssentialsGreen] The actionbar command is avaible");
-		}catch(ClassNotFoundException e1){
-			System.out.println("[EssentialsGreen] Please update your version to the Spigot 1.8.7 : The Actionbar command is disable!");
-		}
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -199,24 +185,21 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		JavaAPI.RegisterAPIs(APIs);
 		//AutoUpdater
 		String AutoUpdateString = null;
-		YamlConfiguration Dec = YamlConfiguration.loadConfiguration(getResource("plugin.yml"));
-		if(Dec.getString("IsDevBuild").equalsIgnoreCase("false")){
-			String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-			if(!File[0].contains(getDescription().getVersion())){
-				AutoUpdateString = "[EssentialsGreen] New Version Avaible";
-				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
+		String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
+		if(new Float(File[0]) > new Float(getDescription().getVersion())){
+			AutoUpdateString = "[EssentialsGreen] New Version Avaible";
+			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
 					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...!";
-					try{
-						InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+				try{
+					InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
 						Bukkit.reload();
-					}catch(IllegalStateException | IOException e){
-						e.printStackTrace();
-					}
+				}catch(IllegalStateException | IOException e){
+					e.printStackTrace();
 				}
-			}else{
-				AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
 			}
-		}else AutoUpdateString = "[EssentialsGreen] Disable AutoUpdater rampart this version a Developer Version is!";
+		}else{
+			AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
+		}
 		System.out.println(AutoUpdateString);
 		System.out.println("[EssentialsGreen] Load Completed");
 	}

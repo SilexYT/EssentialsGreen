@@ -1,7 +1,6 @@
 name: EssentialsGreen
-version: 3.4
+version: 3.5
 author: Marco606598
-IsDevBuild: 'false'
 
 main: gg.web.mcb.EssentialsGreen.EssentialsGreen
 commands:
@@ -25,9 +24,6 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      SetSpawn:
           usage: /setspawn
-          permission: EssentialsGreen.DefaultPermmision
-     actionbar:
-          usage: /actionbar <targetPlayer> <Message>
           permission: EssentialsGreen.DefaultPermmision
      kick:
           usage: /kick <Player> <Reason>
