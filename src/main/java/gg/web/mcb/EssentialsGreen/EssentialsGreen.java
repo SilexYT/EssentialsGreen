@@ -8,7 +8,6 @@ import java.util.Collection;
 import gg.web.mcb.EssentialsGreen.API.InternetAPI;
 import gg.web.mcb.EssentialsGreen.API.ItemManagerAPI;
 import gg.web.mcb.EssentialsGreen.API.JavaAPI;
-import gg.web.mcb.EssentialsGreen.API.Metrics;
 import gg.web.mcb.EssentialsGreen.API.MySQLAPI;
 import gg.web.mcb.EssentialsGreen.API.StringAPI;
 import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
@@ -60,6 +59,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 

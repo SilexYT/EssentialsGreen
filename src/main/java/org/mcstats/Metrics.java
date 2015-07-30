@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.API;
+package org.mcstats;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
