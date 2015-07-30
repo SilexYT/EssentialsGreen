@@ -19,7 +19,7 @@ public class speed implements CommandExecutor {
 					Player p = (Player)sender;
 					if(StringAPI.isNumber(args[0])){
 						float i = new Float(args[0])/10;
-						if(Integer.getInteger(args[0]) < 11){
+						if(Integer.parseInt(args[0]) < 11){
 							if(p.isFlying()){
 								p.setFlySpeed(i);
 								p.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");
@@ -28,7 +28,7 @@ public class speed implements CommandExecutor {
 								p.sendMessage(EssentialsGreen.prefix + "Walk Speed changed!");
 							}
 						}else p.sendMessage(EssentialsGreen.prefix + "Please Write a number under 11");
-					}else p.sendMessage(EssentialsGreen.prefix + "This is no number");
+					}else p.sendMessage(EssentialsGreen.prefix + "This is not a number");
 				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
 			}else{
 				if(args.length > 1){
@@ -36,7 +36,7 @@ public class speed implements CommandExecutor {
 					if(!(target == null)){
 						if(StringAPI.isNumber(args[0])){
 							float i = new Float(args[0])/10;
-							if(Integer.getInteger(args[0]) < 11){
+							if(Integer.parseInt(args[0]) < 11){
 								if(target.isFlying()){
 									target.setFlySpeed(i);
 									target.sendMessage(EssentialsGreen.prefix + "Fly Speed changed!");
@@ -47,7 +47,7 @@ public class speed implements CommandExecutor {
 									sender.sendMessage(EssentialsGreen.prefix + "Walk Speed changed from " + args[1] + "!");
 								}
 							}else sender.sendMessage(EssentialsGreen.prefix + "Please Write a number under 11");
-						}else sender.sendMessage(EssentialsGreen.prefix + "This is no number");
+						}else sender.sendMessage(EssentialsGreen.prefix + "This is not a number");
 					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
 				}else sender.sendMessage(EssentialsGreen.prefix + "/speed <number> [Player]");
 			}

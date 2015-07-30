@@ -27,8 +27,7 @@ public class MainListener implements Listener {
 	@EventHandler
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
-		UUID U = p.getUniqueId();
-		File UserFile = new File("plugins/EssentialsGreen/userdata/" + U.toString() + ".data");
+		File UserFile = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 		//setPlayerInfos
 		UserFileYaml.set("Username", p.getName());
@@ -37,19 +36,23 @@ public class MainListener implements Listener {
 		UserFileYaml.addDefault("Ban.Enable", "false");
 		UserFileYaml.addDefault("Ban.Reason", "null");
 		try{
-			UserFileYaml.options().copyDefaults(true);
-			UserFileYaml.save(UserFile);
-		}catch(IOException e1){
-			e1.printStackTrace();
+			Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
+		    UserFileYaml.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
+		}catch(ClassNotFoundException e2){
+			UserFileYaml.set("GroupPrefix", "");
 		}
-		plugin.SFAGroup();
 		if(!UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
-			//JoinMessage and FirstJoinMessage
 			if(!UserFileYaml.getBoolean("IsNewPlayer")){
-				e.setJoinMessage(plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
+				e.setJoinMessage((plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName())).replace('&', '§'));
 			}else{
-				e.setJoinMessage(plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace('&', '§'));
+				e.setJoinMessage((plugin.getConfig().getString("FirstJoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName())).replace('&', '§'));
 				UserFileYaml.set("IsNewPlayer", false);
+				try{
+					UserFileYaml.options().copyDefaults(true);
+					UserFileYaml.save(UserFile);
+				}catch(IOException e1){
+					e1.printStackTrace();
+				}
 			}
 			//SpawnTeleport
 			if(plugin.getConfig().getString("JoinSpawnTeleport").equalsIgnoreCase("true")){
@@ -58,13 +61,7 @@ public class MainListener implements Listener {
 		}else{
 			//BanManagement
 			p.kickPlayer((plugin.getConfig().getString("Ban-Prefix") + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
-			e.setJoinMessage("");
-		}
-		try{
-			UserFileYaml.options().copyDefaults(true);
-			UserFileYaml.save(UserFile);
-		}catch(IOException e1){
-			e1.printStackTrace();
+			e.setJoinMessage(null);
 		}
 	}
 
