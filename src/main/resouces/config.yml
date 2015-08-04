@@ -17,9 +17,8 @@ LeaveMessage: '&e{Group} {Player} left the Game'
 #--------------------#
 # Ban | Kick Messages#
 #--------------------#
-Ban-Message: '&4You have bannend from this Server! '
+Ban-Message: '&4You have bannend from this Server!'
 Kick-Prefix: '&e[Kick]&3 '
-Ban-JoinBrodcast: '&e{Player} is Banned! Reason : {Reason}'
 #-------------------#
 #Protection Settings#
 #-------------------#

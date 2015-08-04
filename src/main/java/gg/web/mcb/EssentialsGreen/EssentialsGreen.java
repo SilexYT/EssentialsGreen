@@ -42,6 +42,7 @@ import gg.web.mcb.EssentialsGreen.Commands.spawnpoint;
 import gg.web.mcb.EssentialsGreen.Commands.speed;
 import gg.web.mcb.EssentialsGreen.Commands.time;
 import gg.web.mcb.EssentialsGreen.Commands.tp;
+import gg.web.mcb.EssentialsGreen.Commands.tpall;
 import gg.web.mcb.EssentialsGreen.Commands.unban;
 import gg.web.mcb.EssentialsGreen.Commands.warp;
 import gg.web.mcb.EssentialsGreen.Commands.whitelist;
@@ -141,6 +142,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("effect").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("asConsole").setExecutor(new asConsole());
 		getCommand("asConsole").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("tpall").setExecutor(new tpall());
+		getCommand("tpall").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -186,10 +189,10 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		//AutoUpdater
 		String AutoUpdateString = null;
 		String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-		if(Float.parseFloat(File[0]) > new Float(getDescription().getVersion())){
+		if(Double.parseDouble(File[0]) > new Float(getDescription().getVersion())){
 			AutoUpdateString = "[EssentialsGreen] New Version Avaible";
 			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...!";
+				AutoUpdateString = "[EssentialsGreen] The new version is in Downloading!";
 				try{
 					InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
 						Bukkit.reload();

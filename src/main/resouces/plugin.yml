@@ -1,5 +1,5 @@
 name: EssentialsGreen
-version: 3.5.1
+version: 3.5
 author: Marco606598
 
 main: gg.web.mcb.EssentialsGreen.EssentialsGreen
@@ -117,4 +117,7 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      asConsole:
           usage: /asConsole <Command...>
+          permmssion: EssentialsGreen.DefaultPermmsion
+     tpall:
+          usage: /tpall [Target]
           permmssion: EssentialsGreen.DefaultPermmsion
