@@ -42,11 +42,13 @@ public class ban implements CommandExecutor {
 						UserFileYaml.set("Ban.Reason", Reason);
 						UserFileYaml.set("Ban.Author", p.getName());
 						Date date = new Date();
-					    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-						UserFileYaml.addDefault("Ban.date", time.format(date));
-						UserFileYaml.addDefault("Ban.Ex", "never");
+					    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+						UserFileYaml.set("Ban.date", time.format(date));
+						UserFileYaml.set("Ban.Ex", "never");
 						Player target = Bukkit.getPlayer(args[0]);
-						if(target != null) target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason.replace('&', '§'));
+						if(target != null){
+							target.kickPlayer((plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
+						}
 						try{
 							UserFileYaml.save(File);
 						}catch (IOException e){

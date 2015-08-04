@@ -186,7 +186,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		//AutoUpdater
 		String AutoUpdateString = null;
 		String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-		if(new Float(File[0]) > new Float(getDescription().getVersion())){
+		if(Float.parseFloat(File[0]) > new Float(getDescription().getVersion())){
 			AutoUpdateString = "[EssentialsGreen] New Version Avaible";
 			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
 					AutoUpdateString = "[EssentialsGreen] The new version is in Downloading...!";
