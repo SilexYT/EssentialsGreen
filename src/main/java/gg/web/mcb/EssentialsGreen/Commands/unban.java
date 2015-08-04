@@ -2,7 +2,9 @@ package gg.web.mcb.EssentialsGreen.Commands;
 
 import java.io.File;
 import java.io.IOException;
+
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -31,7 +33,14 @@ public class unban implements CommandExecutor {
 				if(File.exists()){
 						UserFileYaml.set("Ban.Enable", "false");
 						UserFileYaml.set("Ban.Reason", "null");
-						try{UserFileYaml.save(File);}catch (IOException e){}
+						UserFileYaml.set("Ban.Author", "null");
+						UserFileYaml.addDefault("Ban.date", "null");
+						UserFileYaml.addDefault("Ban.Ex", "null");
+						try{
+							UserFileYaml.save(File);
+						}catch(IOException e){
+							p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The User file can not save!");
+						}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " unbanned!");
 				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player has never been on the server");
 			}else p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");

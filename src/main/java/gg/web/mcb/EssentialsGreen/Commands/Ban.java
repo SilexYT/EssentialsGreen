@@ -5,6 +5,8 @@ import gg.web.mcb.EssentialsGreen.API.StringAPI;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -14,11 +16,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class Ban implements CommandExecutor {
+public class ban implements CommandExecutor {
 	
 	EssentialsGreen plugin;
 	
-	public Ban(EssentialsGreen main) {
+	public ban(EssentialsGreen main) {
 		plugin = main;
 	}
 
@@ -38,11 +40,18 @@ public class Ban implements CommandExecutor {
 					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
 						UserFileYaml.set("Ban.Reason", Reason);
+						UserFileYaml.set("Ban.Author", p.getName());
+						Date date = new Date();
+					    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
+						UserFileYaml.addDefault("Ban.date", time.format(date));
+						UserFileYaml.addDefault("Ban.Ex", "never");
 						Player target = Bukkit.getPlayer(args[0]);
-						if(!(target == null)){
-							target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason.replace('&', '§'));
+						if(target != null) target.kickPlayer(plugin.getConfig().getString("Ban-Prefix").replace('&', '§') + Reason.replace('&', '§'));
+						try{
+							UserFileYaml.save(File);
+						}catch (IOException e){
+							p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The User file can not save!");
 						}
-						try{UserFileYaml.save(File);}catch (IOException e){}
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " banned!");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You can not ban the player!");
 				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This player has never been on the server");

@@ -8,6 +8,8 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class TablistTitleAPI extends JavaAPI {
+	
+	//WARNING This API is for the Spigot 1.8.7!!!!
 	public static void sendTabTitle(Player p, String header, String footer) {
 		if(header == null) header = "";
 		if(footer == null) footer = "";

@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 public class ActionBarAPI extends JavaAPI {
 	
+	//WARNING This API is for the Spigot 1.8.7!!!!
 	//The boolean is the finish return. false = error; true = finish;
 	public static boolean sendActionBar(Player p, String Message){
 		try{

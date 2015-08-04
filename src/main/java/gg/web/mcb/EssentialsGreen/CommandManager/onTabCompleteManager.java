@@ -17,7 +17,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 
 @SuppressWarnings("deprecation")
 public class onTabCompleteManager implements TabCompleter {
@@ -32,22 +31,10 @@ public class onTabCompleteManager implements TabCompleter {
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String Label, String[] args) {
 		List<String> list = new ArrayList<String>();
 		String command = cmd.getName();
-		if(command.equalsIgnoreCase("actionbar")){
-			if(args.length == 2){
-				list.add("<Message...>");
-				return list;
-			}
+		if(command.equalsIgnoreCase("asConsole")){
 		}else if(command.equalsIgnoreCase("ban")){
-			if(args.length == 2){
-				list.add("<Reason...>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("banlist")){
 		}else if(command.equalsIgnoreCase("broadcast")){
-			if(args.length == 1){
-				list.add("<Message...>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("clear")){
 		}else if(command.equalsIgnoreCase("defaultgamemode")){
 			if(args.length == 1){
@@ -59,9 +46,6 @@ public class onTabCompleteManager implements TabCompleter {
 			}
 		}else if(command.equalsIgnoreCase("effect")){
 			if(args.length == 2){
-				for(PotionEffectType eff : PotionEffectType.values()){
-					list.add(eff.toString());
-				}
 				return list;
 			}else if(args.length == 3){
 				list.add("30");
@@ -96,10 +80,6 @@ public class onTabCompleteManager implements TabCompleter {
 		}else if(command.equalsIgnoreCase("heal")){
 		}else if(command.equalsIgnoreCase("invsee")){
 		}else if(command.equalsIgnoreCase("kick")){
-			if(args.length == 2){
-				list.add("<Reason...>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("kill")){
 			if(args.length == 2 & args[0].equalsIgnoreCase("@e")){
 				for(World w : Bukkit.getWorlds()){
@@ -109,20 +89,8 @@ public class onTabCompleteManager implements TabCompleter {
 			}
 		}else if(command.equalsIgnoreCase("list")){
 		}else if(command.equalsIgnoreCase("msg")){
-			if(args.length == 2){
-				list.add("<Message...>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("nick")){
-			if(args.length == 1){
-				list.add("<off/nick>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("say")){
-			if(args.length == 1){
-				list.add("<Message...>");
-				return list;
-			}
 		}else if(command.equalsIgnoreCase("seed")){
 			if(args.length == 1){
 				for(World w : Bukkit.getWorlds()){

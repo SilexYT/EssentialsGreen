@@ -8,6 +8,7 @@ import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 public class TitleAPI extends JavaAPI {
 
+	//WARNING This API is for the Spigot 1.8.7!!!!
 	public static void sendTitle(Player p, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle){
 		CraftPlayer cp = (CraftPlayer) p;
 		PlayerConnection connection = cp.getHandle().playerConnection;

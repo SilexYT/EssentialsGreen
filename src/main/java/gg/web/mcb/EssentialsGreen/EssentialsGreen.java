@@ -14,7 +14,7 @@ import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
 import gg.web.mcb.EssentialsGreen.API.TitleAPI;
 import gg.web.mcb.EssentialsGreen.Commands.Reload;
 import gg.web.mcb.EssentialsGreen.Commands.Stop;
-import gg.web.mcb.EssentialsGreen.Commands.Ban;
+import gg.web.mcb.EssentialsGreen.Commands.ban;
 import gg.web.mcb.EssentialsGreen.Commands.asConsole;
 import gg.web.mcb.EssentialsGreen.Commands.banlist;
 import gg.web.mcb.EssentialsGreen.Commands.broadcast;
@@ -81,7 +81,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("spawn").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("kick").setExecutor(new kick(this));
 		getCommand("kick").setTabCompleter(new onTabCompleteManager(this));
-		getCommand("ban").setExecutor(new Ban(this));
+		getCommand("ban").setExecutor(new ban(this));
 		getCommand("ban").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("unban").setExecutor(new unban(this));
 		getCommand("unban").setTabCompleter(new onTabCompleteManager(this));
