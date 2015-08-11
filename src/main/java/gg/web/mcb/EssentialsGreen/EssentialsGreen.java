@@ -2,16 +2,7 @@ package gg.web.mcb.EssentialsGreen;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import gg.web.mcb.EssentialsGreen.API.InternetAPI;
-import gg.web.mcb.EssentialsGreen.API.ItemManagerAPI;
-import gg.web.mcb.EssentialsGreen.API.JavaAPI;
-import gg.web.mcb.EssentialsGreen.API.MySQLAPI;
-import gg.web.mcb.EssentialsGreen.API.StringAPI;
-import gg.web.mcb.EssentialsGreen.API.TablistTitleAPI;
-import gg.web.mcb.EssentialsGreen.API.TitleAPI;
 import gg.web.mcb.EssentialsGreen.Commands.Reload;
 import gg.web.mcb.EssentialsGreen.Commands.Stop;
 import gg.web.mcb.EssentialsGreen.Commands.ban;
@@ -40,10 +31,12 @@ import gg.web.mcb.EssentialsGreen.Commands.spawn;
 import gg.web.mcb.EssentialsGreen.Commands.spawnmob;
 import gg.web.mcb.EssentialsGreen.Commands.spawnpoint;
 import gg.web.mcb.EssentialsGreen.Commands.speed;
+import gg.web.mcb.EssentialsGreen.Commands.tempban;
 import gg.web.mcb.EssentialsGreen.Commands.time;
 import gg.web.mcb.EssentialsGreen.Commands.tp;
 import gg.web.mcb.EssentialsGreen.Commands.tpall;
 import gg.web.mcb.EssentialsGreen.Commands.unban;
+import gg.web.mcb.EssentialsGreen.Commands.vanish;
 import gg.web.mcb.EssentialsGreen.Commands.warp;
 import gg.web.mcb.EssentialsGreen.Commands.whitelist;
 import gg.web.mcb.EssentialsGreen.Commands.xp;
@@ -52,6 +45,7 @@ import gg.web.mcb.EssentialsGreen.Listeners.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.Listeners.LogListener;
 import gg.web.mcb.EssentialsGreen.Listeners.MainListener;
 import gg.web.mcb.EssentialsGreen.Listeners.Signs;
+import gg.web.mcb.EssentialsGreen.util.InternetAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -72,8 +66,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	public void onEnable(){
 		getCommand("tp").setExecutor(new tp());
 		getCommand("tp").setTabCompleter(new onTabCompleteManager(this));
-		getCommand("gm").setExecutor(new gamemode());
-		getCommand("gm").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("gamemode").setExecutor(new gamemode());
 		getCommand("gamemode").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("setspawn").setExecutor(new setspawn(this));
@@ -126,8 +118,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("stop").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("reload").setExecutor(new Reload());
 		getCommand("reload").setTabCompleter(new onTabCompleteManager(this));
-		getCommand("rl").setExecutor(new Reload());
-		getCommand("rl").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("whitelist").setExecutor(new whitelist());
 		getCommand("whitelist").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("warp").setExecutor(new warp());
@@ -144,6 +134,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("asConsole").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("tpall").setExecutor(new tpall());
 		getCommand("tpall").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("tempban").setExecutor(new tempban(this));
+		getCommand("tempban").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("vanish").setExecutor(new vanish());
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -176,16 +169,6 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				SFAGroup();
 			}
 		}, 0, 5);
-		//APIManaging
-		Collection<Object> APIs = new ArrayList<Object>();
-		APIs.add(new JavaAPI());
-		APIs.add(new InternetAPI());
-		APIs.add(new ItemManagerAPI());
-		APIs.add(new StringAPI());
-		APIs.add(new TitleAPI());
-		APIs.add(new TablistTitleAPI());
-		APIs.add(new MySQLAPI());
-		JavaAPI.RegisterAPIs(APIs);
 		//AutoUpdater
 		String AutoUpdateString = null;
 		String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");

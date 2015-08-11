@@ -1,8 +1,9 @@
 package gg.web.mcb.EssentialsGreen.Listeners;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
-import gg.web.mcb.EssentialsGreen.API.ItemManagerAPI;
-import gg.web.mcb.EssentialsGreen.API.StringAPI;
+import gg.web.mcb.EssentialsGreen.util.ItemManagerAPI;
+import gg.web.mcb.EssentialsGreen.util.StringAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;

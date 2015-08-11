@@ -1,4 +1,4 @@
-package gg.web.mcb.EssentialsGreen.API;
+package gg.web.mcb.EssentialsGreen.util;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class InternetAPI extends JavaAPI {
+public class InternetAPI {
 	public static void downloadFile(String url_str, String OutputPath) throws IllegalStateException, MalformedURLException, ProtocolException, IOException {
 		FileOutputStream os = new FileOutputStream(OutputPath);
 		URL url = new URL(url_str.replace(" ", "%20"));

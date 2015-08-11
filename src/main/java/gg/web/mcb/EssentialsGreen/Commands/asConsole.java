@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.Commands;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
-import gg.web.mcb.EssentialsGreen.API.StringAPI;
+import gg.web.mcb.EssentialsGreen.util.StringAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

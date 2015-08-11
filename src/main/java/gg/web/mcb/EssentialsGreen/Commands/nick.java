@@ -3,7 +3,7 @@ package gg.web.mcb.EssentialsGreen.Commands;
 import java.util.ArrayList;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
-import gg.web.mcb.EssentialsGreen.API.JavaAPI;
+import gg.web.mcb.EssentialsGreen.util.BukkitAPI;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +30,7 @@ public class nick implements CommandExecutor {
 					p.sendMessage(EssentialsGreen.prefix + "/nick <off/name>");
 				}else if(args.length > 0){
 					if(args[0].length() < 16){
-						if(JavaAPI.getBukkitPlugins().contains("NickNamer")){
+						if(BukkitAPI.getPlugins().contains("NickNamer")){
 							if(args[0].equalsIgnoreCase("off")){
 								String name = p.getName();
 								Nicks.removeNick(p.getUniqueId());

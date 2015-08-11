@@ -1,6 +1,6 @@
-package gg.web.mcb.EssentialsGreen.API;
+package gg.web.mcb.EssentialsGreen.util;
 
-public class StringAPI extends JavaAPI {
+public class StringAPI {
 
 	public static int getCount(String input, char c) {
 	    int count = 0;
@@ -27,7 +27,7 @@ public class StringAPI extends JavaAPI {
 	public static boolean isNumber(String a){
 	   boolean isNumber;
 	   try{
-	      Integer.parseInt(a);
+	      Long.parseLong(a);
 	      isNumber = true;
 	   }catch(NumberFormatException e){
 	      isNumber = false;

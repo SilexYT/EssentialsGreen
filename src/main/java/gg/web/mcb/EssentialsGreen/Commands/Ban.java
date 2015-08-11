@@ -1,7 +1,7 @@
 package gg.web.mcb.EssentialsGreen.Commands;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
-import gg.web.mcb.EssentialsGreen.API.StringAPI;
+import gg.web.mcb.EssentialsGreen.util.StringAPI;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,14 +28,14 @@ public class ban implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String Label, final String[] args) {
 		if(p.hasPermission("EssentialsGreen.ban")){
-			if(args.length == 0){
+			if(args.length < 2){
 				p.sendMessage(EssentialsGreen.prefix + "/ban <Player> <Reason...>");
-			}else if(args.length > 1){
+			}else{
 				String Reason = "";
 				OfflinePlayer Player = Bukkit.getOfflinePlayer(args[0]);
 				File File = new File("plugins/EssentialsGreen/userdata/" + Player.getUniqueId().toString() + ".data");
 				YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(File);
-				Reason = StringAPI.toCompleteString(args, 1).replace('&', '§');;
+				Reason = StringAPI.toCompleteString(args, 1).replace('&', '§');
 				if(File.exists()){
 					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
@@ -45,9 +45,10 @@ public class ban implements CommandExecutor {
 					    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 						UserFileYaml.set("Ban.date", time.format(date));
 						UserFileYaml.set("Ban.Ex", "never");
+						UserFileYaml.set("Ban.dateSeconds", System.currentTimeMillis()/1000L);
 						Player target = Bukkit.getPlayer(args[0]);
 						if(target != null){
-							target.kickPlayer((plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
+							target.kickPlayer((plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 						}
 						try{
 							UserFileYaml.save(File);

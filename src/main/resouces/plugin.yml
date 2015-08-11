@@ -6,23 +6,19 @@ main: gg.web.mcb.EssentialsGreen.EssentialsGreen
 commands:
      EssentialsGreen:
           usage: /<command>
+          aliases: [eg]
           permission: EssentialsGreen.DefaultPermmision
-     eg:
-          usage: /<command>
-          permission: EssentialsGreen.DefaultPermmision
-     Gamemode:
+     gamemode:
           usage: /gamemode <Mode> [Player]
-          permission: EssentialsGreen.DefaultPermmision
-     gm:
-          usage: /gm <Mode> [Player]
+          aliases: [gm]
           permission: EssentialsGreen.DefaultPermmision
      tp:
           usage: /tp <target> [other target]
           permission: EssentialsGreen.DefaultPermmision
-     Spawn:
-          usage: /spawn [target]
+     spawn:
+          usage: /spawn [Target]
           permission: EssentialsGreen.DefaultPermmision
-     SetSpawn:
+     setspawn:
           usage: /setspawn
           permission: EssentialsGreen.DefaultPermmision
      kick:
@@ -51,6 +47,7 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      broadcast:
           usage: /broadcast <Message>
+          aliases: [b,bc]
           permission: EssentialsGreen.DefaultPermmision
      say:
           usage: /say <Message>
@@ -93,9 +90,7 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      reload:
           usage: /reload
-          permission: EssentialsGreen.DefaultPermmision
-     rl:
-          usage: /rl
+          aliases: [rl]
           permission: EssentialsGreen.DefaultPermmision
      whitelist:
           usage: /whitelist <command>
@@ -117,7 +112,15 @@ commands:
           permission: EssentialsGreen.DefaultPermmision
      asConsole:
           usage: /asConsole <Command...>
+          aliases: [ac]
           permmssion: EssentialsGreen.DefaultPermmsion
      tpall:
           usage: /tpall [Target]
+          permmssion: EssentialsGreen.DefaultPermmsion
+     tempban:
+          usage: /tempban
+          permmssion: EssentialsGreen.DefaultPermmsion
+     vanish:
+          usage: /vanish [Player]
+          aliases: [v]
           permmssion: EssentialsGreen.DefaultPermmsion

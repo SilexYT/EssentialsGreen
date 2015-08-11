@@ -1,9 +1,9 @@
-package gg.web.mcb.EssentialsGreen.API;
+package gg.web.mcb.EssentialsGreen.util;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemManagerAPI extends JavaAPI {
+public class ItemManagerAPI {
 	public static Boolean CheckMateriel(String Materiel){
 		boolean obj;
 		if(Material.matchMaterial(Materiel) == null){

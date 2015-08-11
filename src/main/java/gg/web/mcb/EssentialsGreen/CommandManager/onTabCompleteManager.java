@@ -179,7 +179,10 @@ public class onTabCompleteManager implements TabCompleter {
 				}
 			}
 		}else if(command.equalsIgnoreCase("tp")){
+		}else if(command.equalsIgnoreCase("tpall")){
+		}else if(command.equalsIgnoreCase("tree")){
 		}else if(command.equalsIgnoreCase("unban")){
+		}else if(command.equalsIgnoreCase("vanish") | command.equalsIgnoreCase("v")){
 		}else if(command.equalsIgnoreCase("warp")){
 			if(args.length == 1){
 				list.add("add");

@@ -1,6 +1,10 @@
 package gg.web.mcb.EssentialsGreen.Commands;
 
+import java.util.HashSet;
+
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,14 +34,14 @@ public class spawnmob implements CommandExecutor {
 					if(args.length == 1){
 						EntityType E = EntityType.fromName(args[0]);
 						if(E != null){
-							p.getWorld().spawnEntity(p.getLocation(), E);
+							p.getWorld().spawnEntity(p.getTargetBlock((HashSet<Byte>)null, 100000).getLocation(), E);
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This mob exist not!");
 					}else{
 						if(new Integer(args[1]) != null){
 							EntityType E = EntityType.fromName(args[0]);
 							if(E != null){
 								for(int i = 0; new Integer(args[1]) > i; i++){
-									p.getWorld().spawnEntity(p.getLocation(), E);
+									p.getWorld().spawnEntity(p.getTargetBlock((HashSet<Byte>)null, 100000).getLocation(), E);
 								}
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This mob exist not!");
 						}else p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
