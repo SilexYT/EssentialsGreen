@@ -1,9 +1,9 @@
 package gg.web.mcb.EssentialsGreen.Commands;
 
 import java.io.File;
-import java.io.IOException;
 
 import gg.web.mcb.EssentialsGreen.EssentialsGreen;
+import gg.web.mcb.EssentialsGreen.util.Results;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -31,27 +31,15 @@ public class warp implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("add")){
 						if(p.hasPermission("EssentialsGreen.Warp.*") | p.hasPermission("EssentialsGreen.Warp.add")){
 							if(args.length > 1){
-								File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
-								if(!WarpFile.exists()){
-									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
-									Location loc = p.getLocation();
-									WarpYaml.set("Name", args[1]);
-									WarpYaml.set("Location.X", loc.getX());
-									WarpYaml.set("Location.Y", loc.getY());
-									WarpYaml.set("Location.Z", loc.getZ());
-									WarpYaml.set("Location.Yaw", loc.getYaw());
-									WarpYaml.set("Location.Pitch", loc.getPitch());
-									WarpYaml.set("Location.World", loc.getWorld().getName());
-									try{WarpYaml.save(WarpFile);}catch (IOException e){e.printStackTrace();}
+								if(!EssentialsGreen.getEssentialsGreenManager().getWarpManager().contains(args[1])){
+									EssentialsGreen.getEssentialsGreenManager().getWarpManager().addWarp(args[1], p.getLocation());
 									p.sendMessage(EssentialsGreen.prefix + "Warp add!");
 								}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This Warp already exists!");
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Please write a WarpName");
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the command!");
 					}else if(args[0].equalsIgnoreCase("remove")){
 						if(p.hasPermission("EssentialsGreen.Warp.*") | p.hasPermission("EssentialsGreen.Warp.remove")){
-							File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[1] + ".yml");
-							if(WarpFile.exists()){
-								WarpFile.delete();
+							if(!(EssentialsGreen.getEssentialsGreenManager().getWarpManager().removeWarp(args[1]) == Results.Success)){
 								p.sendMessage(EssentialsGreen.prefix + "Warp deleted!");
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This Warp exists not!");
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the command!");

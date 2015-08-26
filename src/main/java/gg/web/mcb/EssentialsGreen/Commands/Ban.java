@@ -39,6 +39,7 @@ public class ban implements CommandExecutor {
 				if(File.exists()){
 					if(!Bukkit.getOperators().contains(args[0])){
 						UserFileYaml.set("Ban.Enable", "true");
+						UserFileYaml.set("Ban.Type", "Ban");
 						UserFileYaml.set("Ban.Reason", Reason);
 						UserFileYaml.set("Ban.Author", p.getName());
 						Date date = new Date();

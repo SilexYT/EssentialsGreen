@@ -40,6 +40,7 @@ public class tempban implements CommandExecutor {
 					if(!Bukkit.getOperators().contains(args[0])){
 						if(StringAPI.isNumber(args[1])){
 							UserFileYaml.set("Ban.Enable", "true");
+							UserFileYaml.set("Ban.Type", "TempBan");
 							UserFileYaml.set("Ban.Reason", Reason);
 							UserFileYaml.set("Ban.Author", sender.getName());
 							Date date = new Date();

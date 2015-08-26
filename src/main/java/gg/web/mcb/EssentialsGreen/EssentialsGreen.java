@@ -2,6 +2,8 @@ package gg.web.mcb.EssentialsGreen;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.UUID;
 
 import gg.web.mcb.EssentialsGreen.Commands.Reload;
 import gg.web.mcb.EssentialsGreen.Commands.Stop;
@@ -45,9 +47,14 @@ import gg.web.mcb.EssentialsGreen.Listeners.ExplosionListener;
 import gg.web.mcb.EssentialsGreen.Listeners.LogListener;
 import gg.web.mcb.EssentialsGreen.Listeners.MainListener;
 import gg.web.mcb.EssentialsGreen.Listeners.Signs;
+import gg.web.mcb.EssentialsGreen.util.EssentialsGreenManager;
 import gg.web.mcb.EssentialsGreen.util.InternetAPI;
+import gg.web.mcb.EssentialsGreen.util.Results;
+import gg.web.mcb.EssentialsGreen.util.Warp;
+import gg.web.mcb.EssentialsGreen.util.WarpManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -137,6 +144,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("tempban").setExecutor(new tempban(this));
 		getCommand("tempban").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("vanish").setExecutor(new vanish());
+		getCommand("vanish").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
@@ -241,5 +249,138 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			}
 			
 		}
+	}
+	
+	/* This Methode is a API for Developer. */
+	public static EssentialsGreenManager getEssentialsGreenManager(){
+		EssentialsGreenManager manage = new EssentialsGreenManager() {
+			@Override
+			public WarpManager getWarpManager() {
+				WarpManager wmanage = new WarpManager() {
+					@Override
+					public Results removeWarp(String Name) {
+						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Name + ".yml");
+						if(WarpFile.delete() == false) return Results.File_can_not_delete;
+						return Results.Success;
+					}
+					
+					@Override
+					public Collection<Warp> getWarps() {
+						return null;
+					}
+					
+					@Override
+					public Warp getWarp(String Warp) {
+						final File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+						if(WarpFile.exists()){
+							final YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+							Warp warp = new Warp() {
+								
+								@Override
+								public Results setName(String Name) {
+									WarpYaml.set("Name", Name);
+									try{
+										WarpYaml.save(WarpFile);
+									}catch (IOException e) {
+										e.printStackTrace();
+										return  Results.File_can_not_save;
+									}
+									return Results.Success;
+								}
+								
+								@Override
+								public Results setLocation(double x, double y, double z, Float yaw, Float pitch, String World) {
+									return null;
+								}
+								
+								@Override
+								public Results setLocation(Location loc) {
+									return null;
+								}
+								
+								@Override
+								public UUID getUUID() {
+									
+									return null;
+								}
+								
+								@Override
+								public String getName() {
+									
+									return null;
+								}
+								
+								@Override
+								public Location getLocation() {
+									
+									return null;
+								}
+							};
+							return warp;
+						}
+						return null;
+					}
+					
+					@Override
+					public Warp getWarp(UUID uuid) {
+						return null;
+					}
+					
+					@Override
+					public boolean contains(String Name){
+						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Name + ".yml");
+						return WarpFile.exists();
+					}
+					
+					@Override
+					public Results addWarp(String Name, double x, double y, double z, Float yaw, Float pitch, String World){
+						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Name + ".yml");
+						if(!WarpFile.exists()){
+							YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+							WarpYaml.set("Name", Name);
+							WarpYaml.set("UUID", UUID.randomUUID());
+							WarpYaml.set("Location.X", x);
+							WarpYaml.set("Location.Y", y);
+							WarpYaml.set("Location.Z", z);
+							WarpYaml.set("Location.Yaw", yaw);
+							WarpYaml.set("Location.Pitch", pitch);
+							WarpYaml.set("Location.World", World);
+							try{
+								WarpYaml.save(WarpFile);
+							}catch (IOException e){
+								e.printStackTrace();
+								return Results.File_can_not_save;
+							}
+							return Results.Success;
+						}else return Results.File_exist;
+					}
+					
+					@Override
+					public Results addWarp(String Name, Location loc) {
+						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Name + ".yml");
+						if(!WarpFile.exists()){
+							YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+							WarpYaml.set("Name", Name);
+							WarpYaml.set("UUID", UUID.randomUUID());
+							WarpYaml.set("Location.X", loc.getX());
+							WarpYaml.set("Location.Y", loc.getY());
+							WarpYaml.set("Location.Z", loc.getZ());
+							WarpYaml.set("Location.Yaw", loc.getYaw());
+							WarpYaml.set("Location.Pitch", loc.getPitch());
+							WarpYaml.set("Location.World", loc.getWorld().getName());
+							try{
+								WarpYaml.save(WarpFile);
+							}catch (IOException e){
+								e.printStackTrace();
+								return Results.File_can_not_save;
+							}
+							return Results.Success;
+						}else return Results.File_exist;
+					}
+				};
+				return wmanage;
+			}
+		};
+		return manage;
 	}
 }

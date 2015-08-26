@@ -36,16 +36,16 @@ public class MainListener implements Listener {
 				//if(Ex == "never"){
 					e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 				//}else{
-					long s = (System.currentTimeMillis()/1000L) - UserFileYaml.getLong("Ban.dateSecond");
+					//long s = (System.currentTimeMillis()/1000L) - UserFileYaml.getLong("Ban.dateSecond");
 					//if(s < UserFileYaml.getInt("Ban.Ex")){
-						e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + s + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
+						//e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + s + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 					//}else{
 					//	e.allow();
 					//	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "unban " + e.getPlayer().getName());
 					//}
 				//}
-			}else e.allow();
-		}else e.allow();
+			}
+		}
 	}
 
 	@EventHandler(priority= EventPriority.HIGH)
