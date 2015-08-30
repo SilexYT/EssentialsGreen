@@ -1,6 +1,6 @@
 name: EssentialsGreen
 version: 3.5
-author: CCBlueX Team: Marco606598
+authors: [Marco606598]
 
 main: me.noip.ccbluex.EssentialsGreen.EssentialsGreen
 commands:

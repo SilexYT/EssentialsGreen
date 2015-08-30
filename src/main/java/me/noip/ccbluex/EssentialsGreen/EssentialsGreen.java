@@ -2,11 +2,13 @@ package me.noip.ccbluex.EssentialsGreen;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -68,6 +70,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	public static String prefix = "§2[EG]§e ";
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
+	public static String name;
+	public static String version;
 
 	@Override
 	public void onEnable(){
@@ -150,6 +154,9 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
+		//Information
+		name = getDescription().getName();
+		version = getDescription().getVersion();
 		//Start Metrics
 		try{
 	        Metrics metrics = new Metrics(this);
@@ -254,6 +261,17 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	/* This Methode is a API for Developer. */
 	public static EssentialsGreenManager getEssentialsGreenManager(){
 		EssentialsGreenManager manage = new EssentialsGreenManager() {
+			
+			@Override
+			public String getName() {
+				return EssentialsGreen.name;
+			}
+			
+			@Override
+			public String getVersion() {
+				return EssentialsGreen.version;
+			}
+
 			@Override
 			public WarpManager getWarpManager() {
 				WarpManager wmanage = new WarpManager() {
@@ -266,18 +284,15 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 					
 					@Override
 					public Collection<Warp> getWarps() {
-						return null;
-					}
-					
-					@Override
-					public Warp getWarp(String Warp) {
-						final File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
-						if(WarpFile.exists()){
-							final YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+						Collection<Warp> Warps = new ArrayList<Warp>();
+						for(File file : new File("plugins/EssentialsGreen/Warp").listFiles()){
+							final String Warp = YamlConfiguration.loadConfiguration(file).getString("Name");
 							Warp warp = new Warp() {
 								
 								@Override
 								public Results setName(String Name) {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
 									WarpYaml.set("Name", Name);
 									try{
 										WarpYaml.save(WarpFile);
@@ -288,31 +303,167 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 									return Results.Success;
 								}
 								
+								@SuppressWarnings("unused")
 								@Override
 								public Results setLocation(double x, double y, double z, Float yaw, Float pitch, String World) {
-									return null;
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									if(Bukkit.getWorld(World) != null){
+										Location loc = new Location(Bukkit.getWorld(World), x, y, z, yaw, pitch);
+										if(loc != null){
+											WarpYaml.set("Location.X", x);
+											WarpYaml.set("Location.Y", y);
+											WarpYaml.set("Location.Z", z);
+											WarpYaml.set("Location.Yaw", yaw);
+											WarpYaml.set("Location.Pitch", pitch);
+											WarpYaml.set("Location.World", World);
+											try{
+												WarpYaml.save(WarpFile);
+											}catch (IOException e) {
+												e.printStackTrace();
+												return  Results.File_can_not_save;
+											}
+										}else return Results.New_Location_ERROR;
+									}else return Results.World_exist_not;
+									return Results.Success;
 								}
 								
 								@Override
 								public Results setLocation(Location loc) {
-									return null;
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									WarpYaml.set("Location.X", loc.getX());
+									WarpYaml.set("Location.Y", loc.getY());
+									WarpYaml.set("Location.Z", loc.getZ());
+									WarpYaml.set("Location.Yaw", loc.getYaw());
+									WarpYaml.set("Location.Pitch", loc.getPitch());
+									WarpYaml.set("Location.World", loc.getWorld().getName());
+									try{
+										WarpYaml.save(WarpFile);
+									}catch (IOException e) {
+										e.printStackTrace();
+										return  Results.File_can_not_save;
+									}
+									return Results.Success;
 								}
 								
 								@Override
 								public UUID getUUID() {
-									
-									return null;
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									return UUID.fromString(WarpYaml.getString("UUID"));
 								}
 								
 								@Override
 								public String getName() {
-									
-									return null;
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									return WarpYaml.getString("Name");
 								}
 								
 								@Override
 								public Location getLocation() {
-									
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
+									World world = Bukkit.getWorld(File.getString("Location.World"));
+									if(world != null){
+										Location loc = new Location(world, File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
+										return loc;
+									}
+									return null;
+								}
+							};
+							Warps.add(warp);
+						}
+						return Warps;
+					}
+					
+					@Override
+					public Warp getWarp(final String Warp) {
+						if(new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml").exists()){
+							Warp warp = new Warp() {
+								
+								@Override
+								public Results setName(String Name) {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									WarpYaml.set("Name", Name);
+									try{
+										WarpYaml.save(WarpFile);
+									}catch (IOException e) {
+										e.printStackTrace();
+										return  Results.File_can_not_save;
+									}
+									return Results.Success;
+								}
+								
+								@SuppressWarnings("unused")
+								@Override
+								public Results setLocation(double x, double y, double z, Float yaw, Float pitch, String World) {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									if(Bukkit.getWorld(World) != null){
+										Location loc = new Location(Bukkit.getWorld(World), x, y, z, yaw, pitch);
+										if(loc != null){
+											WarpYaml.set("Location.X", x);
+											WarpYaml.set("Location.Y", y);
+											WarpYaml.set("Location.Z", z);
+											WarpYaml.set("Location.Yaw", yaw);
+											WarpYaml.set("Location.Pitch", pitch);
+											WarpYaml.set("Location.World", World);
+											try{
+												WarpYaml.save(WarpFile);
+											}catch (IOException e) {
+												e.printStackTrace();
+												return  Results.File_can_not_save;
+											}
+										}else return Results.New_Location_ERROR;
+									}else return Results.World_exist_not;
+									return Results.Success;
+								}
+								
+								@Override
+								public Results setLocation(Location loc) {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									WarpYaml.set("Location.X", loc.getX());
+									WarpYaml.set("Location.Y", loc.getY());
+									WarpYaml.set("Location.Z", loc.getZ());
+									WarpYaml.set("Location.Yaw", loc.getYaw());
+									WarpYaml.set("Location.Pitch", loc.getPitch());
+									WarpYaml.set("Location.World", loc.getWorld().getName());
+									try{
+										WarpYaml.save(WarpFile);
+									}catch (IOException e) {
+										e.printStackTrace();
+										return  Results.File_can_not_save;
+									}
+									return Results.Success;
+								}
+								
+								@Override
+								public UUID getUUID() {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									return UUID.fromString(WarpYaml.getString("UUID"));
+								}
+								
+								@Override
+								public String getName() {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+									return WarpYaml.getString("Name");
+								}
+								
+								@Override
+								public Location getLocation() {
+									File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+									YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
+									World world = Bukkit.getWorld(File.getString("Location.World"));
+									if(world != null){
+										Location loc = new Location(world, File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
+										return loc;
+									}
 									return null;
 								}
 							};
@@ -323,6 +474,99 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 					
 					@Override
 					public Warp getWarp(UUID uuid) {
+						for(File file : new File("plugins/EssentialsGreen/Warp").listFiles()){
+							YamlConfiguration warpyml = YamlConfiguration.loadConfiguration(file);
+							if(UUID.fromString(YamlConfiguration.loadConfiguration(file).getString("")) == uuid){
+								final String Warp = warpyml.getName();
+								Warp warp = new Warp() {
+									
+									@Override
+									public Results setName(String Name) {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+										WarpYaml.set("Name", Name);
+										try{
+											WarpYaml.save(WarpFile);
+										}catch (IOException e) {
+											e.printStackTrace();
+											return  Results.File_can_not_save;
+										}
+										return Results.Success;
+									}
+									
+									@SuppressWarnings("unused")
+									@Override
+									public Results setLocation(double x, double y, double z, Float yaw, Float pitch, String World) {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+										if(Bukkit.getWorld(World) != null){
+											Location loc = new Location(Bukkit.getWorld(World), x, y, z, yaw, pitch);
+											if(loc != null){
+												WarpYaml.set("Location.X", x);
+												WarpYaml.set("Location.Y", y);
+												WarpYaml.set("Location.Z", z);
+												WarpYaml.set("Location.Yaw", yaw);
+												WarpYaml.set("Location.Pitch", pitch);
+												WarpYaml.set("Location.World", World);
+												try{
+													WarpYaml.save(WarpFile);
+												}catch (IOException e) {
+													e.printStackTrace();
+													return  Results.File_can_not_save;
+												}
+											}else return Results.New_Location_ERROR;
+										}else return Results.World_exist_not;
+										return Results.Success;
+									}
+									
+									@Override
+									public Results setLocation(Location loc) {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+										WarpYaml.set("Location.X", loc.getX());
+										WarpYaml.set("Location.Y", loc.getY());
+										WarpYaml.set("Location.Z", loc.getZ());
+										WarpYaml.set("Location.Yaw", loc.getYaw());
+										WarpYaml.set("Location.Pitch", loc.getPitch());
+										WarpYaml.set("Location.World", loc.getWorld().getName());
+										try{
+											WarpYaml.save(WarpFile);
+										}catch (IOException e) {
+											e.printStackTrace();
+											return  Results.File_can_not_save;
+										}
+										return Results.Success;
+									}
+									
+									@Override
+									public UUID getUUID() {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+										return UUID.fromString(WarpYaml.getString("UUID"));
+									}
+									
+									@Override
+									public String getName() {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
+										return WarpYaml.getString("Name");
+									}
+									
+									@Override
+									public Location getLocation() {
+										File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Warp + ".yml");
+										YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
+										World world = Bukkit.getWorld(File.getString("Location.World"));
+										if(world != null){
+											Location loc = new Location(world, File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
+											return loc;
+										}
+										return null;
+									}
+								};
+								return warp;
+							}
+						}
 						return null;
 					}
 					

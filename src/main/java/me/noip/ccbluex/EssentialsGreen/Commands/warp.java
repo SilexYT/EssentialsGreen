@@ -4,10 +4,8 @@ import java.io.File;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 import me.noip.ccbluex.EssentialsGreen.util.Results;
+import me.noip.ccbluex.EssentialsGreen.util.Warp;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,11 +55,9 @@ public class warp implements CommandExecutor {
 						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + args[0] + ".yml");
 						if(WarpFile.exists()){
 							if(p.hasPermission("EssentialsGreen.Warp." + args[0]) | p.hasPermission("EssentialsGreen.Warp.*")){
-								YamlConfiguration File = YamlConfiguration.loadConfiguration(WarpFile);
-								World world = Bukkit.getWorld(File.getString("Location.World"));
-								if(world != null){
-									Location SpawnLoc = new Location(world, File.getDouble("Location.X"), File.getDouble("Location.Y"), File.getDouble("Location.Z"), new Float(File.getString("Location.Yaw")), new Float(File.getString("Location.Pitch")));
-									p.teleport(SpawnLoc);
+								Warp warp = EssentialsGreen.getEssentialsGreenManager().getWarpManager().getWarp(args[0]);
+								if(warp.getLocation() != null){
+									p.teleport(warp.getLocation());
 									p.sendMessage(EssentialsGreen.prefix + "Teleport...");
 								}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not more!");
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the Warp!");

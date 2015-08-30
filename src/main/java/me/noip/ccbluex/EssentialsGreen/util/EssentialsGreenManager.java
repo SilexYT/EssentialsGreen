@@ -8,5 +8,7 @@ package me.noip.ccbluex.EssentialsGreen.util;
  *
  */
 public interface EssentialsGreenManager {
+	public String getName();
+	public String getVersion();
 	public WarpManager getWarpManager();
 }
