@@ -1,7 +1,9 @@
 package me.noip.ccbluex.EssentialsGreen;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -55,24 +57,70 @@ import me.noip.ccbluex.EssentialsGreen.Commands.vanish;
 import me.noip.ccbluex.EssentialsGreen.Commands.warp;
 import me.noip.ccbluex.EssentialsGreen.Commands.whitelist;
 import me.noip.ccbluex.EssentialsGreen.Commands.xp;
-import me.noip.ccbluex.EssentialsGreen.Listeners.ExplosionListener;
+import me.noip.ccbluex.EssentialsGreen.Listeners.InteractListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.LogListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.MainListener;
+import me.noip.ccbluex.EssentialsGreen.Listeners.PhysicExplosionListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.Signs;
-import me.noip.ccbluex.EssentialsGreen.util.EssentialsGreenManager;
+import me.noip.ccbluex.EssentialsGreen.managers.EssentialsGreenManager;
+import me.noip.ccbluex.EssentialsGreen.managers.MessageManager;
+import me.noip.ccbluex.EssentialsGreen.managers.UpdateManager;
+import me.noip.ccbluex.EssentialsGreen.managers.WarpManager;
 import me.noip.ccbluex.EssentialsGreen.util.InternetAPI;
 import me.noip.ccbluex.EssentialsGreen.util.Results;
 import me.noip.ccbluex.EssentialsGreen.util.Warp;
-import me.noip.ccbluex.EssentialsGreen.util.WarpManager;
 
 public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
-	public static String prefix = "§2[EG]§e ";
+	public static String prefix;
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
 	public static String name;
 	public static String version;
 
+	@Override
+	public void onLoad() {
+		File egfile = new File("plugins/EssentialsGreen");
+		egfile.mkdir();
+		//Information
+		name = getDescription().getName();
+		version = getDescription().getVersion();
+		//Message File
+		try{
+			File messagefile = new File("plugins/EssentialsGreen/message.yml");
+			if(messagefile.exists() == false){
+				messagefile.createNewFile();
+				getEssentialsGreenManager().getMessageManager().load();
+			}
+			prefix = "§2[EG]§e " + " ";
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		//Config File
+		saveDefaultConfig();
+		if(Double.parseDouble(version) > getConfig().getDouble("ConfigVersion")){
+			System.err.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage(getEssentialsGreenManager().getMessageManager().getMessage("ConfigIsOld")));
+		}
+		//Spawn File
+		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
+		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
+		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
+		//Userdate File
+		File UserdataFile = new File("plugins/EssentialsGreen/userdata");
+		UserdataFile.mkdir();
+		//Warp File
+		File WarpFile = new File("plugins/EssentialsGreen/Warp");
+		WarpFile.mkdir();
+		//AutoUpdater
+		if(getEssentialsGreenManager().getUpdateManager().checkUpdate()){
+			System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("NewVersion"));
+			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
+				getEssentialsGreenManager().getUpdateManager().downloadUpdate("plugins/EssentialsGreen.jar", true);
+			}
+		}else System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("NoNewVersion"));
+		System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("isload"));
+	}
+	
 	@Override
 	public void onEnable(){
 		getCommand("tp").setExecutor(new tp());
@@ -151,63 +199,36 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("vanish").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new ExplosionListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PhysicExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
 		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		//Information
-		name = getDescription().getName();
-		version = getDescription().getVersion();
-		//Start Metrics
-		try{
-	        Metrics metrics = new Metrics(this);
-	        metrics.start();
-	        System.out.println("[EssentialsGreen] Metrics start!");
-	    }catch(IOException e){
-	        System.err.println("[EssentialsGreen] Metrics start failed!");
-	    }
-		//ConfigFile
-		saveDefaultConfig();
-		//SpawnFile
-		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
-		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
-		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
-		//UserdateFile
-		File UserdataFile = new File("plugins/EssentialsGreen/userdata");
-		UserdataFile.mkdir();
-		//WarpFile
-		File WarpFile = new File("plugins/EssentialsGreen/Warp");
-		WarpFile.mkdir();
+		Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
 		//ReloadGroupPrefix
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			@Override
 			public void run(){
-				SFAGroup();
+				getEssentialsGreenManager().ReloadGroupPrefix();
 			}
 		}, 0, 5);
-		//AutoUpdater
-		String AutoUpdateString = null;
-		String[] File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1").split(",");
-		if(Double.parseDouble(File[0]) > new Float(getDescription().getVersion())){
-			AutoUpdateString = "[EssentialsGreen] New Version Avaible";
-			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-				AutoUpdateString = "[EssentialsGreen] The new version is in Downloading!";
-				try{
-					InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
-						Bukkit.reload();
-				}catch(IllegalStateException | IOException e){
-					e.printStackTrace();
-				}
-			}
-		}else{
-			AutoUpdateString = "[EssentialsGreen] No New Version Avaible";
-		}
-		System.out.println(AutoUpdateString);
-		System.out.println("[EssentialsGreen] Load Completed");
+		//Start Metrics
+		try{
+	        Metrics metrics = new Metrics(this);
+	        metrics.start();
+	        System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("MetricsStart"));
+	    }catch(IOException e){
+	        System.err.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("MetricsStartFailed"));
+	    }
+		System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("load"));
+	}
+	
+	@Override
+	public void onDisable() {
+		
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args){
-		if(cmd.getName().equalsIgnoreCase("eg") | cmd.getName().equalsIgnoreCase("EssentialsGreen")){
+		if(cmd.getName().equalsIgnoreCase("EssentialsGreen")){
 			if(args.length == 0){
 				sender.sendMessage(prefix + "By Marco MC | [Marco606598]\n§3"
 						+ "/eg info\n"
@@ -221,43 +242,20 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("reload")){
 					if(sender.hasPermission("EssentialsGreen.reload")){
 						reloadConfig();
+						sender.sendMessage("§7Config reload!");
 						SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 						SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
-						sender.sendMessage(prefix + "Config Reload completed");
-					}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
-				}
+						sender.sendMessage("§7Spawn Config reload!");
+						getEssentialsGreenManager().getMessageManager().reload();
+						sender.sendMessage("§7Message Config reload!");
+						sender.sendMessage(prefix + "Reload completed");
+					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Unknown SubCommand : '§e" + args[0] + "§4'");
 			}
 		}
 		return true;
 	}
-	
-	/*
-	 * This Methode controled the Prefix
-	 */
-	public void SFAGroup(){
-		for(Player p : Bukkit.getOnlinePlayers()){
-			File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
-			YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
-			try{
-				Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
-			    YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
-			    try{
-			    	YF.save(File);
-			    }catch(IOException e2){
-			    	e2.printStackTrace();
-			    }
-			}catch(ClassNotFoundException e){
-				YF.set("GroupPrefix", "");
-				try{
-			    	YF.save(File);
-			    }catch(IOException e2){
-			    	e.printStackTrace();
-			    }
-			}
-			
-		}
-	}
-	
+
 	/* This Methode is a API for Developer. */
 	public static EssentialsGreenManager getEssentialsGreenManager(){
 		EssentialsGreenManager manage = new EssentialsGreenManager() {
@@ -582,7 +580,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 						if(!WarpFile.exists()){
 							YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
 							WarpYaml.set("Name", Name);
-							WarpYaml.set("UUID", UUID.randomUUID());
+							WarpYaml.set("UUID", UUID.randomUUID().toString());
 							WarpYaml.set("Location.X", x);
 							WarpYaml.set("Location.Y", y);
 							WarpYaml.set("Location.Z", z);
@@ -605,7 +603,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 						if(!WarpFile.exists()){
 							YamlConfiguration WarpYaml = YamlConfiguration.loadConfiguration(WarpFile);
 							WarpYaml.set("Name", Name);
-							WarpYaml.set("UUID", UUID.randomUUID());
+							WarpYaml.set("UUID", UUID.randomUUID().toString());
 							WarpYaml.set("Location.X", loc.getX());
 							WarpYaml.set("Location.Y", loc.getY());
 							WarpYaml.set("Location.Z", loc.getZ());
@@ -623,6 +621,113 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 					}
 				};
 				return wmanage;
+			}
+
+			@Override
+			public void ReloadGroupPrefix() {
+				for(Player p : Bukkit.getOnlinePlayers()){
+					File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
+					YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
+					try{
+						Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
+					    YF.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
+					    try{
+					    	YF.save(File);
+					    }catch(IOException e2){
+					    	e2.printStackTrace();
+					    }
+					}catch(ClassNotFoundException e){
+						YF.set("GroupPrefix", "");
+						try{
+					    	YF.save(File);
+					    }catch(IOException e2){
+					    	e.printStackTrace();
+					    }
+					}
+					
+				}
+			}
+
+			@Override
+			public UpdateManager getUpdateManager() {
+				UpdateManager upma = new UpdateManager() {
+					
+					@Override
+					public Results downloadUpdate(String OUTPATH, boolean reload) {
+						String[] File = getFile().split(",");
+						try{
+							InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
+							if(reload){
+								Bukkit.reload(); 
+							}
+							return Results.Download;
+						}catch(IllegalStateException | IOException e){
+							e.printStackTrace();
+							return Results.No_Internet;
+						}
+					}
+					
+					@Override
+					public boolean checkUpdate() {
+						//AutoUpdater
+						String[] File = getFile().split(",");
+						if(Double.parseDouble(File[0]) > Double.parseDouble(getVersion())){
+							return true;
+						}
+						return false;
+					}
+
+					@Override
+					public String getFile() {
+						String File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1");
+						return File;
+					}
+				};
+				return upma;
+			}
+
+			@Override
+			public MessageManager getMessageManager() {
+				MessageManager mm = new MessageManager() {
+					
+					File file = new File("plugins/EssentialsGreen/message.yml");
+					YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+					
+					@Override
+					public String getMessage(String path) {
+						return yaml.getString(path).replace('&', '§');
+					}
+					
+					@Override
+					public void setMessage(String message, String path) throws IOException {
+						yaml.set(path, message);
+						save();
+					}
+					
+					@Override
+					public void reload() {
+						file = new File("plugins/EssentialsGreen/message.yml");
+						yaml = YamlConfiguration.loadConfiguration(file);
+					}
+					
+					@Override
+					public void load() throws IOException {
+						InputStream is = getClass().getResourceAsStream("/message.yml");
+						FileOutputStream os = new FileOutputStream(new File("plugins/EssentialsGreen/message.yml"));
+						for(int read = 0; (read = is.read()) != -1;){
+							os.write(read);
+						}
+						os.flush();
+						os.close();
+						is.close();
+					}
+					
+					@Override
+					public void save() throws IOException {
+						yaml.save(file);
+					}
+				};
+				return mm;
 			}
 		};
 		return manage;

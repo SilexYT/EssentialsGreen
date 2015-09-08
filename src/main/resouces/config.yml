@@ -1,12 +1,11 @@
-# EssentialsGreen Config [By Marco606598 [German Developer] YT Channel : https://www.youtube.com/channel/UCeuZKKGXKe8wUw2R5FB5fxA]
-
+ConfigVersion: 3.6
 #----------------#
 #Dafault Settings#
 #----------------#
-ops-name-color: 4
-NickNamePrefix: ''
-JoinSpawnTeleport: true
 AutoUpdate: true
+ops-name-color: 4
+NickNamePrefix: '~'
+JoinSpawnTeleport: true
 #----------------#
 #Chat Settings!  #
 #----------------#
@@ -20,23 +19,9 @@ LeaveMessage: '&e{Group} {Player} left the Game'
 Ban-Message: '&4You have bannend from this Server!'
 Kick-Prefix: '&e[Kick]&3 '
 #-------------------#
-#Protection Settings#
+#ExplosionEffects Settings#
 #-------------------#
-CreeperBlockDamage: true
-TnTBlockDamage: true
-WhitherSkullBlockDamage: true
-Ender_CrystalBlockDamage: true
-FireballBlockDamage: true
 PhysicExplosion: false
-#----------------#
-#CommandBlacklist#
-#Bypass Permmision : EssentilasGreen.CommandBlacklist.bypass#
-#----------------#
-CommandBlockMessage: '&2[EG]&e Command Blocked!'
-Commands:
-- /op
-CommandBlackListBypassPlayerList:
-- <Player>
 #----------------#
 #NickNameBlackList#
 #----------------#

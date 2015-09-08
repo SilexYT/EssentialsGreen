@@ -2,8 +2,8 @@ package me.noip.ccbluex.EssentialsGreen.Listeners;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,14 +11,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 
-@SuppressWarnings("unchecked")
 public class MainListener implements Listener {
 	
 	EssentialsGreen plugin;
@@ -32,18 +30,19 @@ public class MainListener implements Listener {
 		if(UserFile.exists()){
 			YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
 			if(UserFileYaml.getString("Ban.Enable").equalsIgnoreCase("true")){
-				//String Ex = UserFileYaml.getString("Ban.Ex");
-				//if(Ex == "never"){
+				String Type = UserFileYaml.getString("Ban.Type");
+				if(Type.equalsIgnoreCase("Ban")){
 					e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
-				//}else{
-					//long s = (System.currentTimeMillis()/1000L) - UserFileYaml.getLong("Ban.dateSecond");
-					//if(s < UserFileYaml.getInt("Ban.Ex")){
-						//e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + s + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
-					//}else{
-					//	e.allow();
-					//	Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "unban " + e.getPlayer().getName());
-					//}
-				//}
+				}else{
+					//This is the Time of day
+					long time = (System.currentTimeMillis()/1000L) - UserFileYaml.getLong("Ban.dateSecond");
+					if(time < UserFileYaml.getInt("Ban.Ex")){
+						e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + time + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
+					}else{
+						e.allow();
+						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "unban " + e.getPlayer().getName());
+					}
+				}
 			}
 		}
 	}
@@ -104,22 +103,6 @@ public class MainListener implements Listener {
 		if(p.isOp()){
 			e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", "§" + plugin.getConfig().getInt("ops-name-color") + p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
 		}else e.setFormat(plugin.getConfig().getString("ChatFormat").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName()).replace("{Message}", e.getMessage()).replace('&', '§'));
-	}
-
-	@EventHandler
-	public void CommandListener(PlayerCommandPreprocessEvent e){
-		Player p = e.getPlayer();
-		String[] Command = e.getMessage().split(" ");
-		ArrayList<String> Commands = (ArrayList<String>)plugin.getConfig().get("Commands");
-		ArrayList<String> BypassPlayer = (ArrayList<String>)plugin.getConfig().get("CommandBlackListBypassPlayerList");
-		if(!p.hasPermission("EssentilasGreen.CommandBlacklist.bypass") | !BypassPlayer.contains(p.getName())){
-			for(int i = 0; i < Commands.size(); i++){
-				if(Command[0].equalsIgnoreCase(Commands.get(i))){
-					e.setCancelled(true);
-					p.sendMessage(plugin.getConfig().getString("CommandBlockMessage").replace('&', '§'));
-				}
-			}
-		}
 	}
 
 	@EventHandler

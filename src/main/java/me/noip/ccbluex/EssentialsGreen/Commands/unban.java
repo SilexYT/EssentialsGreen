@@ -34,8 +34,9 @@ public class unban implements CommandExecutor {
 						UserFileYaml.set("Ban.Enable", "false");
 						UserFileYaml.set("Ban.Reason", "null");
 						UserFileYaml.set("Ban.Author", "null");
-						UserFileYaml.addDefault("Ban.date", "null");
-						UserFileYaml.addDefault("Ban.Ex", "null");
+						UserFileYaml.set("Ban.date", "null");
+						UserFileYaml.set("Ban.Ex", "null");
+						UserFileYaml.set("Ban.dateSeconds", "null");
 						try{
 							UserFileYaml.save(File);
 						}catch(IOException e){

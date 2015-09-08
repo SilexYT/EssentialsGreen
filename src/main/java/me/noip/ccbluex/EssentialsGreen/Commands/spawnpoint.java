@@ -39,10 +39,10 @@ public class spawnpoint implements CommandExecutor {
 					}
 				}else sender.sendMessage(EssentialsGreen.prefix + "/spawnpoint [<Player|@a>] or /spawnpoint <Player|@a> <X> <Y> <Z> <World>");
 			}else if(args.length > 4){
-				if(StringAPI.isNumber(args[1]) & StringAPI.isNumber(args[2]) & StringAPI.isNumber(args[3])){
-					int X = Integer.getInteger(args[1]);
-					int Y = Integer.getInteger(args[2]);
-					int Z = Integer.getInteger(args[3]);
+				if(StringAPI.isDouble(args[1]) & StringAPI.isDouble(args[2]) & StringAPI.isDouble(args[3])){
+					double X = Double.parseDouble(args[1]);
+					double Y =  Double.parseDouble(args[2]);
+					double Z =  Double.parseDouble(args[3]);
 					World World = Bukkit.getWorld(args[4]);
 					if(World != null){
 						Location loc = new Location(World, X, Y, Z);

@@ -1,0 +1,10 @@
+#Translations of http://dev.bukkit.org/bukkit-plugins/essentialsgreen/forum/83141-messages-yaml-configurations/#p1
+prefix: '&2[EG]&e'
+#Console Messages
+MetricsStart: 'Metrics start!'
+MetricsStartFailed: 'Metrics start failed!'
+ConfigIsOld: 'WARNING Please update the Config the config is to old!'
+NewVersion: New Version Avaible
+NoNewVersion: No New Version Avaible
+isload: The Plugin is in loading!
+load: The plugin has been loaded!

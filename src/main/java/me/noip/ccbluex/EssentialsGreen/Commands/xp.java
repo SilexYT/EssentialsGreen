@@ -1,6 +1,8 @@
 package me.noip.ccbluex.EssentialsGreen.Commands;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
+import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +11,6 @@ import org.bukkit.entity.Player;
 
 public class xp implements CommandExecutor {
 
-	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.xp")){
@@ -21,7 +22,7 @@ public class xp implements CommandExecutor {
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					String number = args[1];
-					if(new Integer(number) != null){
+					if(StringAPI.isInteger(number)){
 						if(args[0].equalsIgnoreCase("set")){
 							p.setLevel(new Integer(number));
 							p.sendMessage(EssentialsGreen.prefix + "The xp set succesfully!");
@@ -33,7 +34,7 @@ public class xp implements CommandExecutor {
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 			}else if(args.length > 2){
 				String number = args[1];
-				if(new Integer(number) != null){
+				if(StringAPI.isInteger(number)){
 					Player target = Bukkit.getPlayer(args[2]);
 					if(!(target == null)){
 						if(args[0].equalsIgnoreCase("set")){

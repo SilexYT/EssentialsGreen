@@ -24,7 +24,7 @@ public class StringAPI {
 		return Text;
 	}
 	
-	public static boolean isNumber(String a){
+	public static boolean isLong(String a){
 	   boolean isNumber;
 	   try{
 	      Long.parseLong(a);
@@ -33,5 +33,27 @@ public class StringAPI {
 	      isNumber = false;
 	   }
 	   return isNumber;
+	}
+	
+	public static boolean isInteger(String a){
+		boolean isNumber;
+		try{
+			Integer.parseInt(a);
+			isNumber = true;
+		}catch(NumberFormatException e){
+			isNumber = false;
+		}
+		return isNumber;
+	}
+
+	public static boolean isDouble(String a){
+		boolean isNumber;
+		try{
+			Double.parseDouble(a);
+			isNumber = true;
+		}catch(NumberFormatException e){
+			isNumber = false;
+		}
+		return isNumber;
 	}
 }

@@ -20,8 +20,8 @@ public class msg implements CommandExecutor {
 				Player target = Bukkit.getPlayer(args[0]);
 				if(!(target == null)){
 					String Text = StringAPI.toCompleteString(args, 1).replace('&', '§');
-					sender.sendMessage(EssentialsGreen.prefix + "§2[MSG]§f Message sent!");
-					target.sendMessage(EssentialsGreen.prefix + "§2[MSG]§f " + sender.getName() + " §2-->	§f " + Text);
+					sender.sendMessage(EssentialsGreen.prefix + "§3[MSG]§f Message sent!");
+					target.sendMessage(EssentialsGreen.prefix + "§3[MSG]§f " + sender.getName() + " §2-->§f " + Text);
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");

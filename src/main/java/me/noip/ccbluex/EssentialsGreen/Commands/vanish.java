@@ -18,7 +18,7 @@ public class vanish implements CommandExecutor {
 			if(args.length < 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
-					if(!p.getActivePotionEffects().contains(PotionEffectType.INVISIBILITY)){
+					if(!p.hasPotionEffect(PotionEffectType.INVISIBILITY)){
 						PotionEffect PE = new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1);
 						p.addPotionEffect(PE);
 						p.sendMessage(EssentialsGreen.prefix + "Vanish is enable!");
@@ -31,7 +31,7 @@ public class vanish implements CommandExecutor {
 			}else{
 				Player p = Bukkit.getPlayer(args[0]);
 				if(p != null){
-					if(!p.getActivePotionEffects().contains(PotionEffectType.INVISIBILITY)){
+					if(!p.hasPotionEffect(PotionEffectType.INVISIBILITY)){
 						PotionEffect PE = new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1);
 						p.addPotionEffect(PE);
 						p.sendMessage(EssentialsGreen.prefix + "You Vanish is enable!");

@@ -22,11 +22,18 @@ public class kick implements CommandExecutor {
 			if(p.hasPermission("EssentialsGreen.kick")){
 				if(args.length == 0){
 					p.sendMessage(EssentialsGreen.prefix + "/kick <Player> <Reason...>");
-				}else if(args.length > 1){
+				}else if(args.length == 1){
+					String Reason = "§7You kicked from this Server!";
+					Player kickPlayer = Bukkit.getPlayer(args[0]);
+					if(!(kickPlayer == null)){
+						kickPlayer.kickPlayer(plugin.getConfig().getString("Kick-Prefix").replace('&', '§') + " " + Reason);
+						Bukkit.broadcastMessage(EssentialsGreen.prefix + args[0] + " was kicked, Reason : " + Reason);
+					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
+				}else{
 					String Reason = StringAPI.toCompleteString(args, 1).replace('&', '§');
 					Player kickPlayer = Bukkit.getPlayer(args[0]);
 					if(!(kickPlayer == null)){
-						kickPlayer.kickPlayer(plugin.getConfig().getString("Kick-Prefix").replace('&', '§') + Reason);
+						kickPlayer.kickPlayer(plugin.getConfig().getString("Kick-Prefix").replace('&', '§') + " " + Reason);
 						Bukkit.broadcastMessage(EssentialsGreen.prefix + args[0] + " was kicked, Reason : " + Reason);
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 				}

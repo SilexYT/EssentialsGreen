@@ -24,15 +24,15 @@ public class effect implements CommandExecutor {
 			}else if(args.length == 3){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
-					if(StringAPI.isNumber(args[2])){
+					if(StringAPI.isInteger(args[2])){
 						setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), 0);
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write a Time number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Player is not online!");
 			}else if(args.length > 3){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
-					if(StringAPI.isNumber(args[2])){
-						if(StringAPI.isNumber(args[3])){
+					if(StringAPI.isInteger(args[2])){
+						if(StringAPI.isInteger(args[3])){
 							if(Integer.getInteger(args[3]) != 0){
 								setPotionEffect(target, sender, args, 20*Integer.getInteger(args[2]), Integer.getInteger(args[3])-1);
 							}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The level number must be higher his 0!");

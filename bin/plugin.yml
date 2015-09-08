@@ -1,5 +1,5 @@
 name: EssentialsGreen
-version: 3.5
+version: 3.6
 authors: [Marco606598]
 
 main: me.noip.ccbluex.EssentialsGreen.EssentialsGreen
@@ -7,120 +7,82 @@ commands:
      EssentialsGreen:
           usage: /<command>
           aliases: [eg]
-          permission: EssentialsGreen.DefaultPermmision
      gamemode:
           usage: /gamemode <Mode> [Player]
           aliases: [gm]
-          permission: EssentialsGreen.DefaultPermmision
      tp:
           usage: /tp <target> [other target]
-          permission: EssentialsGreen.DefaultPermmision
      spawn:
           usage: /spawn [Target]
-          permission: EssentialsGreen.DefaultPermmision
      setspawn:
           usage: /setspawn
-          permission: EssentialsGreen.DefaultPermmision
      kick:
           usage: /kick <Player> <Reason>
-          permission: EssentialsGreen.DefaultPermmision
      ban:
           usage: /ban <Player> <Reason>
-          permission: EssentialsGreen.DefaultPermmision
      unban:
           usage: /unban <Player>
-          permission: EssentialsGreen.DefaultPermmision
      banlist:
           usage: /banlist
-          permission: EssentialsGreen.DefaultPermmision
      give:
           usage: /give <Player> <ID> [Ammount]
-          permission: EssentialsGreen.DefaultPermmision
      msg:
           usage: /msg <Player> <Message>
-          permission: EssentialsGreen.DefaultPermmision
      time:
           usage: /time <set|add> <Time>
-          permission: EssentialsGreen.DefaultPermmision
      xp:
           usage: /xp <set|add> <XP>
-          permission: EssentialsGreen.DefaultPermmision
      broadcast:
           usage: /broadcast <Message>
           aliases: [b,bc]
-          permission: EssentialsGreen.DefaultPermmision
      say:
           usage: /say <Message>
-          permission: EssentialsGreen.DefaultPermmision
      kill:
           usage: /kill <Player|@a|@e <World>>
-          permission: EssentialsGreen.DefaultPermmision
      fly:
           usage: /fly [Player]
-          permission: EssentialsGreen.DefaultPermmision
      speed:
           usage: /speed [Number] [Player]
-          permission: EssentialsGreen.DefaultPermmision
      invsee:
           usage: /invsee <Player>
-          permission: EssentialsGreen.DefaultPermmision
      heal:
           usage: /heal [Player]
-          permission: EssentialsGreen.DefaultPermmision
      nick:
           usage: /nick <Name|off>
-          permission: EssentialsGreen.DefaultPermmision
      setworldspawn:
           usage: /setworldspawn
-          permission: EssentialsGreen.DefaultPermmision
      seed:
           usage: /seed [World]
-          permission: EssentialsGreen.DefaultPermmision
      clear:
           usage: /clear [Player]
-          permission: EssentialsGreen.DefaultPermmision
      list:
           usage: /list
-          permission: EssentialsGreen.DefaultPermmision
      defaultgamemode:
           usage: /defaultgamemode <Mode>
-          permission: EssentialsGreen.DefaultPermmision
      stop:
           usage: /stop
-          permission: EssentialsGreen.DefaultPermmision
      reload:
           usage: /reload
           aliases: [rl]
-          permission: EssentialsGreen.DefaultPermmision
      whitelist:
           usage: /whitelist <command>
-          permission: EssentialsGreen.DefaultPermmision
      warp:
           usage: /warp <Command>
-          permission: EssentialsGreen.DefaultPermmision
      skull:
           usage: /skull [Owner]
-          permission: EssentialsGreen.DefaultPermmision
      spawnmob:
           usage: /spawnmob <mob> [Ammount]
-          permission: EssentialsGreen.DefaultPermmision
      spawnpoint:
           usage: /spawnpoint
-          permission: EssentialsGreen.DefaultPermmision
      effect:
           usage: /effect <Player> <Effect> [Time] [Level]
-          permission: EssentialsGreen.DefaultPermmision
      asConsole:
           usage: /asConsole <Command...>
           aliases: [ac]
-          permmssion: EssentialsGreen.DefaultPermmsion
      tpall:
           usage: /tpall [Target]
-          permmssion: EssentialsGreen.DefaultPermmsion
      tempban:
           usage: /tempban
-          permmssion: EssentialsGreen.DefaultPermmsion
      vanish:
           usage: /vanish [Player]
           aliases: [v]
-          permmssion: EssentialsGreen.DefaultPermmsion

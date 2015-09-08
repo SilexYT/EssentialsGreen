@@ -1,9 +1,12 @@
-package me.noip.ccbluex.EssentialsGreen.util;
+package me.noip.ccbluex.EssentialsGreen.managers;
 
 import java.util.Collection;
 import java.util.UUID;
 
 import org.bukkit.Location;
+
+import me.noip.ccbluex.EssentialsGreen.util.Results;
+import me.noip.ccbluex.EssentialsGreen.util.Warp;
 
 public interface WarpManager {
 	public Collection<Warp> getWarps();

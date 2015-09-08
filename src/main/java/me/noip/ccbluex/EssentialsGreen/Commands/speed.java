@@ -17,7 +17,7 @@ public class speed implements CommandExecutor {
 			if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
-					if(StringAPI.isNumber(args[0])){
+					if(StringAPI.isInteger(args[0])){
 						float i = new Float(args[0])/10;
 						if(Integer.parseInt(args[0]) < 11){
 							if(p.isFlying()){
@@ -34,7 +34,7 @@ public class speed implements CommandExecutor {
 				if(args.length > 1){
 					Player target = Bukkit.getPlayer(args[1]);
 					if(!(target == null)){
-						if(StringAPI.isNumber(args[0])){
+						if(StringAPI.isInteger(args[0])){
 							float i = new Float(args[0])/10;
 							if(Integer.parseInt(args[0]) < 11){
 								if(target.isFlying()){

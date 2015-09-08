@@ -17,7 +17,7 @@ public class kill implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.kill")){
 			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e <World>>");
+				sender.sendMessage(EssentialsGreen.prefix + "/kill <Player|@a|@e [World]>");
 			}else if(args.length > 0){
 				if(args[0].equalsIgnoreCase("@a")){
 					for(Player p : Bukkit.getOnlinePlayers()){
@@ -37,12 +37,29 @@ public class kill implements CommandExecutor{
 							for(int i = 0; e.size() > i; i++){
 								Entity E = e.get(i);
 								if(!E.getType().equals(EntityType.PLAYER)){
-									E.remove();	
+									E.remove();
 								}
 							}
 							sender.sendMessage(EssentialsGreen.prefix + "All Entitys killed!");
 						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
-					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] provide a World");
+					}else{
+						if(sender instanceof Player){
+							Player p = (Player)sender;
+							for(Player pp : Bukkit.getOnlinePlayers()){
+								if(pp.getWorld().getName().equalsIgnoreCase(p.getWorld().getName())){
+									pp.setHealth(0.0);
+								}
+							}
+							List<Entity> e = p.getWorld().getEntities();
+							for(int i = 0; e.size() > i; i++){
+								Entity E = e.get(i);
+								if(!E.getType().equals(EntityType.PLAYER)){
+									E.remove();
+								}
+							}
+							sender.sendMessage(EssentialsGreen.prefix + "All Entitys killed!");
+						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] provide a World");
+					}
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){

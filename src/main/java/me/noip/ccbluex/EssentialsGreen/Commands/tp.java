@@ -16,9 +16,7 @@ public class tp implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		if(sender.hasPermission("EssentialsGreen.tp")){
-			if(args.length == 0){
-				sender.sendMessage(EssentialsGreen.prefix + "/tp [target player] <destination player> or /tp [target player] <x> <y> <z> <World>");
-			}else if(args.length == 1){
+			if(args.length == 1){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
 					Player target = Bukkit.getPlayer(args[0]);
@@ -39,9 +37,9 @@ public class tp implements CommandExecutor {
 			}else if(args.length == 4){
 				if(sender instanceof Player){
 					Player p = (Player)sender;
-					if(StringAPI.isNumber(args[0])){
-						if(StringAPI.isNumber(args[1])){
-							if(StringAPI.isNumber(args[2])){
+					if(StringAPI.isInteger(args[0])){
+						if(StringAPI.isInteger(args[1])){
+							if(StringAPI.isInteger(args[2])){
 								World w = Bukkit.getWorld(args[3]);
 								if(w != null){
 									Double x = new Double(args[0]);
@@ -57,9 +55,9 @@ public class tp implements CommandExecutor {
 			}else if(args.length > 4){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){
-					if(StringAPI.isNumber(args[1])){
-						if(StringAPI.isNumber(args[2])){
-							if(StringAPI.isNumber(args[3])){
+					if(StringAPI.isInteger(args[1])){
+						if(StringAPI.isInteger(args[2])){
+							if(StringAPI.isInteger(args[3])){
 								World w = Bukkit.getWorld(args[4]);
 								if(w != null){
 									Double x = new Double(args[1]);
@@ -72,7 +70,7 @@ public class tp implements CommandExecutor {
 						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[1] + "' is not a number!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[0] + "' is not a number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
-			}
+			}else 				sender.sendMessage(EssentialsGreen.prefix + "/tp [target player] <destination player> or /tp [target player] <x> <y> <z> <World>");
 		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
 		return true;
 	}

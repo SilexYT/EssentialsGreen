@@ -38,9 +38,9 @@ public class tempban implements CommandExecutor {
 				Reason = StringAPI.toCompleteString(args, 2).replace('&', '§');
 				if(File.exists()){
 					if(!Bukkit.getOperators().contains(args[0])){
-						if(StringAPI.isNumber(args[1])){
+						if(StringAPI.isInteger(args[1])){
 							UserFileYaml.set("Ban.Enable", "true");
-							UserFileYaml.set("Ban.Type", "TempBan");
+							UserFileYaml.set("Ban.Type", "Tempban");
 							UserFileYaml.set("Ban.Reason", Reason);
 							UserFileYaml.set("Ban.Author", sender.getName());
 							Date date = new Date();
