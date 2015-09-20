@@ -92,7 +92,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 				messagefile.createNewFile();
 				getEssentialsGreenManager().getMessageManager().load();
 			}
-			prefix = "§2[EG]§e " + " ";
+			prefix = getEssentialsGreenManager().getMessageManager().getMessage("prefix").replace('&', '§');
 		}catch (IOException e){
 			e.printStackTrace();
 		}
@@ -652,6 +652,8 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			public UpdateManager getUpdateManager() {
 				UpdateManager upma = new UpdateManager() {
 					
+					String URL = "https://www.dropbox.com/s/oxrl6e1pbnc77y0/version.eg?dl=1";
+					
 					@Override
 					public Results downloadUpdate(String OUTPATH, boolean reload) {
 						String[] File = getFile().split(",");
@@ -679,7 +681,7 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 
 					@Override
 					public String getFile() {
-						String File = InternetAPI.ReadURL("https://www.dropbox.com/s/p2h0a0umvwmcmy5/Info.txt?dl=1");
+						String File = InternetAPI.ReadURL(URL);
 						return File;
 					}
 				};
