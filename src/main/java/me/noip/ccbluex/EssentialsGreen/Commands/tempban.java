@@ -62,7 +62,7 @@ public class tempban implements CommandExecutor {
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You can not ban the player!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This player has never been on the server");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

@@ -46,7 +46,7 @@ public class time implements CommandExecutor {
 						p.sendMessage(EssentialsGreen.prefix + "The Time is: " + p.getWorld().getTime());
 					}else p.sendMessage(EssentialsGreen.prefix + "/time <set|add> <Time Ticks>");
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		}else System.out.println(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 		return true;
 	}

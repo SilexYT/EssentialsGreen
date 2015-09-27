@@ -30,7 +30,7 @@ public class defaultgamemode implements CommandExecutor{
 					sender.sendMessage(EssentialsGreen.prefix + "The Default Gamemode is now Spectator");
 				}else sender.sendMessage(EssentialsGreen.prefix + "/defaultgamemode <0|1|2|3>");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

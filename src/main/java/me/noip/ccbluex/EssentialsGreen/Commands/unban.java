@@ -45,7 +45,7 @@ public class unban implements CommandExecutor {
 						p.sendMessage(EssentialsGreen.prefix + args[0] + " unbanned!");
 				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player has never been on the server");
 			}else p.sendMessage(EssentialsGreen.prefix + "/unban <Player>");
-		}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

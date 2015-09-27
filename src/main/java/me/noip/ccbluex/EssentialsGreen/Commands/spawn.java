@@ -34,7 +34,7 @@ public class spawn implements CommandExecutor {
 							p.sendMessage(EssentialsGreen.prefix + "Teleport...");
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not more!");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] No Spawn Found");
-				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+				}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
 		}else if(args.length > 0){
 			if(sender.hasPermission("EssentialsGreen.spawn.other")){
@@ -50,7 +50,7 @@ public class spawn implements CommandExecutor {
 						}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not more!");
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] No Spawn Found");
-			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4]You do not have the required permissions");
+			}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		}
 		return true;
 	}

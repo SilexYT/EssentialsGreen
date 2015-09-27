@@ -70,7 +70,7 @@ public class whitelist implements CommandExecutor {
 					sender.sendMessage(EssentialsGreen.prefix + "Whitelist reloaded!");
 				}
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

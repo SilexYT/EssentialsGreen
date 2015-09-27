@@ -61,7 +61,7 @@ public class spawnpoint implements CommandExecutor {
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Write the Cordinates!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

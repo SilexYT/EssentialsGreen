@@ -71,7 +71,7 @@ public class tp implements CommandExecutor {
 					}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[0] + "' is not a number!");
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
 			}else 				sender.sendMessage(EssentialsGreen.prefix + "/tp [target player] <destination player> or /tp [target player] <x> <y> <z> <World>");
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

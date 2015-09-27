@@ -51,7 +51,7 @@ public class speed implements CommandExecutor {
 					}else sender.sendMessage(EssentialsGreen.prefix + "This player is not online");
 				}else sender.sendMessage(EssentialsGreen.prefix + "/speed <number> [Player]");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

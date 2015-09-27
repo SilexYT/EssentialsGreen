@@ -24,7 +24,7 @@ public class msg implements CommandExecutor {
 					target.sendMessage(EssentialsGreen.prefix + "§3[MSG]§f " + sender.getName() + " §2-->§f " + Text);
 				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

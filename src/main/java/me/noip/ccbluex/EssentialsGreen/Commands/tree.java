@@ -36,7 +36,7 @@ public class tree implements CommandExecutor {
 					}
 				}
 			}
-		}
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

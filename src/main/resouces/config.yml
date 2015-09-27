@@ -27,3 +27,8 @@ PhysicExplosion: false
 #----------------#
 NickNames:
 - <Names>
+#----------------------#
+# ChunkLoader Settings #
+#----------------------#
+ChunkLoaderEnable: true
+ChunkLoaderBlock: ENCHANTMENT_TABLE

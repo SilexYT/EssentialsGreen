@@ -4,7 +4,13 @@ prefix: '&2[EG]&e'
 MetricsStart: 'Metrics start!'
 MetricsStartFailed: 'Metrics start failed!'
 ConfigIsOld: 'WARNING Please update the Config the config is to old!'
-NewVersion: New Version Avaible
-NoNewVersion: No New Version Avaible
-isload: The Plugin is in loading!
-load: The plugin has been loaded!
+NewVersion: 'New Version Avaible'
+NoNewVersion: 'No New Version Avaible'
+isload: 'The Plugin is in loading!'
+load: 'The plugin has been loaded!'
+MetricsStop: 'Metrics stop!'
+MetricsStopFailed: 'Metrics stop failed!'
+isdisable: 'The Plugin is in disable!'
+disable: 'The Plugin is disable!'
+#Standard Command Messages
+nopermissions: '&4[&lError&r&4] You do not have the required permissions'

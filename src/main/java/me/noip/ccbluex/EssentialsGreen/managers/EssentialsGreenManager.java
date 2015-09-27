@@ -14,4 +14,5 @@ public interface EssentialsGreenManager {
 	public void ReloadGroupPrefix();
 	public UpdateManager getUpdateManager();
 	public MessageManager getMessageManager();
+	public ChunkLoaderManager getChunkLoaderManager();
 }

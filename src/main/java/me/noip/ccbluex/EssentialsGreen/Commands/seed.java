@@ -24,7 +24,7 @@ public class seed implements CommandExecutor {
 					World W = p.getWorld();
 					p.sendMessage(EssentialsGreen.prefix + "Seed: " + W.getSeed());
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		}else{
 			if(args.length > 0){
 				World W = Bukkit.getWorld(args[0]);

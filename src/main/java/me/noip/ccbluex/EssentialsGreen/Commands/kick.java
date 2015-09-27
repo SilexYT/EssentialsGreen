@@ -37,7 +37,7 @@ public class kick implements CommandExecutor {
 						Bukkit.broadcastMessage(EssentialsGreen.prefix + args[0] + " was kicked, Reason : " + Reason);
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
 				}
-			}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+			}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

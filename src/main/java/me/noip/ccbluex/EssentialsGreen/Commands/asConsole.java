@@ -20,7 +20,7 @@ public class asConsole implements CommandExecutor {
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 				sender.sendMessage(EssentialsGreen.prefix + "The Command is send!");
 			}
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }

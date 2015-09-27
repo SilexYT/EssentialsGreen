@@ -60,7 +60,7 @@ public class ban implements CommandExecutor {
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You can not ban the player!");
 				}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This player has never been on the server");
 			}
-		}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the required permissions");
+		}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}
 }
