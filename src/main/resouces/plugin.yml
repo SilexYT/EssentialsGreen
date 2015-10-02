@@ -86,3 +86,6 @@ commands:
      vanish:
           usage: /vanish [Player]
           aliases: [v]
+     chunkloader:
+          usage: /chunkloader <Commands...>
+          aliases: [cl]

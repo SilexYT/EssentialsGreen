@@ -3,7 +3,7 @@ prefix: '&2[EG]&e'
 #Console Messages
 MetricsStart: 'Metrics start!'
 MetricsStartFailed: 'Metrics start failed!'
-ConfigIsOld: 'WARNING Please update the Config the config is to old!'
+renewconfig: 'A new config is create the old config is to old.'
 NewVersion: 'New Version Avaible'
 NoNewVersion: 'No New Version Avaible'
 isload: 'The Plugin is in loading!'
@@ -14,3 +14,11 @@ isdisable: 'The Plugin is in disable!'
 disable: 'The Plugin is disable!'
 #Standard Command Messages
 nopermissions: '&4[&lError&r&4] You do not have the required permissions'
+youmustplayer: '§4[§lError§r§4] You must be a Player'
+#chunkloader messages
+chunkloaderadd: '§eThe chunkloader is create!'
+chunkloaderremove: '§eThe chunkloader is remove!'
+chunkloadertheconfigcannotedit: '§eThe config can not edit!'
+youhasthebreakthechunkloader: '§7You has break the chunkloader!'
+#chatmanager
+chatmanagerprefix:  '~ ChatManage ~'

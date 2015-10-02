@@ -29,7 +29,7 @@ public class speed implements CommandExecutor {
 							}
 						}else p.sendMessage(EssentialsGreen.prefix + "Please Write a number under 11");
 					}else p.sendMessage(EssentialsGreen.prefix + "This is not a number");
-				}else sender.sendMessage(EssentialsGreen.prefix + "You must be a Player");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else{
 				if(args.length > 1){
 					Player target = Bukkit.getPlayer(args[1]);

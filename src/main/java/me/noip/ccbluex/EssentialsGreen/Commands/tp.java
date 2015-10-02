@@ -24,7 +24,7 @@ public class tp implements CommandExecutor {
 						p.teleport(target);
 						p.sendMessage(EssentialsGreen.prefix + "Teleport...");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The player is not online");
-				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else if(args.length == 2){
 				Player target = Bukkit.getPlayer(args[0]);
 				Player dp = Bukkit.getPlayer(args[1]);
@@ -51,7 +51,7 @@ public class tp implements CommandExecutor {
 							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[2] + "' is not a number!");
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[1] + "' is not a number!");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] '" + args[0] + "' is not a number!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else if(args.length > 4){
 				Player target = Bukkit.getPlayer(args[0]);
 				if(target != null){

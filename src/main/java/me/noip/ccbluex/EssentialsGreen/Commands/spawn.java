@@ -35,7 +35,7 @@ public class spawn implements CommandExecutor {
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The World exist not more!");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] No Spawn Found");
 				}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
-			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+			}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 		}else if(args.length > 0){
 			if(sender.hasPermission("EssentialsGreen.spawn.other")){
 				YamlConfiguration SY = plugin.SpawnYaml;

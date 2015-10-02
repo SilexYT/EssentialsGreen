@@ -1,4 +1,4 @@
-ConfigVersion: 3.6
+ConfigVersion: 3.7
 #----------------#
 #Dafault Settings#
 #----------------#
@@ -32,3 +32,15 @@ NickNames:
 #----------------------#
 ChunkLoaderEnable: true
 ChunkLoaderBlock: ENCHANTMENT_TABLE
+#-----------------#
+# Logger Settings #
+#-----------------#
+Logger: true
+LoggerFile: 'plugins/EssentialsGreen/logger.log'
+PlayerJoinLog: true
+PlayerQuitLog: true
+ChatLog: true
+CommandLog: true
+BlockBreakLog: false
+BlockPlaceLog: false
+ChangeWorldLog: true

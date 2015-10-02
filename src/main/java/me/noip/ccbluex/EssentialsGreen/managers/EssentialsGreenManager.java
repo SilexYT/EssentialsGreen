@@ -15,4 +15,5 @@ public interface EssentialsGreenManager {
 	public UpdateManager getUpdateManager();
 	public MessageManager getMessageManager();
 	public ChunkLoaderManager getChunkLoaderManager();
+	public FileManager getFileManager();
 }

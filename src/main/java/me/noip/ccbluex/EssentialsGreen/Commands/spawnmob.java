@@ -47,7 +47,7 @@ public class spawnmob implements CommandExecutor {
 						}else p.getWorld().spawnEntity(p.getLocation(), EntityType.fromName(args[0]));
 					}
 				}
-			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
+			}else sender.sendMessage(EssentialsGreen.prefix +EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}

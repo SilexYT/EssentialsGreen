@@ -32,7 +32,7 @@ public class gamemode implements CommandExecutor {
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(EssentialsGreen.prefix + "Your gamemode has been changed");
 					}else p.sendMessage(EssentialsGreen.prefix + "/gamemode <0|1|2|3> [Target]");
-				}else System.out.println(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+				}else System.out.println(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else if(args.length > 1){
 				Player Target = Bukkit.getPlayer(args[1]);
 				if(!(Target == null)){

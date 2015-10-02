@@ -31,7 +31,7 @@ public class xp implements CommandExecutor {
 							p.sendMessage(EssentialsGreen.prefix + "The xp set succesfully!");
 						}else p.sendMessage(EssentialsGreen.prefix + "/xp <set|add> <xp> [Player]");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Give a number!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else if(args.length > 2){
 				String number = args[1];
 				if(StringAPI.isInteger(number)){

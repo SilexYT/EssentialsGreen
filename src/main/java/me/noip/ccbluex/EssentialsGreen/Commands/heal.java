@@ -19,7 +19,7 @@ public class heal implements CommandExecutor {
 					p.setHealth(20.0);
 					p.setFoodLevel(20);
 					p.sendMessage(EssentialsGreen.prefix + "You'd healed");
-				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player!");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else{
 				Player p = Bukkit.getPlayer(args[0]);
 				if(!(p == null)){

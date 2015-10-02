@@ -33,7 +33,7 @@ public class fly implements CommandExecutor {
 							FlyingPlayers.add(PN);
 						}
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This event is only for people without Creative Mode!");
-				}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
+				}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 			}else{
 				if(args.length > 0){
 					Player target = Bukkit.getPlayer(args[0]);

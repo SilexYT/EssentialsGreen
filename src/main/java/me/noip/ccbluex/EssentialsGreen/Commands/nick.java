@@ -20,7 +20,6 @@ public class nick implements CommandExecutor {
 		plugin = main;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label,String[] args) {
 		if(sender.hasPermission("EssentialsGreen.nick")){
@@ -35,26 +34,20 @@ public class nick implements CommandExecutor {
 								String name = p.getName();
 								Nicks.removeNick(p.getUniqueId());
 								Nicks.removeSkin(p.getUniqueId());
-								p.sendMessage(EssentialsGreen.prefix + "Your name is now again " + name);
+								p.sendMessage(EssentialsGreen.prefix + "Your name is now again §7'" + name + "'");
 							}else{
-								boolean block = false;
-								ArrayList<String> BlockNickNames = (ArrayList<String>)plugin.getConfig().get("NickNames");
-								for(int i = 0; i < BlockNickNames.size(); i++){
-									if(BlockNickNames.get(i).equalsIgnoreCase(args[0])){
-										block = true;
-									}
-								}
-								if(block == false){
+								ArrayList<String> BlockNickNames = (ArrayList<String>)plugin.getConfig().getStringList("NickNames");
+								if(BlockNickNames.contains(args[0])){
 									String prefix = plugin.getConfig().getString("NickNamePrefix").replace('&', '§');
 									Nicks.setNick(p.getUniqueId(), prefix + args[0]);
 									Nicks.setSkin(p.getUniqueId(), prefix + args[0]);
-									p.sendMessage(EssentialsGreen.prefix + "Your name is now " + args[0]);
+									p.sendMessage(EssentialsGreen.prefix + "Your name is now §7'" + args[0] + "'");
 								}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The Name is on the blacklist!");
 							}
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] Install the Plugin NickNamer from Spigotmc.org");
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The name must be under 16");
 				}
-			}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
+			}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;
 	}

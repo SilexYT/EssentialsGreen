@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +18,7 @@ import me.noip.ccbluex.EssentialsGreen.Commands.asConsole;
 import me.noip.ccbluex.EssentialsGreen.Commands.ban;
 import me.noip.ccbluex.EssentialsGreen.Commands.banlist;
 import me.noip.ccbluex.EssentialsGreen.Commands.broadcast;
+import me.noip.ccbluex.EssentialsGreen.Commands.chunkloader;
 import me.noip.ccbluex.EssentialsGreen.Commands.clear;
 import me.noip.ccbluex.EssentialsGreen.Commands.defaultgamemode;
 import me.noip.ccbluex.EssentialsGreen.Commands.effect;
@@ -49,14 +52,14 @@ import me.noip.ccbluex.EssentialsGreen.Commands.vanish;
 import me.noip.ccbluex.EssentialsGreen.Commands.warp;
 import me.noip.ccbluex.EssentialsGreen.Commands.whitelist;
 import me.noip.ccbluex.EssentialsGreen.Commands.xp;
-import me.noip.ccbluex.EssentialsGreen.Listeners.InteractListener;
+import me.noip.ccbluex.EssentialsGreen.Listeners.ChunkLoaderListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.LogListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.MainListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.PhysicExplosionListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.Signs;
 import me.noip.ccbluex.EssentialsGreen.managers.EssentialsGreenManager;
 
-public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
+public class EssentialsGreen extends JavaPlugin {
 
 	public static String prefix;
 	public File SpawnF;
@@ -80,35 +83,43 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 			if(messagefile.exists() == false){
 				messagefile.createNewFile();
 				getEssentialsGreenManager().getMessageManager().load();
-				getEssentialsGreenManager().getMessageManager().reload();
 			}
-			prefix = getEssentialsGreenManager().getMessageManager().getMessage("prefix");
+			prefix = getEssentialsGreenManager().getMessageManager().getMessage("prefix") + " ";
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		//chunkloader
-		try{
-			getEssentialsGreenManager().getChunkLoaderManager().loadsave();
-			
-		}catch(IOException e1){
-			e1.printStackTrace();
-		}
+		//Message file extra load;
+		YamlConfiguration messageyaml = getEssentialsGreenManager().getFileManager().getYaml("plugins/EssentialsGreen/message.yml");
 		//Config File
 		saveDefaultConfig();
 		if(Double.parseDouble(getEssentialsGreenManager().getVersion()) > getConfig().getDouble("ConfigVersion")){
-			System.err.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage(getEssentialsGreenManager().getMessageManager().getMessage("ConfigIsOld")));
+			File oldc = getEssentialsGreenManager().getFileManager().getFile("plugins/EssentialsGreen/config.yml");
+			try {
+				getEssentialsGreenManager().getFileManager().copyfile(oldc, new File("plugins/EssentialsGreen/oldconfig.yml"));
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+			oldc.delete();
+			saveDefaultConfig();
+			System.err.println(prefix + messageyaml.getString("renewconfig").replace('&', '§'));
 		}
 		//Spawn File
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
 		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
 		if(getEssentialsGreenManager().getUpdateManager().checkUpdate()){
-			System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("NewVersion"));
+			System.out.println(prefix + messageyaml.getString("NewVersion").replace('&', '§'));
 			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
 				getEssentialsGreenManager().getUpdateManager().downloadUpdate("plugins/EssentialsGreen.jar", true);
 			}
-		}else System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("NoNewVersion"));
-		System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("isload"));
+		}else System.out.println(prefix + messageyaml.getString("NoNewVersion").replace('&', '§'));
+		//ChunkLoader start
+		try{
+			getEssentialsGreenManager().getChunkLoaderManager().start();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		System.out.println(prefix + messageyaml.getString("isload").replace('&', '§'));
 	}
 	
 	@Override
@@ -187,12 +198,14 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 		getCommand("tempban").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("vanish").setExecutor(new vanish());
 		getCommand("vanish").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("chunkloader").setExecutor(new chunkloader());
+		getCommand("chunkloader").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PhysicExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
-		Bukkit.getPluginManager().registerEvents(new LogListener(), this);
-		Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+		Bukkit.getPluginManager().registerEvents(new LogListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new ChunkLoaderListener(), this);
 		//ReloadGroupPrefix
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			@Override
@@ -208,6 +221,26 @@ public class EssentialsGreen extends JavaPlugin implements CommandExecutor {
 	    }catch(IOException e){
 	        System.err.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("MetricsStartFailed"));
 	    }
+		//Chunkloader
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				for(Chunk c : getEssentialsGreenManager().getChunkLoaderManager().getChunks()){
+					YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/config.yml"));
+					if(config.getString("ChunkLoaderEnable").equalsIgnoreCase("true")){
+						if(c.isLoaded() == false){
+							c.load(true);
+						}
+					}
+				}
+				
+				for(Block b : getEssentialsGreenManager().getChunkLoaderManager().getChunkLoaders()){
+					YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/config.yml"));
+					b.setType(Material.matchMaterial(config.getString("ChunkLoaderBlock")));
+				}
+			}
+		}, 20*60, 20);
 		System.out.println(prefix + getEssentialsGreenManager().getMessageManager().getMessage("load"));
 	}
 	

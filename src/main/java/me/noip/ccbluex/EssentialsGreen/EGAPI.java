@@ -4,9 +4,11 @@
 package me.noip.ccbluex.EssentialsGreen;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -19,14 +21,17 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+
+import com.google.common.io.Files;
 
 import me.noip.ccbluex.EssentialsGreen.managers.ChunkLoaderManager;
 import me.noip.ccbluex.EssentialsGreen.managers.EssentialsGreenManager;
+import me.noip.ccbluex.EssentialsGreen.managers.FileManager;
 import me.noip.ccbluex.EssentialsGreen.managers.MessageManager;
 import me.noip.ccbluex.EssentialsGreen.managers.UpdateManager;
 import me.noip.ccbluex.EssentialsGreen.managers.WarpManager;
 import me.noip.ccbluex.EssentialsGreen.util.InternetAPI;
+import me.noip.ccbluex.EssentialsGreen.util.Message;
 import me.noip.ccbluex.EssentialsGreen.util.Results;
 import me.noip.ccbluex.EssentialsGreen.util.Warp;
 
@@ -42,13 +47,13 @@ public class EGAPI {
 			
 			@Override
 			public String getName() {
-				InputStream is = getClass().getResourceAsStream("/plugins.yml");
+				InputStream is = getClass().getResourceAsStream("/plugin.yml");
 				return YamlConfiguration.loadConfiguration(is).getString("name");
 			}
 			
 			@Override
 			public String getVersion() {
-				InputStream is = getClass().getResourceAsStream("/plugins.yml");
+				InputStream is = getClass().getResourceAsStream("/plugin.yml");
 				return YamlConfiguration.loadConfiguration(is).getString("version");
 			}
 
@@ -58,7 +63,9 @@ public class EGAPI {
 					@Override
 					public Results removeWarp(String Name) {
 						File WarpFile = new File("plugins/EssentialsGreen/Warp/" + Name + ".yml");
-						if(WarpFile.delete() == false) return Results.File_can_not_delete;
+						if(WarpFile.delete() == false){
+							return Results.File_can_not_delete;
+						}
 						return Results.Success;
 					}
 					
@@ -478,8 +485,19 @@ public class EGAPI {
 					YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
 					
 					@Override
-					public String getMessage(String path) {
-						return yaml.getString(path).replace('&', '§');
+					public Message getMessage(String path) {
+						final String YamlMSG = yaml.getString(path).replace('&', '§');
+						
+						Message msg = new Message() {
+							
+							String Message = YamlMSG;
+							
+							@Override
+							public String toString(){
+								return Message;
+							}
+						};
+						return msg;
 					}
 					
 					@Override
@@ -496,14 +514,17 @@ public class EGAPI {
 					
 					@Override
 					public void load() throws IOException {
+						System.out.println("[EssentialsGreen] Message.yml is in create!");
 						InputStream is = getClass().getResourceAsStream("/message.yml");
-						FileOutputStream os = new FileOutputStream(new File("plugins/EssentialsGreen/message.yml"));
+						FileOutputStream os = new FileOutputStream(file);
 						for(int read = 0; (read = is.read()) != -1;){
 							os.write(read);
 						}
 						os.flush();
 						os.close();
 						is.close();
+						reload();
+						System.out.println("[EssentialsGreen] Message.yml is create!");
 					}
 					
 					@Override
@@ -524,17 +545,17 @@ public class EGAPI {
 					public Chunk addChunkLoader(Location loc) throws IOException {
 						YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/config.yml"));
 						removeChunkLoader(loc);
-						Collection<String> c = yaml.getStringList("ChunkLoaders");
+						Collection<String> c = yaml.getStringList("cl");
 						c.add(loc.getX() + "," + loc.getY() + "," + loc.getZ() + "," + loc.getWorld().getName());
-						yaml.set("ChunkLoaders", c);
-						save();
+						yaml.set("cl", c);
+						yaml.save(new File("plugins/EssentialsGreen/chunkloader.yml"));
 						loc.getBlock().setType(Material.matchMaterial(config.getString("ChunkLoaderBlock")));
 						return loc.getChunk();
 					}
 
 					@Override
-					public boolean removeChunkLoader(Location loc) {
-						Collection<String> c = yaml.getStringList("ChunkLoaders");
+					public boolean removeChunkLoader(Location loc) throws IOException {
+						Collection<String> c = yaml.getStringList("cl");
 						Collection<Chunk> chu = getChunks();
 						for(int i = 0; chu.size() > i; i++){
 							Chunk[] chunks = (Chunk[])chu.toArray();
@@ -544,7 +565,8 @@ public class EGAPI {
 								return true;
 							}
 						}
-						yaml.set("ChunkLoaders", c);
+						yaml.set("cl", c);
+						yaml.save(new File("plugins/EssentialsGreen/chunkloader.yml"));
 						return false;
 					}
 
@@ -552,9 +574,9 @@ public class EGAPI {
 					public void info(Location loc, Player getsinfo) {
 						Chunk ch = loc.getChunk();
 						getsinfo.sendMessage("§eChunk Infos:\n"
-								+ "§eX§7:§e " + ch.getX()
-								+ "§eZ§7:§e " + ch.getZ()
-								+ "§eWorld§7:§e " + ch.getWorld());
+								+ "§eX§7:§e " + ch.getX() + "\n"
+								+ "§eZ§7:§e " + ch.getZ() + "\n"
+								+ "§eWorld§7:§e " + ch.getWorld().getName());
 					}
 
 					@Override
@@ -564,16 +586,10 @@ public class EGAPI {
 					}
 
 					@Override
-					public void createsave() throws IOException {
-						File chunkloaderfile = new File("plugins/EssentialsGreen/chunkloader.yml");
-						YamlConfiguration clintern = YamlConfiguration.loadConfiguration(getClass().getResourceAsStream("/chunkloader.yml"));
-						clintern.save(chunkloaderfile);
-					}
-
-					@Override
 					public Collection<Chunk> getChunks() {
+						reload();
 						Collection<Chunk> chunks = new ArrayList<Chunk>();
-						Collection<String> c = yaml.getStringList("ChunkLoaders");
+						Collection<String> c = yaml.getStringList("cl");
 						for(String s : c){
 							String[] st = s.split(",");
 							chunks.add(new Location(Bukkit.getWorld(st[3]), Double.parseDouble(st[0]), Double.parseDouble(st[1]), Double.parseDouble(st[2])).getChunk());
@@ -583,8 +599,9 @@ public class EGAPI {
 
 					@Override
 					public Collection<Block> getChunkLoaders() {
+						reload();
 						Collection<Block> block = new ArrayList<Block>();
-						Collection<String> c = yaml.getStringList("ChunkLoaders");
+						Collection<String> c = yaml.getStringList("cl");
 						for(String s : c){
 							String[] st = s.split(",");
 							block.add(new Location(Bukkit.getWorld(st[3]), Double.parseDouble(st[0]), Double.parseDouble(st[1]), Double.parseDouble(st[2])).getBlock());
@@ -593,44 +610,63 @@ public class EGAPI {
 					}
 
 					@Override
-					public void loadsave() throws IOException {
-						File chunkloaderfile = new File("plugins/EssentialsGreen/chunkloader.yml");
-						if(chunkloaderfile.exists()){
-							yaml = YamlConfiguration.loadConfiguration(chunkloaderfile);
+					public void start() throws FileNotFoundException, IOException {
+						File file = new File("plugins/EssentialsGreen/chunkloader.yml");
+						if(file.exists()){
+							yaml = YamlConfiguration.loadConfiguration(file);
 						}else{
-							createsave();
-							yaml = YamlConfiguration.loadConfiguration(chunkloaderfile);
+							getFileManager().copyfile(getFileManager().getResource("chunkloader.yml", getClass()), file);
+							file = new File("plugins/EssentialsGreen/chunkloader.yml");
+							yaml = YamlConfiguration.loadConfiguration(file);
 						}
-					}
-
-					@Override
-					public void save() throws IOException {
-						File chunkloaderfile = new File("plugins/EssentialsGreen/chunkloader.yml");
-						yaml.save(chunkloaderfile);
-						reload();
-					}
-
-					@Override
-					public int start(Plugin plugin) {
-						int i = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-							
-							@Override
-							public void run() {
-								for(Chunk c : getChunks()){
-									YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("plugins/EssentialsGreen/config.yml"));
-									if(config.getString("ChunkLoaderEnable").equalsIgnoreCase("true")){
-										if(c.isLoaded() == false){
-											c.load(true);
-										}
-									}
-								}
-							}
-						}, 0, 20);
-						return i;
 					}
 
 				};
 				return cm;
+			}
+
+			@Override
+			public FileManager getFileManager() {
+				FileManager filemanager = new FileManager() {
+					
+					@Override
+					public InputStream getResource(String filename, Class<?> Class) throws FileNotFoundException {
+						InputStream is = Class.getResourceAsStream("/" + filename);
+						return is;
+					}
+					
+					@Override
+					public File getFile(String path) {
+						return new File(path);
+					}
+					
+					@Override
+					public void copyfile(InputStream from, File to) throws IOException {
+					    OutputStream os = null;
+					    try{
+					        os = new FileOutputStream(to);
+					        byte[] buffer = new byte[1024];
+					        int length;
+					        while ((length = from.read(buffer)) > 0) {
+					            os.write(buffer, 0, length);
+					        }
+					    }finally{
+					        from.close();
+					        os.close();
+					    }
+					}
+					
+					@Override
+					public void copyfile(File from, File to) throws IOException {
+						Files.copy(from, to);
+					}
+
+					@Override
+					public YamlConfiguration getYaml(String path) {
+						return YamlConfiguration.loadConfiguration(new File(path));
+					}
+				};
+				return filemanager;
 			}
 		};
 		return manage;

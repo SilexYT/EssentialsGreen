@@ -23,7 +23,7 @@ public class invsee implements CommandExecutor {
 					}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] The target player is not online");
 				}
 			}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
-		}else sender.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You must be a Player");
+		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 		return true;
 	}
 }
