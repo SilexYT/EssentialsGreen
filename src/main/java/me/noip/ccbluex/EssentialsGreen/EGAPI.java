@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -17,6 +18,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,13 +26,16 @@ import org.bukkit.entity.Player;
 
 import com.google.common.io.Files;
 
+import me.noip.ccbluex.EssentialsGreen.APIs.InternetAPI;
+import me.noip.ccbluex.EssentialsGreen.Player.User;
+import me.noip.ccbluex.EssentialsGreen.managers.ChatManager;
 import me.noip.ccbluex.EssentialsGreen.managers.ChunkLoaderManager;
 import me.noip.ccbluex.EssentialsGreen.managers.EssentialsGreenManager;
 import me.noip.ccbluex.EssentialsGreen.managers.FileManager;
 import me.noip.ccbluex.EssentialsGreen.managers.MessageManager;
 import me.noip.ccbluex.EssentialsGreen.managers.UpdateManager;
+import me.noip.ccbluex.EssentialsGreen.managers.UserManager;
 import me.noip.ccbluex.EssentialsGreen.managers.WarpManager;
-import me.noip.ccbluex.EssentialsGreen.util.InternetAPI;
 import me.noip.ccbluex.EssentialsGreen.util.Message;
 import me.noip.ccbluex.EssentialsGreen.util.Results;
 import me.noip.ccbluex.EssentialsGreen.util.Warp;
@@ -667,6 +672,344 @@ public class EGAPI {
 					}
 				};
 				return filemanager;
+			}
+
+			@Override
+			public ChatManager getChatManager() {
+				ChatManager cm = new ChatManager() {
+					
+					private String chatclear = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ";
+					
+					@Override
+					public boolean send(Collection<Player> p, String message) {
+						if(message == null){message = "";}
+						if(p != null){
+							int l = 0;
+							for(Player pp : p){
+								pp.sendMessage(message);
+								l = l+1;
+							}
+							//Check to send all messages on all players out the list.
+							if(l == p.size()){
+								return true;
+							}
+						}
+						return false;
+					}
+					
+					@Override
+					public boolean send(Player p, String message) {
+						if(message == null){message = "";}
+						if(p != null){
+							p.sendMessage(message);
+							return true;
+						}
+						return false;
+					}
+					
+					@Override
+					public void mute(Collection<Player> p, boolean mute) throws IOException {
+						for(Player pf : p){
+							getUserManager().getUser(pf).setMute(mute);
+						}
+					}
+					
+					@Override
+					public void mute(Player p, boolean mute) throws IOException {
+						getUserManager().getUser(p).setMute(mute);
+					}
+					
+					@Override
+					public boolean clear(Collection<Player> p) {
+						if(p != null){
+							int l = 0;
+							for(Player pp : p){
+								pp.sendMessage(chatclear);
+								l = l+1;
+							}
+							//Check to send all messages on all players out the list.
+							if(l == p.size()){
+								return true;
+							}
+						}
+						return false;
+					}
+					
+					@Override
+					public boolean clear(Player p) {
+						if(p != null){
+							p.sendMessage(chatclear);
+							return true;
+						}
+						return false;
+					}
+				};
+				return cm;
+			}
+
+			@Override
+			public UserManager getUserManager(){
+				UserManager um = new  UserManager() {
+					
+					@Override
+					public User createUser(final Player p, boolean isNew) throws IOException {
+						if(p != null){
+							YamlConfiguration defaultyaml = YamlConfiguration.loadConfiguration(getFileManager().getResource("uuid.user", getClass()));
+							defaultyaml.set("Username", p.getName());
+							defaultyaml.set("IsNewPlayer", isNew);
+							defaultyaml.set("IP", p.getAddress().toString());
+							File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+							defaultyaml.save(userfile);
+							User user = new User() {
+								
+								@Override
+								public void setMute(boolean mute) throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Mute.Enable", mute);
+									useryaml.save(userfile);
+								}
+								
+								@Override
+								public boolean isMute() {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Mute.Enable");
+								}
+								
+								@Override
+								public UUID getUUID() {
+									return p.getUniqueId();
+								}
+								
+								@Override
+								public Player getPlayer() {
+									return p;
+								}
+								
+								@Override
+								public OfflinePlayer getOfflinePlayer() {
+									return Bukkit.getOfflinePlayer(p.getName());
+								}
+								
+								@Override
+								public InetSocketAddress getAddress() {
+									return p.getAddress();
+								}
+
+								@Override
+								public void setBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public boolean isBan() {
+									// TODO Auto-generated method stub
+									return false;
+								}
+
+								@Override
+								public void setTempBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+							};
+							return user;
+						}
+						return null;
+					}
+
+					@Override
+					public User getUser(final Player p) {
+						if(p != null){
+							User user = new User() {
+								
+								@Override
+								public void setMute(boolean mute) throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Mute.Enable", mute);
+									useryaml.save(userfile);
+								}
+								
+								@Override
+								public boolean isMute() {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Mute.Enable");
+								}
+								
+								@Override
+								public UUID getUUID() {
+									return p.getUniqueId();
+								}
+								
+								@Override
+								public Player getPlayer() {
+									return p;
+								}
+								
+								@Override
+								public OfflinePlayer getOfflinePlayer() {
+									return Bukkit.getOfflinePlayer(p.getName());
+								}
+								
+								@Override
+								public InetSocketAddress getAddress() {
+									return p.getAddress();
+								}
+
+								@Override
+								public void setBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public boolean isBan() {
+									// TODO Auto-generated method stub
+									return false;
+								}
+
+								@Override
+								public void setTempBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+							};
+							return user;
+						}
+						return null;
+					}
+					
+					@Override
+					public User getUser(String name){
+						final Player p = Bukkit.getPlayer(name);
+						if(p != null){
+							User user = new User() {
+								
+								@Override
+								public void setMute(boolean mute) throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Mute.Enable", mute);
+									useryaml.save(userfile);
+								}
+								
+								@Override
+								public boolean isMute() {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Mute.Enable");
+								}
+								
+								@Override
+								public UUID getUUID() {
+									return p.getUniqueId();
+								}
+								
+								@Override
+								public Player getPlayer() {
+									return p;
+								}
+								
+								@Override
+								public OfflinePlayer getOfflinePlayer() {
+									return Bukkit.getOfflinePlayer(p.getName());
+								}
+								
+								@Override
+								public InetSocketAddress getAddress() {
+									return p.getAddress();
+								}
+
+								@Override
+								public void setBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public boolean isBan() {
+									// TODO Auto-generated method stub
+									return false;
+								}
+
+								@Override
+								public void setTempBan(boolean ban, String reason, String author) {
+									// TODO Auto-generated method stub
+									
+								}
+							};
+							return user;
+						}
+						return null;
+					}
+
+					@Override
+					public User getUser(UUID uuid) {
+						final Player p = Bukkit.getPlayer(uuid);
+						if(p != null){
+							User user = new User() {
+								
+								@Override
+								public void setMute(boolean mute) throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Mute.Enable", mute);
+									useryaml.save(userfile);
+								}
+								
+								@Override
+								public boolean isMute() {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Mute.Enable");
+								}
+								
+								@Override
+								public UUID getUUID() {
+									return p.getUniqueId();
+								}
+								
+								@Override
+								public Player getPlayer() {
+									return p;
+								}
+								
+								@Override
+								public OfflinePlayer getOfflinePlayer() {
+									return Bukkit.getOfflinePlayer(p.getName());
+								}
+								
+								@Override
+								public InetSocketAddress getAddress() {
+									return p.getAddress();
+								}
+
+								@Override
+								public void setBan(boolean ban, String reason, String author) {
+									
+								}
+
+								@Override
+								public boolean isBan() {
+									
+									return false;
+								}
+
+								@Override
+								public void setTempBan(boolean ban, String reason, String author) {
+									
+								}
+							};
+							return user;
+						}
+						return null;
+					}
+				};
+				return um;
 			}
 		};
 		return manage;

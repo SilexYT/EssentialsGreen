@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 
 public class spawnpoint implements CommandExecutor {
 

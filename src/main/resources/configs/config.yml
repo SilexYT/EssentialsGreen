@@ -22,11 +22,6 @@ Kick-Prefix: '&e[Kick]&3 '
 #ExplosionEffects Settings#
 #-------------------#
 PhysicExplosion: false
-#----------------#
-#NickNameBlackList#
-#----------------#
-NickNames:
-- <Names>
 #----------------------#
 # ChunkLoader Settings #
 #----------------------#

@@ -11,8 +11,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.ItemManagerAPI;
-import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.ItemManagerAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 
 public class Signs implements Listener {
 

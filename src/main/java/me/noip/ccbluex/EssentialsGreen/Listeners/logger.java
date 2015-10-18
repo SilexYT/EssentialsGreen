@@ -18,11 +18,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 
 @SuppressWarnings("deprecation")
-public class LogListener implements Listener {
+public class logger implements Listener {
 
 	EssentialsGreen plugin;
 	
-	public LogListener(EssentialsGreen eg){
+	public logger(EssentialsGreen eg){
 		plugin = eg;
 	}
 	
@@ -130,7 +130,7 @@ public class LogListener implements Listener {
 			    File file = new File(plugin.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
-				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block place | Type: " + e.getBlock().getType() + " can build: " + e.canBuild() + " data: " + e.getBlock().getData());
+				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block place | Type: " + e.getBlock().getType() + " | can build: " + e.canBuild() + " | data: " + e.getBlock().getData());
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
@@ -149,7 +149,7 @@ public class LogListener implements Listener {
 			    File file = new File(plugin.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
-				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block place | Type: " + e.getBlock().getType() + " can break: " + !e.isCancelled() + " data: " + e.getBlock().getData());
+				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block break | Type: " + e.getBlock().getType() + " | can break: " + !e.isCancelled() + " | data: " + e.getBlock().getData());
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){

@@ -1,7 +1,7 @@
 package me.noip.ccbluex.EssentialsGreen.Commands;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 
 import java.io.File;
 import java.io.IOException;

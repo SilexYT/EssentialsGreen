@@ -1,7 +1,7 @@
 package me.noip.ccbluex.EssentialsGreen.Commands;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;

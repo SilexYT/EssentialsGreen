@@ -8,6 +8,5 @@ package me.noip.ccbluex.EssentialsGreen.util;
  *
  */
 public interface Message {
-
 	public String toString();
 }

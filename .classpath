@@ -2,11 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resouces"/>
-	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="src" path="src/test/resouces"/>
+	<classpathentry kind="src" path="src/main/resources/configs"/>
+	<classpathentry kind="src" path="src/main/resources/user"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="C:/Users/Marco/Documents/Developing Projekte/Jars/PluginAPIs/PermissionsEx.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marco/Documents/Developing Projekte/Jars/ServerAPIs/Spigot-1.8.8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marco/Documents/Developing Projekte/Jars/PluginAPIs/NickNamer_v2.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

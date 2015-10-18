@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.StringAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 
 public class effect implements CommandExecutor {
 

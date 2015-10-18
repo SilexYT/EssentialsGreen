@@ -1,4 +1,4 @@
-package me.noip.ccbluex.EssentialsGreen.util;
+package me.noip.ccbluex.EssentialsGreen.APIs;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;

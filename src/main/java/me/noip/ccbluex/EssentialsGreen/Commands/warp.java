@@ -37,9 +37,11 @@ public class warp implements CommandExecutor {
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the command!");
 					}else if(args[0].equalsIgnoreCase("remove")){
 						if(p.hasPermission("EssentialsGreen.Warp.*") | p.hasPermission("EssentialsGreen.Warp.remove")){
-							if(!(EssentialsGreen.getEssentialsGreenManager().getWarpManager().removeWarp(args[1]) == Results.Success)){
-								p.sendMessage(EssentialsGreen.prefix + "Warp deleted!");
-							}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This Warp exists not!");
+							if(args.length > 1){
+								if(EssentialsGreen.getEssentialsGreenManager().getWarpManager().removeWarp(args[1]) == Results.Success){
+									p.sendMessage(EssentialsGreen.prefix + "Warp deleted!");
+								}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] This Warp exists not!");
+							}
 						}else p.sendMessage(EssentialsGreen.prefix + "§4[§lError§r§4] You do not have the permissions for the command!");
 					}else if(args[0].equalsIgnoreCase("list")){
 						if(p.hasPermission("EssentialsGreen.Warp.*") | p.hasPermission("EssentialsGreen.Warp.list")){

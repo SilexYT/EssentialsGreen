@@ -1,0 +1,15 @@
+Username: username
+IsNewPlayer: isnewplayer
+IP: ip
+firstjoin: firstjoin
+lastjoin: lastjoin
+GroupPrefix: ''
+Ban:
+  Enable: 'false'
+  Reason: 'null'
+  Author: 'null'
+  date: 'null'
+  time: 'null'
+  stoptime: ''
+Mute:
+  Enable: 'false'

@@ -18,7 +18,7 @@ import me.noip.ccbluex.EssentialsGreen.Commands.asConsole;
 import me.noip.ccbluex.EssentialsGreen.Commands.ban;
 import me.noip.ccbluex.EssentialsGreen.Commands.banlist;
 import me.noip.ccbluex.EssentialsGreen.Commands.broadcast;
-import me.noip.ccbluex.EssentialsGreen.Commands.chunkloader;
+//import me.noip.ccbluex.EssentialsGreen.Commands.chunkloader;
 import me.noip.ccbluex.EssentialsGreen.Commands.clear;
 import me.noip.ccbluex.EssentialsGreen.Commands.defaultgamemode;
 import me.noip.ccbluex.EssentialsGreen.Commands.effect;
@@ -53,8 +53,8 @@ import me.noip.ccbluex.EssentialsGreen.Commands.warp;
 import me.noip.ccbluex.EssentialsGreen.Commands.whitelist;
 import me.noip.ccbluex.EssentialsGreen.Commands.xp;
 import me.noip.ccbluex.EssentialsGreen.Listeners.ChunkLoaderListener;
-import me.noip.ccbluex.EssentialsGreen.Listeners.LogListener;
-import me.noip.ccbluex.EssentialsGreen.Listeners.MainListener;
+import me.noip.ccbluex.EssentialsGreen.Listeners.logger;
+import me.noip.ccbluex.EssentialsGreen.Listeners.EGListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.PhysicExplosionListener;
 import me.noip.ccbluex.EssentialsGreen.Listeners.Signs;
 import me.noip.ccbluex.EssentialsGreen.managers.EssentialsGreenManager;
@@ -79,7 +79,7 @@ public class EssentialsGreen extends JavaPlugin {
 		WarpFile.mkdir();
 		//Message File
 		try{
-			File messagefile = new File("plugins/EssentialsGreen", "message.yml");
+			File messagefile = new File("plugins/EssentialsGreen/message.yml");
 			if(messagefile.exists() == false){
 				messagefile.createNewFile();
 				getEssentialsGreenManager().getMessageManager().load();
@@ -198,13 +198,13 @@ public class EssentialsGreen extends JavaPlugin {
 		getCommand("tempban").setTabCompleter(new onTabCompleteManager(this));
 		getCommand("vanish").setExecutor(new vanish());
 		getCommand("vanish").setTabCompleter(new onTabCompleteManager(this));
-		getCommand("chunkloader").setExecutor(new chunkloader());
-		getCommand("chunkloader").setTabCompleter(new onTabCompleteManager(this));
+//		getCommand("chunkloader").setExecutor(new chunkloader());
+//		getCommand("chunkloader").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
-		Bukkit.getPluginManager().registerEvents(new MainListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new EGListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PhysicExplosionListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new Signs(), this);
-		Bukkit.getPluginManager().registerEvents(new LogListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new logger(this), this);
 		Bukkit.getPluginManager().registerEvents(new ChunkLoaderListener(), this);
 		//ReloadGroupPrefix
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){

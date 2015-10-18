@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-import me.noip.ccbluex.EssentialsGreen.util.ItemManagerAPI;
+import me.noip.ccbluex.EssentialsGreen.APIs.ItemManagerAPI;
 
 public class give implements CommandExecutor {
 

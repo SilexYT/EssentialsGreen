@@ -86,6 +86,8 @@ commands:
      vanish:
           usage: /vanish [Player]
           aliases: [v]
-     chunkloader:
-          usage: /chunkloader <Commands...>
-          aliases: [cl]
+#    chunkloader:
+#          usage: /chunkloader <Commands...>
+#         aliases: [cl]
+     chat:
+          usage: /chat <Commands...>

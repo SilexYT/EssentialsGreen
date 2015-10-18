@@ -1,4 +1,4 @@
-package me.noip.ccbluex.EssentialsGreen.util;
+package me.noip.ccbluex.EssentialsGreen.APIs;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;

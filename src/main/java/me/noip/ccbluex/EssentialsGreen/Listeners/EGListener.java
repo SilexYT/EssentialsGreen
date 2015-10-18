@@ -17,10 +17,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 
-public class MainListener implements Listener {
+public class EGListener implements Listener {
 	
 	EssentialsGreen plugin;
-	public MainListener(EssentialsGreen main) {
+	public EGListener(EssentialsGreen main) {
 		plugin = main;
 	}
 
@@ -50,25 +50,13 @@ public class MainListener implements Listener {
 	@EventHandler(priority= EventPriority.HIGH)
 	public void PlayerJoin(PlayerJoinEvent e){
 		Player p = e.getPlayer();
+		try{
+			EssentialsGreen.getEssentialsGreenManager().getUserManager().createUser(p, true);
+		}catch (IOException e2){
+			e2.printStackTrace();
+		}
 		File UserFile = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
 		YamlConfiguration UserFileYaml = YamlConfiguration.loadConfiguration(UserFile);
-		//setPlayerInfos
-		UserFileYaml.set("Username", p.getName());
-		UserFileYaml.set("IP", p.getAddress().toString());
-		UserFileYaml.addDefault("IsNewPlayer", true);
-		UserFileYaml.addDefault("Ban.Enable", "false");
-		UserFileYaml.addDefault("Ban.Reason", "null");
-		UserFileYaml.addDefault("Ban.Author", "null");
-		UserFileYaml.addDefault("Ban.date", "null");
-		UserFileYaml.addDefault("Ban.Ex", "null");
-		UserFileYaml.addDefault("Ban.dateSeconds", "null");
-		//GroupPrefix
-		try{
-			Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
-		    UserFileYaml.set("GroupPrefix", ru.tehkode.permissions.bukkit.PermissionsEx.getUser(p).getPrefix());
-		}catch(ClassNotFoundException e2){
-			UserFileYaml.set("GroupPrefix", "");
-		}
 		//JoinMessage
 		if(!UserFileYaml.getBoolean("IsNewPlayer")){
 			e.setJoinMessage((plugin.getConfig().getString("JoinMessage").replace("{Group}", UserFileYaml.getString("GroupPrefix")).replace("{Player}", p.getDisplayName())).replace('&', '§'));

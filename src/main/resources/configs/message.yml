@@ -15,10 +15,13 @@ disable: 'The Plugin is disable!'
 #Standard Command Messages
 nopermissions: '&4[&lError&r&4] You do not have the required permissions'
 youmustplayer: '§4[§lError§r§4] You must be a Player'
+theplayercannotfound: '§4[§lError§r§4] The player can not found on the server!'
 #chunkloader messages
 chunkloaderadd: '§eThe chunkloader is create!'
 chunkloaderremove: '§eThe chunkloader is remove!'
 chunkloadertheconfigcannotedit: '§eThe config can not edit!'
 youhasthebreakthechunkloader: '§7You has break the chunkloader!'
 #chatmanager
-chatmanagerprefix:  '~ ChatManage ~'
+chatmanagerprefix:  '~ ChatManager ~'
+chatclearall: 'The chat is empty for all!'
+chatclearforplayer: 'The chat is empty for (Player)'
