@@ -3,6 +3,8 @@ package me.noip.ccbluex.EssentialsGreen;
 import java.io.File;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
+import org.xml.sax.SAXException;
 
 import me.noip.ccbluex.EssentialsGreen.CommandManager.onTabCompleteManager;
 import me.noip.ccbluex.EssentialsGreen.Commands.asConsole;
@@ -109,13 +112,23 @@ public class EssentialsGreen extends JavaPlugin {
 		//Spawn File
 		SpawnF = new File("plugins/EssentialsGreen/Spawn.yml");
 		SpawnYaml = YamlConfiguration.loadConfiguration(SpawnF);
-		try{SpawnYaml.save(SpawnF);}catch (IOException e){e.printStackTrace();}
-		if(getEssentialsGreenManager().getUpdateManager().checkUpdate()){
-			System.out.println(prefix + messageyaml.getString("NewVersion").replace('&', '§'));
-			if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
-				getEssentialsGreenManager().getUpdateManager().downloadUpdate("plugins/EssentialsGreen.jar", true);
-			}
-		}else System.out.println(prefix + messageyaml.getString("NoNewVersion").replace('&', '§'));
+		try{
+			SpawnYaml.save(SpawnF);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		//AUTOUPDATER!  
+		try{
+			getEssentialsGreenManager().getUpdateManager().REGISTERXML();
+			if(getEssentialsGreenManager().getUpdateManager().updateNeeded()){
+				System.out.println(prefix + messageyaml.getString("NewVersion").replace('&', '§'));
+				if(getConfig().getString("AutoUpdate").equalsIgnoreCase("true")){
+					//Is working!
+				}
+			}else System.out.println(prefix + messageyaml.getString("NoNewVersion").replace('&', '§'));
+		}catch(IOException | SAXException | ParserConfigurationException e1){
+			e1.printStackTrace();
+		}
 		//ChunkLoader start
 		try{
 			getEssentialsGreenManager().getChunkLoaderManager().start();

@@ -3,6 +3,8 @@
  */
 package me.noip.ccbluex.EssentialsGreen.managers;
 
+import java.net.MalformedURLException;
+
 /**
  * @author Marco
  *
@@ -13,7 +15,7 @@ public interface EssentialsGreenManager {
 	public UserManager getUserManager();
 	public WarpManager getWarpManager();
 	public void ReloadGroupPrefix();
-	public UpdateManager getUpdateManager();
+	public UpdateManager getUpdateManager() throws MalformedURLException;
 	public MessageManager getMessageManager();
 	public ChunkLoaderManager getChunkLoaderManager();
 	public FileManager getFileManager();

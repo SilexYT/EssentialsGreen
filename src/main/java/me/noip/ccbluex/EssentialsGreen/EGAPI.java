@@ -10,11 +10,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,10 +31,13 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.google.common.io.Files;
 
-import me.noip.ccbluex.EssentialsGreen.APIs.InternetAPI;
 import me.noip.ccbluex.EssentialsGreen.Player.User;
 import me.noip.ccbluex.EssentialsGreen.managers.ChatManager;
 import me.noip.ccbluex.EssentialsGreen.managers.ChunkLoaderManager;
@@ -446,40 +454,48 @@ public class EGAPI {
 			}
 
 			@Override
-			public UpdateManager getUpdateManager() {
+			public UpdateManager getUpdateManager() throws MalformedURLException {
 				UpdateManager upma = new UpdateManager() {
 					
-					String URL = "https://www.dropbox.com/s/oxrl6e1pbnc77y0/version.eg?dl=1";
+					private String urlrss = "http://dev.bukkit.org/bukkit-plugins/essentialsgreen/files.rss";
+					private URL filesfeed = new URL(urlrss);
+					private Document docu;
+					private double version;
+					private String link;
 					
 					@Override
-					public Results downloadUpdate(String OUTPATH, boolean reload) {
-						String[] File = getFile().split(",");
-						try{
-							InternetAPI.downloadFile(File[1], "plugins/EssentialsGreen.jar");
-							if(reload){
-								Bukkit.reload(); 
-							}
-							return Results.Download;
-						}catch(IllegalStateException | IOException e){
-							e.printStackTrace();
-							return Results.No_Internet;
-						}
+					public void downloadUpdate(String output, String url, EssentialsGreen eg){
+						
 					}
 					
 					@Override
-					public boolean checkUpdate() {
-						//AutoUpdater
-						String[] File = getFile().split(",");
-						if(Double.parseDouble(File[0]) > Double.parseDouble(getVersion())){
+					public boolean updateNeeded() throws IOException, SAXException, ParserConfigurationException {
+						if(version < Double.parseDouble(EssentialsGreen.getEssentialsGreenManager().getVersion())){
 							return true;
 						}
 						return false;
 					}
 
 					@Override
-					public String getFile() {
-						String File = InternetAPI.ReadURL(URL);
-						return File;
+					public void REGISTERXML() throws IOException, SAXException, ParserConfigurationException {
+						//XML
+						InputStream in = filesfeed.openConnection().getInputStream();
+						docu = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
+						Node latestFile = docu.getElementsByTagName("item").item(0);
+						NodeList chil = latestFile.getChildNodes();
+						// - VERSION/LINK - //
+						link = chil.item(3).getTextContent();
+						version = Double.parseDouble(chil.item(1).getTextContent().replaceAll("[a-z A-Z |]", ""));
+					}
+
+					@Override
+					public Double getVersion() {
+						return version;
+					}
+
+					@Override
+					public String getLink() {
+						return link;
 					}
 				};
 				return upma;
