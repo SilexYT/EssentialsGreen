@@ -26,5 +26,6 @@ public interface User {
 	public boolean isMute();
 	public void setBan(boolean ban, String reason, String author);
 	public boolean isBan();
-	public void setTempBan(boolean ban, String reason, String author);
+	public void setTempBanWorking(boolean ban, String reason, String author);
+	public void UpdateUserFile() throws IOException;
 }

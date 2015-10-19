@@ -12,4 +12,7 @@ public interface UserManager {
 	public User getUser(UUID uuid);
 	public User createUser(Player p, boolean isNew) throws IOException;
 	public User getUser(String name);
+	public boolean existUser(Player p);
+	public boolean existUser(String name);
+	public boolean existUser(UUID uuid);
 }

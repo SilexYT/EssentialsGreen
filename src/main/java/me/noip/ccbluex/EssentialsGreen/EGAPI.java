@@ -10,11 +10,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -420,7 +423,7 @@ public class EGAPI {
 			@Override
 			public void ReloadGroupPrefix() {
 				for(Player p : Bukkit.getOnlinePlayers()){
-					File File = new File("plugins/EssentialsGreen/userdata/" + p.getUniqueId().toString() + ".data");
+					File File = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
 					YamlConfiguration YF = YamlConfiguration.loadConfiguration(File);
 					try{
 						Class.forName("ru.tehkode.permissions.bukkit.PermissionsEx");
@@ -757,7 +760,11 @@ public class EGAPI {
 							YamlConfiguration defaultyaml = YamlConfiguration.loadConfiguration(getFileManager().getResource("uuid.user", getClass()));
 							defaultyaml.set("Username", p.getName());
 							defaultyaml.set("IsNewPlayer", isNew);
-							defaultyaml.set("IP", p.getAddress().toString());
+							defaultyaml.set("IP", p.getAddress().getAddress().toString());
+							defaultyaml.set("Port", p.getAddress().getPort());
+							Date date = new Date();
+						    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+						    defaultyaml.set("firstjoin", time.format(date));
 							File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
 							defaultyaml.save(userfile);
 							User user = new User() {
@@ -799,20 +806,50 @@ public class EGAPI {
 
 								@Override
 								public void setBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Ban.Enable", ban);
+									useryaml.set("Ban.Type", "Ban");
+									useryaml.set("Ban.Reason", reason);
+									useryaml.set("Ban.Author", author);
+									Date date = new Date();
+								    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+								    useryaml.set("Ban.date", time.format(date));
+
+									if(p instanceof Player){
+										p.kickPlayer(ChatColor.translateAlternateColorCodes('&', getMessageManager().getMessage("Ban-Message").toString() + "\n§fAuthor: §e" + useryaml.getString("Ban.Author") + " §fDate: §e" + useryaml.getString("Ban.date") + "\n§fExpires in §e" + useryaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + useryaml.getString("Ban.Reason")));
+									}
+									try{
+										useryaml.save(userfile);
+									}catch(IOException e){
+										e.printStackTrace();
+									}
 								}
 
 								@Override
 								public boolean isBan() {
-									// TODO Auto-generated method stub
-									return false;
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Ban.Enable");
+								}
+
+								@Deprecated
+								@Override
+								public void setTempBanWorking(boolean ban, String reason, String author) {
+									
 								}
 
 								@Override
-								public void setTempBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+								public void UpdateUserFile() throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Username", p.getName());
+									useryaml.set("IP", p.getAddress().getAddress().toString());
+									useryaml.set("Port", p.getAddress().getPort());
+									Date date = new Date();
+								    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+								    useryaml.set("lastjoin", time.format(date));
+									useryaml.save(userfile);
 								}
 							};
 							return user;
@@ -862,20 +899,47 @@ public class EGAPI {
 
 								@Override
 								public void setBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Ban.Enable", ban);
+									useryaml.set("Ban.Type", "Ban");
+									useryaml.set("Ban.Reason", reason);
+									useryaml.set("Ban.Author", author);
+									Date date = new Date();
+								    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+								    useryaml.set("Ban.date", time.format(date));
+
+									if(p instanceof Player){
+										p.kickPlayer(ChatColor.translateAlternateColorCodes('&', getMessageManager().getMessage("Ban-Message").toString() + "\n§fAuthor: §e" + useryaml.getString("Ban.Author") + " §fDate: §e" + useryaml.getString("Ban.date") + "\n§fExpires in §e" + useryaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + useryaml.getString("Ban.Reason")));
+									}
+									try{
+										useryaml.save(userfile);
+									}catch(IOException e){
+										e.printStackTrace();
+									}
 								}
 
 								@Override
 								public boolean isBan() {
-									// TODO Auto-generated method stub
-									return false;
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Ban.Enable");
+								}
+
+								@Deprecated
+								@Override
+								public void setTempBanWorking(boolean ban, String reason, String author) {
+									
 								}
 
 								@Override
-								public void setTempBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+								public void UpdateUserFile() throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Username", p.getName());
+									useryaml.set("IP", p.getAddress().getAddress().toString());
+									useryaml.set("Port", p.getAddress().getPort());
+									useryaml.save(userfile);
 								}
 							};
 							return user;
@@ -885,7 +949,13 @@ public class EGAPI {
 					
 					@Override
 					public User getUser(String name){
-						final Player p = Bukkit.getPlayer(name);
+						Player pn = Bukkit.getPlayer(name);
+						if(pn != null){
+							pn = (Player)Bukkit.getOfflinePlayer(name);
+						}
+						
+						final Player p = pn;
+						
 						if(p != null){
 							User user = new User() {
 								
@@ -926,20 +996,47 @@ public class EGAPI {
 
 								@Override
 								public void setBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Ban.Enable", ban);
+									useryaml.set("Ban.Type", "Ban");
+									useryaml.set("Ban.Reason", reason);
+									useryaml.set("Ban.Author", author);
+									Date date = new Date();
+								    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+								    useryaml.set("Ban.date", time.format(date));
+
+									if(p instanceof Player){
+										p.kickPlayer(ChatColor.translateAlternateColorCodes('&', getMessageManager().getMessage("Ban-Message").toString() + "\n§fAuthor: §e" + useryaml.getString("Ban.Author") + " §fDate: §e" + useryaml.getString("Ban.date") + "\n§fExpires in §e" + useryaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + useryaml.getString("Ban.Reason")));
+									}
+									try{
+										useryaml.save(userfile);
+									}catch(IOException e){
+										e.printStackTrace();
+									}
 								}
 
 								@Override
 								public boolean isBan() {
-									// TODO Auto-generated method stub
-									return false;
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									return useryaml.getBoolean("Ban.Enable");
+								}
+
+								@Deprecated
+								@Override
+								public void setTempBanWorking(boolean ban, String reason, String author) {
+									
 								}
 
 								@Override
-								public void setTempBan(boolean ban, String reason, String author) {
-									// TODO Auto-generated method stub
-									
+								public void UpdateUserFile() throws IOException {
+									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+									useryaml.set("Username", p.getName());
+									useryaml.set("IP", p.getAddress().getAddress().toString());
+									useryaml.set("Port", p.getAddress().getPort());
+									useryaml.save(userfile);
 								}
 							};
 							return user;
@@ -949,64 +1046,122 @@ public class EGAPI {
 
 					@Override
 					public User getUser(UUID uuid) {
-						final Player p = Bukkit.getPlayer(uuid);
-						if(p != null){
-							User user = new User() {
-								
-								@Override
-								public void setMute(boolean mute) throws IOException {
-									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
-									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
-									useryaml.set("Mute.Enable", mute);
-									useryaml.save(userfile);
-								}
-								
-								@Override
-								public boolean isMute() {
-									File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
-									YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
-									return useryaml.getBoolean("Mute.Enable");
-								}
-								
-								@Override
-								public UUID getUUID() {
-									return p.getUniqueId();
-								}
-								
-								@Override
-								public Player getPlayer() {
-									return p;
-								}
-								
-								@Override
-								public OfflinePlayer getOfflinePlayer() {
-									return Bukkit.getOfflinePlayer(p.getName());
-								}
-								
-								@Override
-								public InetSocketAddress getAddress() {
-									return p.getAddress();
-								}
-
-								@Override
-								public void setBan(boolean ban, String reason, String author) {
-									
-								}
-
-								@Override
-								public boolean isBan() {
-									
-									return false;
-								}
-
-								@Override
-								public void setTempBan(boolean ban, String reason, String author) {
-									
-								}
-							};
-							return user;
+						Player pn = Bukkit.getPlayer(uuid);
+						if(pn != null){
+							pn = (Player)Bukkit.getOfflinePlayer(uuid);
 						}
-						return null;
+						
+						final Player p = pn;
+						
+						User user = new User() {
+							
+							@Override
+							public void setMute(boolean mute) throws IOException {
+								File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+								YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+								useryaml.set("Mute.Enable", mute);
+								useryaml.save(userfile);
+							}
+							
+							@Override
+							public boolean isMute() {
+								File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+								YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+								return useryaml.getBoolean("Mute.Enable");
+							}
+							
+							@Override
+							public UUID getUUID() {
+								return p.getUniqueId();
+							}
+							
+							@Override
+							public Player getPlayer() {
+								return p;
+							}
+							
+							@Override
+							public OfflinePlayer getOfflinePlayer() {
+								return Bukkit.getOfflinePlayer(p.getName());
+							}
+								
+							@Override
+							public InetSocketAddress getAddress() {
+								return p.getAddress();
+							}
+							
+							@Override
+							public void setBan(boolean ban, String reason, String author) {
+								File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+								YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+								useryaml.set("Ban.Enable", ban);
+								useryaml.set("Ban.Type", "Ban");
+								useryaml.set("Ban.Reason", reason);
+								useryaml.set("Ban.Author", author);
+								Date date = new Date();
+							    SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
+							    useryaml.set("Ban.date", time.format(date));
+								if(p instanceof Player){
+									p.kickPlayer(ChatColor.translateAlternateColorCodes('&', getMessageManager().getMessage("Ban-Message").toString() + "\n§fAuthor: §e" + useryaml.getString("Ban.Author") + " §fDate: §e" + useryaml.getString("Ban.date") + "\n§fExpires in §e" + useryaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + useryaml.getString("Ban.Reason")));
+								}
+								try{
+									useryaml.save(userfile);
+								}catch(IOException e){
+									e.printStackTrace();
+								}
+							}
+
+							@Override
+							public boolean isBan() {
+								File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+								YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+								boolean ban = false;
+								if(useryaml.getString("Ban.Enable").equalsIgnoreCase("true")){
+									ban = true;
+								}
+								return ban;
+							}
+
+							@Deprecated
+							@Override
+							public void setTempBanWorking(boolean ban, String reason, String author) {
+								
+							}
+
+							@Override
+							public void UpdateUserFile() throws IOException {
+								File userfile = new File("plugins/EssentialsGreen/users/" + p.getUniqueId().toString() + ".user");
+								YamlConfiguration useryaml = YamlConfiguration.loadConfiguration(userfile);
+								useryaml.set("Username", p.getName());
+								useryaml.set("IP", p.getAddress().getAddress().toString());
+								useryaml.set("Port", p.getAddress().getPort());
+								useryaml.save(userfile);
+							}
+						};
+						return user;
+					}
+
+					@Override
+					public boolean existUser(Player p) {
+						return new File("plugins/EssentialsGreen/users/" +p.getUniqueId().toString() + ".user").exists();
+					}
+
+					@Override
+					public boolean existUser(String name) {
+						File F = new File("plugins/EssentialsGreen/users");
+						File[] list = F.listFiles();
+						for(int i = 0; i < list.length; i++){
+							YamlConfiguration Player = YamlConfiguration.loadConfiguration(list[i]);
+							if(Player.getString("Username").equalsIgnoreCase(name)){
+								return true;
+							}
+						}
+						return false;
+					}
+
+					@Override
+					public boolean existUser(UUID uuid) {
+						return new File("plugins/EssentialsGreen/users/" + uuid.toString() + ".user").exists();
 					}
 				};
 				return um;

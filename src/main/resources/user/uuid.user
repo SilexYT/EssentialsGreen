@@ -1,8 +1,8 @@
 Username: username
 IsNewPlayer: isnewplayer
 IP: ip
+Port: port
 firstjoin: firstjoin
-lastjoin: lastjoin
 GroupPrefix: ''
 Ban:
   Enable: 'false'

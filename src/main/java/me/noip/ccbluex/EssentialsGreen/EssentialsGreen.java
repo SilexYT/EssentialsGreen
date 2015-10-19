@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
@@ -18,6 +19,7 @@ import me.noip.ccbluex.EssentialsGreen.Commands.asConsole;
 import me.noip.ccbluex.EssentialsGreen.Commands.ban;
 import me.noip.ccbluex.EssentialsGreen.Commands.banlist;
 import me.noip.ccbluex.EssentialsGreen.Commands.broadcast;
+import me.noip.ccbluex.EssentialsGreen.Commands.chat;
 //import me.noip.ccbluex.EssentialsGreen.Commands.chunkloader;
 import me.noip.ccbluex.EssentialsGreen.Commands.clear;
 import me.noip.ccbluex.EssentialsGreen.Commands.defaultgamemode;
@@ -65,6 +67,7 @@ public class EssentialsGreen extends JavaPlugin {
 	public File SpawnF;
 	public YamlConfiguration SpawnYaml;
 	Metrics metrics;
+	FileConfiguration conf;
 
 	@Override
 	public void onLoad() {
@@ -72,7 +75,7 @@ public class EssentialsGreen extends JavaPlugin {
 		File egfile = new File("plugins/EssentialsGreen");
 		egfile.mkdir();
 		//Userdate File
-		File UserdataFile = new File("plugins/EssentialsGreen/userdata");
+		File UserdataFile = new File("plugins/EssentialsGreen/users");
 		UserdataFile.mkdir();
 		//Warp File
 		File WarpFile = new File("plugins/EssentialsGreen/Warp");
@@ -200,6 +203,8 @@ public class EssentialsGreen extends JavaPlugin {
 		getCommand("vanish").setTabCompleter(new onTabCompleteManager(this));
 //		getCommand("chunkloader").setExecutor(new chunkloader());
 //		getCommand("chunkloader").setTabCompleter(new onTabCompleteManager(this));
+		getCommand("chat").setExecutor(new chat());
+		getCommand("chat").setTabCompleter(new onTabCompleteManager(this));
 		//Register Listeners
 		Bukkit.getPluginManager().registerEvents(new EGListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PhysicExplosionListener(this), this);
