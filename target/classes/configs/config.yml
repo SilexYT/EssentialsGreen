@@ -1,0 +1,40 @@
+ConfigVersion: 3.7
+#----------------#
+#Dafault Settings#
+#----------------#
+AutoUpdate: true
+ops-name-color: 4
+NickNamePrefix: '~'
+JoinSpawnTeleport: true
+#----------------#
+#Chat Settings!  #
+#----------------#
+ChatFormat: '{Group} &e{Player} &2>> &f{Message}'
+JoinMessage: '&e{Group} {Player} joined the Game'
+FirstJoinMessage: '&e{Group} {Player} is the server joined for the first time!'
+LeaveMessage: '&e{Group} {Player} left the Game'
+#--------------------#
+# Ban | Kick Messages#
+#--------------------#
+Kick-Prefix: '&e[Kick]&3 '
+#-------------------#
+#ExplosionEffects Settings#
+#-------------------#
+PhysicExplosion: false
+#----------------------#
+# ChunkLoader Settings #
+#----------------------#
+ChunkLoaderEnable: true
+ChunkLoaderBlock: ENCHANTMENT_TABLE
+#-----------------#
+# Logger Settings #
+#-----------------#
+Logger: true
+LoggerFile: 'plugins/EssentialsGreen/logger.log'
+PlayerJoinLog: true
+PlayerQuitLog: true
+ChatLog: true
+CommandLog: true
+BlockBreakLog: false
+BlockPlaceLog: false
+ChangeWorldLog: true

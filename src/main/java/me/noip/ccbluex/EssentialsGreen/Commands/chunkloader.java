@@ -12,7 +12,7 @@ import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 public class chunkloader implements CommandExecutor {
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args){
 		if(sender.hasPermission("EssentialsGreen.chunkloader")){
 			if(args.length == 0){
 				sender.sendMessage(EssentialsGreen.prefix + " §7◊ §e§lCommands §r§7◊\n"

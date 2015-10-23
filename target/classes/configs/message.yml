@@ -1,0 +1,37 @@
+#Translations of http://dev.bukkit.org/bukkit-plugins/essentialsgreen/forum/83141-messages-yaml-configurations/#p1
+prefix: '&2[EG]&e'
+#Console Messages
+MetricsStart: 'Metrics start!'
+MetricsStartFailed: 'Metrics start failed!'
+renewconfig: 'A new config is create the old config is to old.'
+NewVersion: 'New Version Avaible'
+NoNewVersion: 'No New Version Avaible'
+isload: 'The Plugin is in loading!'
+load: 'The plugin has been loaded!'
+MetricsStop: 'Metrics stop!'
+MetricsStopFailed: 'Metrics stop failed!'
+isdisable: 'The Plugin is in disable!'
+disable: 'The Plugin is disable!'
+#Standard Command Messages
+nopermissions: '&4[&lError&r&4] You do not have the required permissions'
+youmustplayer: '§4[§lError§r§4] You must be a Player'
+theplayercannotfound: '§4[§lError§r§4] The player can not found on the server!'
+#chunkloader messages
+chunkloaderadd: '§eThe chunkloader is create!'
+chunkloaderremove: '§eThe chunkloader is remove!'
+chunkloadertheconfigcannotedit: '§eThe config can not edit!'
+youhasthebreakthechunkloader: '§7You has break the chunkloader!'
+#chatmanager
+chatmanagerprefix:  '~ ChatManager ~'
+chatclearall: 'The chat is empty for all!'
+chatclearforplayer: 'The chat is empty for (Player)'
+chatsendforplayer: ''
+chatsendforall: ''
+#Ban
+Ban-Message: '&4You have bannend from this Server!'
+#BanCommand/unban command
+Playerisneverontheserver: 'This {banplayer} has never been on the server'
+Thisplayerhasbeenbanned: 'This {banplayer} has been banned!'
+Playerisnowbanned: 'The {banplayer} is now banned!'
+Playerisnotmorebanned: 'The {banplayer} is not more banned!'
+Playerisnotbanned: 'The {banplayer} is not banned!'
