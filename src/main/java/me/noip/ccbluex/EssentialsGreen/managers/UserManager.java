@@ -8,11 +8,9 @@ import org.bukkit.entity.Player;
 import me.noip.ccbluex.EssentialsGreen.Player.User;
 
 public interface UserManager {
-	public User getUser(Player p);
 	public User getUser(UUID uuid);
-	public User createUser(Player p, boolean isNew) throws IOException;
 	public User getUser(String name);
-	public boolean existUser(Player p);
+	public User createUser(Player p, boolean isNew) throws IOException;
 	public boolean existUser(String name);
 	public boolean existUser(UUID uuid);
 }

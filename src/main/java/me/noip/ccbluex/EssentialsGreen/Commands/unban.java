@@ -23,8 +23,12 @@ public class unban implements CommandExecutor {
 			}else if(args.length > 0){
 				if(EssentialsGreen.getEssentialsGreenManager().getUserManager().existUser(args[0])){
 					User user = EssentialsGreen.getEssentialsGreenManager().getUserManager().getUser(args[0]);
-					if(user.isBan() == true){
-						user.setBan(true, "", "");
+					if(user.getBan().isBanned() == true){
+						try{
+							user.getBan().setBan(false, null, null, null);
+						}catch (Exception e){
+							e.printStackTrace();
+						}
 						p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Playerisnotmorebanned").toString().replace("{banplayer}", args[0]));
 					}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Playerisnotbanned").toString().replace("{banplayer}", args[0]));
 				}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Playerisneverontheserver").toString().replace("{banplayer}", args[0]));

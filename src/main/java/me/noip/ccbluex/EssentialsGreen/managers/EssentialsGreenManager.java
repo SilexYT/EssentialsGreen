@@ -17,7 +17,6 @@ public interface EssentialsGreenManager {
 	public void ReloadGroupPrefix();
 	public UpdateManager getUpdateManager() throws MalformedURLException;
 	public MessageManager getMessageManager();
-	public ChunkLoaderManager getChunkLoaderManager();
 	public FileManager getFileManager();
 	public ChatManager getChatManager();
 }

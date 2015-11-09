@@ -18,7 +18,7 @@ public class asConsole implements CommandExecutor {
 			}else{
 				String command = StringAPI.toCompleteString(args, 0);
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
-				sender.sendMessage(EssentialsGreen.prefix + "The Command is send!");
+				sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("asconsolesend").toString());
 			}
 		}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("nopermissions"));
 		return true;

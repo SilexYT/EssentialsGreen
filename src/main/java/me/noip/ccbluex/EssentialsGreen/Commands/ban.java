@@ -1,5 +1,7 @@
 package me.noip.ccbluex.EssentialsGreen.Commands;
 
+import java.util.Date;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,8 +27,12 @@ public class ban implements CommandExecutor {
 				String Reason = StringAPI.toCompleteString(args, 1);
 				if(EssentialsGreen.getEssentialsGreenManager().getUserManager().existUser(args[0])){
 					User user = EssentialsGreen.getEssentialsGreenManager().getUserManager().getUser(args[0]);
-					if(user.isBan() == false){
-						user.setBan(true, Reason, p.getName());
+					if(user.getBan().isBanned() == false){
+						try{
+							user.getBan().setBan(true, Reason, p.getName(), new Date());
+						}catch(Exception e){
+							e.printStackTrace();
+						}
 						p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Playerisnowbanned").toString().replace("{banplayer}", args[0]));
 					}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Thisplayerhasbeenbanned").toString().replace("{banplayer}", args[0]));
 				}else p.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("Playerisneverontheserver").toString().replace("{banplayer}", args[0]));

@@ -1,37 +1,42 @@
 #Translations of http://dev.bukkit.org/bukkit-plugins/essentialsgreen/forum/83141-messages-yaml-configurations/#p1
-prefix: '&2[EG]&e'
-#Console Messages
+prefix: '&2[&2E&eG&2]&7'
 MetricsStart: 'Metrics start!'
 MetricsStartFailed: 'Metrics start failed!'
 renewconfig: 'A new config is create the old config is to old.'
-NewVersion: 'New Version Avaible'
-NoNewVersion: 'No New Version Avaible'
+NewVersion: 'New Version avaible: V: {version} L: {link}'
+NoNewVersion: 'No New Version avaible'
 isload: 'The Plugin is in loading!'
 load: 'The plugin has been loaded!'
 MetricsStop: 'Metrics stop!'
 MetricsStopFailed: 'Metrics stop failed!'
 isdisable: 'The Plugin is in disable!'
 disable: 'The Plugin is disable!'
-#Standard Command Messages
+Kick-Prefix: '&e[Kick]&3 '
 nopermissions: '&4[&lError&r&4] You do not have the required permissions'
 youmustplayer: '§4[§lError§r§4] You must be a Player'
 theplayercannotfound: '§4[§lError§r§4] The player can not found on the server!'
-#chunkloader messages
-chunkloaderadd: '§eThe chunkloader is create!'
-chunkloaderremove: '§eThe chunkloader is remove!'
-chunkloadertheconfigcannotedit: '§eThe config can not edit!'
-youhasthebreakthechunkloader: '§7You has break the chunkloader!'
-#chatmanager
-chatmanagerprefix:  '~ ChatManager ~'
-chatclearall: 'The chat is empty for all!'
-chatclearforplayer: 'The chat is empty for (Player)'
-chatsendforplayer: ''
-chatsendforall: ''
-#Ban
-Ban-Message: '&4You have bannend from this Server!'
-#BanCommand/unban command
+UnError: '&4[&lError&r&4] Unknow error!'
+#Command: "eg"
+#Command: "asConsole"
+asconsolesend: 'The Command is send!'
+#Command: "backup"
+#Commands: {"Ban", "unban"}
 Playerisneverontheserver: 'This {banplayer} has never been on the server'
 Thisplayerhasbeenbanned: 'This {banplayer} has been banned!'
 Playerisnowbanned: 'The {banplayer} is now banned!'
 Playerisnotmorebanned: 'The {banplayer} is not more banned!'
 Playerisnotbanned: 'The {banplayer} is not banned!'
+#Command: "chat"
+chatmanagerprefix:  '~ ChatManager ~'
+chatclearall: 'The chat is empty for all!'
+chatclearforplayer: 'The chat is empty for (Player)'
+chatsendforplayer: 'The raw message send to (Player)'
+chatsendforall: 'The raw message send to all players'
+chatmuteforplayer: 'The mute is for the player set!'
+chatmuteforall: 'The mute is for all players set!'
+#Ban
+Ban-Message: '&4You have bannend from this Server!'
+#Command: {"Servermanage", "Stop", "Reload"}
+StopMessage: '&2Server stopping by {Player}'
+ReloadStartMessage: '&2Server reload by {Player}'
+ReloadFinishMessage: '&2Server reload finish!'

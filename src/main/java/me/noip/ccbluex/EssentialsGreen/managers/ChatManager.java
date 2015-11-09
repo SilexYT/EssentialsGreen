@@ -19,5 +19,5 @@ public interface ChatManager {
 	public boolean clear(Player p);
 	public boolean clear(Collection<Player> p);
 	public void mute(Player p, boolean mute) throws IOException;
-	public void mute(Collection<Player> p, boolean mute) throws IOException;
+	public void mute(Collection<? extends Player> p, boolean mute) throws IOException;
 }

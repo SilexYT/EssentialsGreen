@@ -2,14 +2,11 @@ Username: username
 IsNewPlayer: isnewplayer
 IP: ip
 Port: port
-firstjoin: firstjoin
 GroupPrefix: ''
 Ban:
-  Enable: 'false'
+  Type: 'null'
   Reason: 'null'
   Author: 'null'
   date: 'null'
-  time: 'null'
-  stoptime: ''
 Mute:
   Enable: 'false'

@@ -39,7 +39,7 @@ public class logger implements Listener {
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
-					
+					e1.printStackTrace();
 				}
 			}
 		}
@@ -58,7 +58,7 @@ public class logger implements Listener {
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
-					
+					e1.printStackTrace();
 				}
 			}
 		}
@@ -77,7 +77,7 @@ public class logger implements Listener {
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
-					
+					e1.printStackTrace();
 				}
 			}
 		}
@@ -96,7 +96,7 @@ public class logger implements Listener {
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
-					
+					e1.printStackTrace();
 				}
 			}
 		}
@@ -153,7 +153,7 @@ public class logger implements Listener {
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){
-					
+					e1.printStackTrace();
 				}
 			}
 		}

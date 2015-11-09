@@ -16,16 +16,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 
-import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
-
 @SuppressWarnings("deprecation")
 public class onTabCompleteManager implements TabCompleter {
-	
-	EssentialsGreen plugin;
-	
-	public onTabCompleteManager(EssentialsGreen eg) {
-		plugin = eg;
-	}
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String Label, String[] args) {
@@ -180,7 +172,6 @@ public class onTabCompleteManager implements TabCompleter {
 			}
 		}else if(command.equalsIgnoreCase("tp")){
 		}else if(command.equalsIgnoreCase("tpall")){
-		}else if(command.equalsIgnoreCase("tree")){
 		}else if(command.equalsIgnoreCase("unban")){
 		}else if(command.equalsIgnoreCase("vanish") | command.equalsIgnoreCase("v")){
 		}else if(command.equalsIgnoreCase("warp")){
