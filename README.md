@@ -25,6 +25,6 @@ Are you a talented programmer looking to contribute some code? We'd love the hel
 [Source]: https://github.com/CCBlueX/EssentialsGreen/
 [MIT License]: https://opensource.org/licenses/MIT
 [Download_Bukkit]: http://dev.bukkit.org/bukkit-plugins/essentialsgreen/
-[Downlaod_Spigot]: https://www.spigotmc.org/resources/essentialsgreen.9722/
+[Download_Spigot]: https://www.spigotmc.org/resources/essentialsgreen.9722/
 [Aternos]: https://aternos.org/
 
