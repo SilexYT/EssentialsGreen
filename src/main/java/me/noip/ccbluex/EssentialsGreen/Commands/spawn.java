@@ -12,12 +12,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class spawn implements CommandExecutor {
-	
-	EssentialsGreen plugin;
-	
-	public spawn(EssentialsGreen main) {
-		plugin = main;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
@@ -25,7 +19,7 @@ public class spawn implements CommandExecutor {
 			if(sender instanceof Player){
 				Player p = (Player)sender;
 				if(p.hasPermission("EssentialsGreen.spawn")){
-					YamlConfiguration SY = plugin.SpawnYaml;
+					YamlConfiguration SY = EssentialsGreen.maintance.SpawnYaml;
 					if(SY.getString("Spawn.Enable") != null){
 						World world = Bukkit.getWorld(SY.getString("Spawn.Location.World"));
 						if(world != null){
@@ -38,7 +32,7 @@ public class spawn implements CommandExecutor {
 			}else sender.sendMessage(EssentialsGreen.prefix + EssentialsGreen.getEssentialsGreenManager().getMessageManager().getMessage("youmustplayer"));
 		}else if(args.length > 0){
 			if(sender.hasPermission("EssentialsGreen.spawn.other")){
-				YamlConfiguration SY = plugin.SpawnYaml;
+				YamlConfiguration SY = EssentialsGreen.maintance.SpawnYaml;
 				if(SY.getString("Spawn.Enable") != null){
 					Player target = Bukkit.getPlayer(args[0]);
 					if(!(target == null)){

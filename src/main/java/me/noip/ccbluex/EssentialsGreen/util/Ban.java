@@ -13,6 +13,7 @@ import java.util.Date;
 public interface Ban {
 
 	public void setBan(boolean ban, String reason, String author, Date date) throws IOException;
+	public void setTempBan(boolean ban, String reason, String author, Date date, int years, int months, int days, int minutes, int seconds);
 	public boolean isBanned();
 	public String getReason();
 	public String getAuthor();

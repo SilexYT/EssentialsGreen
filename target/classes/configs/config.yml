@@ -21,6 +21,8 @@ PhysicExplosion: false
 #-----------------#
 Logger: true
 LoggerFile: 'plugins/EssentialsGreen/logger.log'
+StartServerLog: true
+StopServerLog: true
 PlayerJoinLog: true
 PlayerQuitLog: true
 ChatLog: true

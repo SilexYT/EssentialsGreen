@@ -11,7 +11,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class InternetAPI {
+public class NetworkAPI {
+	
 	public static void downloadFile(String url_str, String OutputPath) throws IllegalStateException, MalformedURLException, ProtocolException, IOException {
 		FileOutputStream os = new FileOutputStream(OutputPath);
 		URL url = new URL(url_str.replace(" ", "%20"));

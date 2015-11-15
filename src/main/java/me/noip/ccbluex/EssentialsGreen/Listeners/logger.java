@@ -20,19 +20,13 @@ import me.noip.ccbluex.EssentialsGreen.EssentialsGreen;
 @SuppressWarnings("deprecation")
 public class logger implements Listener {
 
-	EssentialsGreen plugin;
-	
-	public logger(EssentialsGreen eg){
-		plugin = eg;
-	}
-	
 	@EventHandler
 	public void PlayerJoin(PlayerJoinEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("PlayerJoinLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("PlayerJoinLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-				File file = new File(plugin.getConfig().getString("LoggerFile"));
+				File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getJoinMessage());
@@ -47,11 +41,11 @@ public class logger implements Listener {
 
 	@EventHandler
 	public void PlayerLeave(PlayerQuitEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("PlayerQuitLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("PlayerQuitLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-				File file = new File(plugin.getConfig().getString("LoggerFile"));
+				File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getQuitMessage());
@@ -66,11 +60,11 @@ public class logger implements Listener {
 
 	@EventHandler
 	public void AsyncPlayerChatListener(AsyncPlayerChatEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("ChatLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("ChatLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-			    File file = new File(plugin.getConfig().getString("LoggerFile"));
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
@@ -85,11 +79,11 @@ public class logger implements Listener {
 
 	@EventHandler
 	public void PlayerCommandPreprocessListener(PlayerCommandPreprocessEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("CommandLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("CommandLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-			    File file = new File(plugin.getConfig().getString("LoggerFile"));
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | World : " + e.getPlayer().getWorld().getName() + " | Username : " + e.getPlayer().getName(), e.getMessage());
@@ -104,11 +98,11 @@ public class logger implements Listener {
 
 	@EventHandler
 	public void PlayerChangedWorldListener(PlayerChangedWorldEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("ChangeWorldLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("ChangeWorldLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-			    File file = new File(plugin.getConfig().getString("LoggerFile"));
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), "Changed in world: " + e.getPlayer().getWorld().getName());
@@ -123,11 +117,11 @@ public class logger implements Listener {
 	
 	@EventHandler
 	public void BlockPlace(BlockPlaceEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("BlockPlaceLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("BlockPlaceLog").equalsIgnoreCase("true")){
 				Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-			    File file = new File(plugin.getConfig().getString("LoggerFile"));
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block place | Type: " + e.getBlock().getType() + " | can build: " + e.canBuild() + " | data: " + e.getBlock().getData());
@@ -142,14 +136,50 @@ public class logger implements Listener {
 	
 	@EventHandler
 	public void BlockPlace(BlockBreakEvent e){
-		if(plugin.getConfig().getString("Logger").equalsIgnoreCase("true")){
-			if(plugin.getConfig().getString("BlockBreakLog").equalsIgnoreCase("true")){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("BlockBreakLog").equalsIgnoreCase("true")){
 			    Date date = new Date();
 			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
-			    File file = new File(plugin.getConfig().getString("LoggerFile"));
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
 				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
 				
 				Yaml.set(time.format(date) + " | Username : " + e.getPlayer().getName(), ": Block break | Type: " + e.getBlock().getType() + " | can break: " + !e.isCancelled() + " | data: " + e.getBlock().getData());
+				try{
+					Yaml.save(file);
+				}catch(IOException e1){
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void startserver(){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("BlockBreakLog").equalsIgnoreCase("true")){
+			    Date date = new Date();
+			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
+				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
+				
+				Yaml.set(time.format(date), "The server is starting...");
+				try{
+					Yaml.save(file);
+				}catch(IOException e1){
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void stopserver(){
+		if(EssentialsGreen.maintance.getConfig().getString("Logger").equalsIgnoreCase("true")){
+			if(EssentialsGreen.maintance.getConfig().getString("BlockBreakLog").equalsIgnoreCase("true")){
+			    Date date = new Date();
+			    SimpleDateFormat time = new SimpleDateFormat("dd_MM_yyyy-HH:mm:ss");
+			    File file = new File(EssentialsGreen.maintance.getConfig().getString("LoggerFile"));
+				YamlConfiguration Yaml = YamlConfiguration.loadConfiguration(file);
+				
+				Yaml.set(time.format(date), "The server is stopping...");
 				try{
 					Yaml.save(file);
 				}catch(IOException e1){

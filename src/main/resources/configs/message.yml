@@ -1,31 +1,38 @@
-#Translations of http://dev.bukkit.org/bukkit-plugins/essentialsgreen/forum/83141-messages-yaml-configurations/#p1
+MessageVersion: 3.8
+#Translations on http://dev.bukkit.org/bukkit-plugins/essentialsgreen/forum/83141-messages-yaml-configurations/#p1
 prefix: '&2[&2E&eG&2]&7'
-MetricsStart: 'Metrics start!'
-MetricsStartFailed: 'Metrics start failed!'
-renewconfig: 'A new config is create the old config is to old.'
-NewVersion: 'New Version avaible: V: {version} L: {link}'
-NoNewVersion: 'No New Version avaible'
-isload: 'The Plugin is in loading!'
-load: 'The plugin has been loaded!'
-MetricsStop: 'Metrics stop!'
-MetricsStopFailed: 'Metrics stop failed!'
+#Enable/Disable
+isenable: 'The Plugin is in loading!'
+enable: 'The plugin has been loaded!'
 isdisable: 'The Plugin is in disable!'
 disable: 'The Plugin is disable!'
-Kick-Prefix: '&e[Kick]&3 '
+#Version message's
+NewVersion: 'New Version avaible!'
+Updateisdown: 'Update is in downloading...'
+Updateisfinish: 'The update is finish on your server. Restart/Reload your server to load the update!'
+NoNewVersion: 'No New Version avaible'
+#Error's
 nopermissions: '&4[&lError&r&4] You do not have the required permissions'
 youmustplayer: '§4[§lError§r§4] You must be a Player'
 theplayercannotfound: '§4[§lError§r§4] The player can not found on the server!'
 UnError: '&4[&lError&r&4] Unknow error!'
+NoInternetConnection: '&4[&lError&r&4] NO INTERNET CONNECTION!'
+#Metrics
+MetricsStart: 'Metrics start!'
+MetricsStartFailed: 'Metrics start failed!'
+MetricsStop: 'Metrics stop!'
+MetricsStopFailed: 'Metrics stop failed!'
 #Command: "eg"
 #Command: "asConsole"
 asconsolesend: 'The Command is send!'
 #Command: "backup"
-#Commands: {"Ban", "unban"}
+#Commands: {"Ban", "unban", "kick"}
 Playerisneverontheserver: 'This {banplayer} has never been on the server'
 Thisplayerhasbeenbanned: 'This {banplayer} has been banned!'
 Playerisnowbanned: 'The {banplayer} is now banned!'
 Playerisnotmorebanned: 'The {banplayer} is not more banned!'
 Playerisnotbanned: 'The {banplayer} is not banned!'
+Kick-Prefix: '&7[Kick]&3 '
 #Command: "chat"
 chatmanagerprefix:  '~ ChatManager ~'
 chatclearall: 'The chat is empty for all!'

@@ -10,7 +10,6 @@ import java.util.UUID;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import me.noip.ccbluex.EssentialsGreen.Annotation.Working;
 import me.noip.ccbluex.EssentialsGreen.util.Ban;
 
 /**
@@ -26,7 +25,5 @@ public interface User {
 	public void setMute(boolean mute) throws IOException;
 	public boolean isMute();
 	public Ban getBan();
-	@Working
-	public void setTempBan(boolean ban, String reason, String author);
 	public void UpdateUserFile() throws IOException;
 }

@@ -10,12 +10,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class setspawn implements CommandExecutor {
-	
-	EssentialsGreen plugin;
-	
-	public setspawn(EssentialsGreen main) {
-		plugin = main;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
@@ -23,7 +17,7 @@ public class setspawn implements CommandExecutor {
 			Player p = (Player)sender;
 			if(p.hasPermission("EssntialsGreen.setspawn")){
 				Location loc = p.getLocation();
-				YamlConfiguration SY = plugin.SpawnYaml;
+				YamlConfiguration SY = EssentialsGreen.maintance.SpawnYaml;
 				SY.set("Spawn.Enable", true);
 				SY.set("Spawn.Location.X", loc.getX());
 				SY.set("Spawn.Location.Y", loc.getY());
@@ -33,7 +27,7 @@ public class setspawn implements CommandExecutor {
 				SY.set("Spawn.Location.World", loc.getWorld().getName());
 				p.sendMessage(EssentialsGreen.prefix + "Spawn Location set!");
 				try{
-					SY.save(plugin.SpawnF);
+					SY.save(EssentialsGreen.maintance.SpawnFile);
 				}catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -11,15 +11,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.ProtocolException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,13 +25,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.google.common.io.Files;
 
+import me.noip.ccbluex.EssentialsGreen.APIs.NetworkAPI;
 import me.noip.ccbluex.EssentialsGreen.Annotation.Working;
 import me.noip.ccbluex.EssentialsGreen.Player.User;
 import me.noip.ccbluex.EssentialsGreen.managers.ChatManager;
@@ -454,19 +448,13 @@ public class EGAPI {
 			public UpdateManager getUpdateManager() throws MalformedURLException {
 				UpdateManager upma = new UpdateManager() {
 					
-					private String urlrss = "http://dev.bukkit.org/bukkit-plugins/essentialsgreen/files.rss";
-					private URL filesfeed = new URL(urlrss);
-					private Document docu;
-					private double version;
-					private String link;
+					private String urlegver = "https://www.dropbox.com/s/ubbldsa53qsoify/version.eg?dl=1";
+					private String[] egversionfile;
+					double version;
+					String url;
 					
 					@Override
-					public void downloadUpdate(String output, String url, EssentialsGreen eg){
-						
-					}
-					
-					@Override
-					public boolean updateNeeded() throws IOException, SAXException, ParserConfigurationException {
+					public boolean updateNeeded() {
 						if(version < Double.parseDouble(EssentialsGreen.getEssentialsGreenManager().getVersion())){
 							return true;
 						}
@@ -474,25 +462,20 @@ public class EGAPI {
 					}
 
 					@Override
-					public void REGISTERXML() throws IOException, SAXException, ParserConfigurationException {
-						//XML
-						InputStream in = filesfeed.openConnection().getInputStream();
-						docu = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
-						Node latestFile = docu.getElementsByTagName("item").item(0);
-						NodeList chil = latestFile.getChildNodes();
-						// - VERSION/LINK - //
-						link = chil.item(3).getTextContent();
-						version = Double.parseDouble(chil.item(1).getTextContent().replaceAll("[a-z A-Z |]", ""));
+					public void downloadlatestfile(String output) throws IllegalStateException, MalformedURLException, ProtocolException, IOException {
+						NetworkAPI.downloadFile(url, output);
 					}
 
 					@Override
-					public Double getVersion() {
-						return version;
+					public void load() {
+						egversionfile = NetworkAPI.ReadURL(urlegver).split(",");
+						version = Double.parseDouble(egversionfile[0]);
+						url = egversionfile[1];
 					}
 
 					@Override
-					public String getLink() {
-						return link;
+					public void reload() {
+						load();
 					}
 				};
 				return upma;
@@ -502,17 +485,15 @@ public class EGAPI {
 			public MessageManager getMessageManager() {
 				MessageManager mm = new MessageManager() {
 					
-					File file = new File("plugins/EssentialsGreen/message.yml");
-					YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+					File messagefile;
+					YamlConfiguration messageyaml;
 					
 					@Override
 					public Message getMessage(String path) {
-						final String YamlMSG = ChatColor.translateAlternateColorCodes('&', yaml.getString(path));
+						final String YamlMSG = ChatColor.translateAlternateColorCodes('&', messageyaml.getString(path));
 						
 						Message msg = new Message() {
-							
 							String Message = YamlMSG;
-							
 							@Override
 							public String toString(){
 								return Message;
@@ -522,35 +503,36 @@ public class EGAPI {
 					}
 					
 					@Override
-					public void setMessage(String message, String path) throws IOException {
-						yaml.set(path, message);
-						save();
+					public void setMessage(String message, String path) {
+						messageyaml.set(path, message);
 					}
 					
 					@Override
 					public void reload() {
-						file = new File("plugins/EssentialsGreen/message.yml");
-						yaml = YamlConfiguration.loadConfiguration(file);
+						load();
 					}
 					
 					@Override
-					public void load() throws IOException {
-						System.out.println("[EssentialsGreen] Message.yml is in create!");
-						InputStream is = getClass().getResourceAsStream("/message.yml");
-						FileOutputStream os = new FileOutputStream(file);
-						for(int read = 0; (read = is.read()) != -1;){
-							os.write(read);
-						}
-						os.flush();
-						os.close();
-						is.close();
+					public void create(){
+						EssentialsGreen.maintance.saveResource("message.yml", true);
 						reload();
-						System.out.println("[EssentialsGreen] Message.yml is create!");
 					}
 					
 					@Override
 					public void save() throws IOException {
-						yaml.save(file);
+						messageyaml.save(messagefile);
+					}
+
+					@Override
+					public void createifnotexist() {
+						EssentialsGreen.maintance.saveResource("message.yml", false);
+						reload();
+					}
+
+					@Override
+					public void load() {
+						messageyaml = getFileManager().getYaml("plugins/EssentialsGreen/message.yml");
+						messagefile = getFileManager().getFile("plugins/EssentialsGreen/message.yml");
 					}
 				};
 				return mm;
@@ -835,14 +817,15 @@ public class EGAPI {
 									public boolean isBanned() {
 										return op.isBanned();
 									}
+
+									@Working
+									@Override
+									public void setTempBan(boolean ban, String reason, String author, Date date, int years, int months, int days, int minutes, int seconds) {
+									}
 									
 								};
 								return ban;
 							}
-
-							@Working
-							@Override
-							public void setTempBan(boolean ban, String reason, String author) {}
 
 							@Override
 							public void UpdateUserFile() throws IOException {

@@ -81,15 +81,16 @@ commands:
           aliases: [ac]
      tpall:
           usage: /tpall [Target]
-     tempban:
-          usage: /tempban
+#    tempban:
+#         usage: /tempban
+#         aliases: [tempb, temb, tban, tb]
      vanish:
           usage: /vanish [Player]
           aliases: [v]
      chat:
           usage: /chat <Commands...>
-     backup:
-          usage: /backup
+#    backup:
+#         usage: /backup
      servermanage:
           usage: /servermanage
           aliases: [stop,reload,rl]
