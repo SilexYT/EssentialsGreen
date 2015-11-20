@@ -9,12 +9,6 @@ import org.bukkit.entity.Player;
 
 public class nick implements CommandExecutor {
 	
-	EssentialsGreen plugin;
-	
-	public nick(EssentialsGreen main) {
-		plugin = main;
-	}
-	
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String Label,String[] args) {
 		if(sender.hasPermission("EssentialsGreen.nick")){
@@ -30,7 +24,7 @@ public class nick implements CommandExecutor {
 							p.setPlayerListName(p.getName());
 							p.sendMessage(EssentialsGreen.prefix + "Your name is now again §7'" + name + "'");
 						}else{
-							String prefix = plugin.getConfig().getString("NickNamePrefix").replace('&', '§');
+							String prefix = EssentialsGreen.maintance.getConfig().getString("NickNamePrefix").replace('&', '§');
 							p.setDisplayName(prefix + args[0]);
 							p.setPlayerListName(prefix + args[0]);
 							p.sendMessage(EssentialsGreen.prefix + "Your name is now §7'" + args[0] + "'");

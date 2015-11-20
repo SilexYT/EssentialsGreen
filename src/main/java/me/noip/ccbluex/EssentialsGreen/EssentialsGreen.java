@@ -7,8 +7,10 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
@@ -150,90 +152,52 @@ public class EssentialsGreen extends JavaPlugin {
 	}
 
 	private void registerCommands(){
-		//Commands
-		getCommand("tp").setExecutor(new tp());
-		getCommand("tp").setTabCompleter(new onTabCompleteManager());
-		getCommand("gamemode").setExecutor(new gamemode());
-		getCommand("gamemode").setTabCompleter(new onTabCompleteManager());
-		getCommand("setspawn").setExecutor(new setspawn());
-		getCommand("setspawn").setTabCompleter(new onTabCompleteManager());
-		getCommand("spawn").setExecutor(new spawn());
-		getCommand("spawn").setTabCompleter(new onTabCompleteManager());
-		getCommand("kick").setExecutor(new kick());
-		getCommand("kick").setTabCompleter(new onTabCompleteManager());
-		getCommand("ban").setExecutor(new ban(this));
-		getCommand("ban").setTabCompleter(new onTabCompleteManager());
-		getCommand("unban").setExecutor(new unban(this));
-		getCommand("unban").setTabCompleter(new onTabCompleteManager());
-		getCommand("banlist").setExecutor(new banlist());
-		getCommand("banlist").setTabCompleter(new onTabCompleteManager());
-		getCommand("give").setExecutor(new give());
-		getCommand("give").setTabCompleter(new onTabCompleteManager());
-		getCommand("msg").setExecutor(new msg());
-		getCommand("msg").setTabCompleter(new onTabCompleteManager());
-		getCommand("time").setExecutor(new time());
-		getCommand("time").setTabCompleter(new onTabCompleteManager());
-		getCommand("xp").setExecutor(new xp());
-		getCommand("xp").setTabCompleter(new onTabCompleteManager());
-		getCommand("broadcast").setExecutor(new broadcast());
-		getCommand("broadcast").setTabCompleter(new onTabCompleteManager());
-		getCommand("say").setExecutor(new say());
-		getCommand("say").setTabCompleter(new onTabCompleteManager());
-		getCommand("kill").setExecutor(new kill());
-		getCommand("kill").setTabCompleter(new onTabCompleteManager());
-		getCommand("fly").setExecutor(new fly());
-		getCommand("fly").setTabCompleter(new onTabCompleteManager());
-		getCommand("speed").setExecutor(new speed());
-		getCommand("speed").setTabCompleter(new onTabCompleteManager());
-		getCommand("invsee").setExecutor(new invsee());
-		getCommand("invsee").setTabCompleter(new onTabCompleteManager());
-		getCommand("heal").setExecutor(new heal());
-		getCommand("heal").setTabCompleter(new onTabCompleteManager());
-		getCommand("nick").setExecutor(new nick(this));
-		getCommand("nick").setTabCompleter(new onTabCompleteManager());
-		getCommand("setworldspawn").setExecutor(new setworldspawn());
-		getCommand("setworldspawn").setTabCompleter(new onTabCompleteManager());
-		getCommand("seed").setExecutor(new seed());
-		getCommand("seed").setTabCompleter(new onTabCompleteManager());
-		getCommand("clear").setExecutor(new clear());
-		getCommand("clear").setTabCompleter(new onTabCompleteManager());
-		getCommand("list").setExecutor(new list());
-		getCommand("list").setTabCompleter(new onTabCompleteManager());
-		getCommand("defaultgamemode").setExecutor(new defaultgamemode());
-		getCommand("defaultgamemode").setTabCompleter(new onTabCompleteManager());
-		getCommand("whitelist").setExecutor(new whitelist());
-		getCommand("whitelist").setTabCompleter(new onTabCompleteManager());
-		getCommand("warp").setExecutor(new warp());
-		getCommand("warp").setTabCompleter(new onTabCompleteManager());
-		getCommand("skull").setExecutor(new skull());
-		getCommand("skull").setTabCompleter(new onTabCompleteManager());
-		getCommand("spawnmob").setExecutor(new spawnmob());
-		getCommand("spawnmob").setTabCompleter(new onTabCompleteManager());
-		getCommand("spawnpoint").setExecutor(new spawnpoint());
-		getCommand("spawnpoint").setTabCompleter(new onTabCompleteManager());
-		getCommand("effect").setExecutor(new effect());
-		getCommand("effect").setTabCompleter(new onTabCompleteManager());
-		getCommand("asConsole").setExecutor(new asConsole());
-		getCommand("asConsole").setTabCompleter(new onTabCompleteManager());
-		getCommand("tpall").setExecutor(new tpall());
-		getCommand("tpall").setTabCompleter(new onTabCompleteManager());
-//		getCommand("tempban").setExecutor(new tempban(this));
-//		getCommand("tempban").setTabCompleter(new onTabCompleteManager());
-		getCommand("vanish").setExecutor(new vanish());
-		getCommand("vanish").setTabCompleter(new onTabCompleteManager());
-		getCommand("chat").setExecutor(new chat());
-		getCommand("chat").setTabCompleter(new onTabCompleteManager());
-//		getCommand("backup").setExecutor(new backup());
-//		getCommand("backup").setTabCompleter(new onTabCompleteManager());
-		getCommand("servermanage").setExecutor(new servermanage());
-		getCommand("servermanage").setTabCompleter(new onTabCompleteManager());
+		// * Commands * //
+		registerCommand("tp", new tp());
+		registerCommand("gamemode", new gamemode());
+		registerCommand("setspawn", new setspawn());
+		registerCommand("spawn", new spawn());
+		registerCommand("kick", new kick());
+		registerCommand("ban", new ban());
+		registerCommand("unban", new unban());
+		registerCommand("banlist", new banlist());
+		registerCommand("give", new give());
+		registerCommand("msg", new msg());
+		registerCommand("time", new time());
+		registerCommand("xp", new xp());
+		registerCommand("broadcast", new broadcast());
+		registerCommand("say", new say());
+		registerCommand("kill", new kill());
+		registerCommand("fly", new fly());
+		registerCommand("speed", new speed());
+		registerCommand("invsee", new invsee());
+		registerCommand("heal", new heal());
+		registerCommand("nick", new nick());
+		registerCommand("setworldspawn", new setworldspawn());
+		registerCommand("seed", new seed());
+		registerCommand("clear", new clear());
+		registerCommand("list", new list());
+		registerCommand("defaultgamemode", new defaultgamemode());
+		registerCommand("whitelist", new whitelist());
+		registerCommand("warp", new warp());
+		registerCommand("skull", new skull());
+		registerCommand("spawnmob", new spawnmob());
+		registerCommand("spawnpoint", new spawnpoint());
+		registerCommand("effect", new effect());
+		registerCommand("asConsole", new asConsole());
+		registerCommand("tpall", new tpall());
+		//registerCommand("tempban", new tempban());
+		registerCommand("vanish", new vanish());
+		registerCommand("chat", new chat());
+		//registerCommand("backup", new backup());
+		registerCommand("servermanage", new servermanage());
 	}
 	
 	private void registerListeners(){
-		Bukkit.getPluginManager().registerEvents(new EGListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new PhysicExplosionListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new Signs(), this);
-		Bukkit.getPluginManager().registerEvents(new logger(), this);
+		registerListener(new EGListener(maintance));
+		registerListener(new PhysicExplosionListener(maintance));
+		registerListener(new Signs());
+		registerListener(new logger());
 	}
 	
 	private void isfilestoold(){
@@ -306,6 +270,15 @@ public class EssentialsGreen extends JavaPlugin {
 			}
 			
 		};
+	}
+	
+	private void registerCommand(String command, CommandExecutor ce){
+		getCommand(command).setExecutor(ce);
+		getCommand(command).setTabCompleter(new onTabCompleteManager());
+	}
+	
+	private void registerListener(Listener listener){
+		Bukkit.getPluginManager().registerEvents(listener, this);
 	}
 	
 	//Default: Command

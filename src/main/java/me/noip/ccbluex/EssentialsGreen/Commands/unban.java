@@ -8,13 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class unban implements CommandExecutor {
-	
-	EssentialsGreen plugin;
-	
-	public unban(EssentialsGreen main) {
-		plugin = main;
-	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String Label, String[] args) {
 		if(p.hasPermission("EssentialsGreen.unban")){

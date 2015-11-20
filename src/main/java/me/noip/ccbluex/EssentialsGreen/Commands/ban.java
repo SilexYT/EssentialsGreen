@@ -11,12 +11,6 @@ import me.noip.ccbluex.EssentialsGreen.APIs.StringAPI;
 import me.noip.ccbluex.EssentialsGreen.Player.User;
 
 public class ban implements CommandExecutor {
-	
-	EssentialsGreen plugin;
-	
-	public ban(EssentialsGreen main) {
-		plugin = main;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender p, Command cmd, String Label, final String[] args) {

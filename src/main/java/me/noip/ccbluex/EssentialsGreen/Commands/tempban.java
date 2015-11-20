@@ -18,12 +18,6 @@ import org.bukkit.entity.Player;
 
 public class tempban implements CommandExecutor {
 
-	EssentialsGreen plugin;
-	
-	public tempban(EssentialsGreen main) {
-		plugin = main;
-	}
-	
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
@@ -50,7 +44,7 @@ public class tempban implements CommandExecutor {
 							UserFileYaml.set("Ban.dateSeconds", System.currentTimeMillis()/1000L);
 							Player target = Bukkit.getPlayer(args[0]);
 							if(target != null){
-								target.kickPlayer((plugin.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
+								target.kickPlayer((EssentialsGreen.maintance.getConfig().getString("Ban-Message") + "\n§fAuthor: §e" + UserFileYaml.getString("Ban.Author") + " §fDate: §e" + UserFileYaml.getString("Ban.date") + "\n§fExpires in §e" + UserFileYaml.getString("Ban.Ex") + " §fSeconds" + "\n§fReason: §7" + UserFileYaml.getString("Ban.Reason")).replace('&', '§'));
 							}
 							try{
 								UserFileYaml.save(File);
